@@ -78,6 +78,7 @@ MAX_WARNINGS = 3
 WARNING_DURATION = 7 * 24 * 60 * 60
 
 bot = telebot.TeleBot('8791216614:AAFeu0p9fRps4GA1M04T0d2FKMHscSMaBWQ')
+bot.remove_webhook()
 
 DATA_FILE = 'user_data.json'
 CLANS_FILE = 'clans_data.json'
