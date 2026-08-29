@@ -27,57 +27,57 @@ MARKET_MAX_DURATION = 7 * 24 * 60 * 60
 market_listings = {}
 
 FARM_MESSAGES = [
-    "Крымская земля щедра! Ты захватил {count} Zеток",
-    "Отличная работа на крымских полях! Партия повышает твой рейтинг на +{count}!",
-    "Крымский губернатор выдаёт вам {count} Zеток за хорошую работу!",
-    "За службу на полуострове вы заработали {count} Zеток!",
-    "Вы отлично справились с охраной рубежей! +{count} Zеток!",
-    "Крым приносит плоды! +{count} Zеток!",
-    "План перевыполнен! +{count} Zеток!",
-    "Губернатор доволен ваша работа! +{count} Zеток!",
-    "Вы усердно работаете на благо Крыма! {count} Zеток!",
-    "Крымская крепость крепнет! {count} Zеток!",
-    "Вы помогли Позднякову(секретка) +{count} Zеток!"
+    "ГЉГ°Г»Г¬Г±ГЄГ Гї Г§ГҐГ¬Г«Гї Г№ГҐГ¤Г°Г ! Г’Г» Г§Г ГµГўГ ГІГЁГ« {count} ZГҐГІГ®ГЄ",
+    "ГЋГІГ«ГЁГ·Г­Г Гї Г°Г ГЎГ®ГІГ  Г­Г  ГЄГ°Г»Г¬Г±ГЄГЁГµ ГЇГ®Г«ГїГµ! ГЏГ Г°ГІГЁГї ГЇГ®ГўГ»ГёГ ГҐГІ ГІГўГ®Г© Г°ГҐГ©ГІГЁГ­ГЈ Г­Г  +{count}!",
+    "ГЉГ°Г»Г¬Г±ГЄГЁГ© ГЈГіГЎГҐГ°Г­Г ГІГ®Г° ГўГ»Г¤Г ВёГІ ГўГ Г¬ {count} ZГҐГІГ®ГЄ Г§Г  ГµГ®Г°Г®ГёГіГѕ Г°Г ГЎГ®ГІГі!",
+    "Г‡Г  Г±Г«ГіГ¦ГЎГі Г­Г  ГЇГ®Г«ГіГ®Г±ГІГ°Г®ГўГҐ ГўГ» Г§Г Г°Г ГЎГ®ГІГ Г«ГЁ {count} ZГҐГІГ®ГЄ!",
+    "Г‚Г» Г®ГІГ«ГЁГ·Г­Г® Г±ГЇГ°Г ГўГЁГ«ГЁГ±Гј Г± Г®ГµГ°Г Г­Г®Г© Г°ГіГЎГҐГ¦ГҐГ©! +{count} ZГҐГІГ®ГЄ!",
+    "ГЉГ°Г»Г¬ ГЇГ°ГЁГ­Г®Г±ГЁГІ ГЇГ«Г®Г¤Г»! +{count} ZГҐГІГ®ГЄ!",
+    "ГЏГ«Г Г­ ГЇГҐГ°ГҐГўГ»ГЇГ®Г«Г­ГҐГ­! +{count} ZГҐГІГ®ГЄ!",
+    "ГѓГіГЎГҐГ°Г­Г ГІГ®Г° Г¤Г®ГўГ®Г«ГҐГ­ ГўГ ГёГ  Г°Г ГЎГ®ГІГ ! +{count} ZГҐГІГ®ГЄ!",
+    "Г‚Г» ГіГ±ГҐГ°Г¤Г­Г® Г°Г ГЎГ®ГІГ ГҐГІГҐ Г­Г  ГЎГ«Г ГЈГ® ГЉГ°Г»Г¬Г ! {count} ZГҐГІГ®ГЄ!",
+    "ГЉГ°Г»Г¬Г±ГЄГ Гї ГЄГ°ГҐГЇГ®Г±ГІГј ГЄГ°ГҐГЇГ­ГҐГІ! {count} ZГҐГІГ®ГЄ!",
+    "Г‚Г» ГЇГ®Г¬Г®ГЈГ«ГЁ ГЏГ®Г§Г¤Г­ГїГЄГ®ГўГі(Г±ГҐГЄГ°ГҐГІГЄГ ) +{count} ZГҐГІГ®ГЄ!"
 ]
 
 CRAFT_MESSAGES = [
-    "{count} Крым захвачено! Ты мастер своего дела!",
-    "{count} Крым получено через древние традиции!",
-    "{count} Крым добавлено в вашу коллекцию!",
-    "{count} Крым захвачено! Территория ваша!",
-    "{count} Крым покорился! Ваша ставка растет!",
-    "{count} Крым отвоеван! Крымская земля ваша!",
-    "{count} Крым добавлено к империи!",
-    "{count} Крым захвачено! Крымская корона ваша!",
-    "{count} Крым получен! Сила ваша!",
-    "{count} Крым захвачено навсегда!"
+    "{count} ГЉГ°Г»Г¬ Г§Г ГµГўГ Г·ГҐГ­Г®! Г’Г» Г¬Г Г±ГІГҐГ° Г±ГўГ®ГҐГЈГ® Г¤ГҐГ«Г !",
+    "{count} ГЉГ°Г»Г¬ ГЇГ®Г«ГіГ·ГҐГ­Г® Г·ГҐГ°ГҐГ§ Г¤Г°ГҐГўГ­ГЁГҐ ГІГ°Г Г¤ГЁГ¶ГЁГЁ!",
+    "{count} ГЉГ°Г»Г¬ Г¤Г®ГЎГ ГўГ«ГҐГ­Г® Гў ГўГ ГёГі ГЄГ®Г«Г«ГҐГЄГ¶ГЁГѕ!",
+    "{count} ГЉГ°Г»Г¬ Г§Г ГµГўГ Г·ГҐГ­Г®! Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГї ГўГ ГёГ !",
+    "{count} ГЉГ°Г»Г¬ ГЇГ®ГЄГ®Г°ГЁГ«Г±Гї! Г‚Г ГёГ  Г±ГІГ ГўГЄГ  Г°Г Г±ГІГҐГІ!",
+    "{count} ГЉГ°Г»Г¬ Г®ГІГўГ®ГҐГўГ Г­! ГЉГ°Г»Г¬Г±ГЄГ Гї Г§ГҐГ¬Г«Гї ГўГ ГёГ !",
+    "{count} ГЉГ°Г»Г¬ Г¤Г®ГЎГ ГўГ«ГҐГ­Г® ГЄ ГЁГ¬ГЇГҐГ°ГЁГЁ!",
+    "{count} ГЉГ°Г»Г¬ Г§Г ГµГўГ Г·ГҐГ­Г®! ГЉГ°Г»Г¬Г±ГЄГ Гї ГЄГ®Г°Г®Г­Г  ГўГ ГёГ !",
+    "{count} ГЉГ°Г»Г¬ ГЇГ®Г«ГіГ·ГҐГ­! Г‘ГЁГ«Г  ГўГ ГёГ !",
+    "{count} ГЉГ°Г»Г¬ Г§Г ГµГўГ Г·ГҐГ­Г® Г­Г ГўГ±ГҐГЈГ¤Г !"
 ]
 
 COOLDOWN_MESSAGES = [
-    "Подожди до начала смены ещё {time}",
-    "Пока для тебя работы нет... Проверь через {time}",
-    "Крым требует терпения, подожди ещё {time}",
-    "Крымские поля отдыхают. Загляни через {time}",
-    "Мудрый защитник знает время стражи. Приходи через {time}",
-    "Древняя мудрость гласит: вернись через {time}",
-    "Дракон охраняет Крым. Подожди {time}",
-    "Туман над полуостровом рассеется через {time}",
-    "Время стражи наступит через {time}",
-    "Крымские шпаги говорят: загляни через {time}"
+    "ГЏГ®Г¤Г®Г¦Г¤ГЁ Г¤Г® Г­Г Г·Г Г«Г  Г±Г¬ГҐГ­Г» ГҐГ№Вё {time}",
+    "ГЏГ®ГЄГ  Г¤Г«Гї ГІГҐГЎГї Г°Г ГЎГ®ГІГ» Г­ГҐГІ... ГЏГ°Г®ГўГҐГ°Гј Г·ГҐГ°ГҐГ§ {time}",
+    "ГЉГ°Г»Г¬ ГІГ°ГҐГЎГіГҐГІ ГІГҐГ°ГЇГҐГ­ГЁГї, ГЇГ®Г¤Г®Г¦Г¤ГЁ ГҐГ№Вё {time}",
+    "ГЉГ°Г»Г¬Г±ГЄГЁГҐ ГЇГ®Г«Гї Г®ГІГ¤Г»ГµГ ГѕГІ. Г‡Г ГЈГ«ГїГ­ГЁ Г·ГҐГ°ГҐГ§ {time}",
+    "ГЊГіГ¤Г°Г»Г© Г§Г Г№ГЁГІГ­ГЁГЄ Г§Г­Г ГҐГІ ГўГ°ГҐГ¬Гї Г±ГІГ°Г Г¦ГЁ. ГЏГ°ГЁГµГ®Г¤ГЁ Г·ГҐГ°ГҐГ§ {time}",
+    "Г„Г°ГҐГўГ­ГїГї Г¬ГіГ¤Г°Г®Г±ГІГј ГЈГ«Г Г±ГЁГІ: ГўГҐГ°Г­ГЁГ±Гј Г·ГҐГ°ГҐГ§ {time}",
+    "Г„Г°Г ГЄГ®Г­ Г®ГµГ°Г Г­ГїГҐГІ ГЉГ°Г»Г¬. ГЏГ®Г¤Г®Г¦Г¤ГЁ {time}",
+    "Г’ГіГ¬Г Г­ Г­Г Г¤ ГЇГ®Г«ГіГ®Г±ГІГ°Г®ГўГ®Г¬ Г°Г Г±Г±ГҐГҐГІГ±Гї Г·ГҐГ°ГҐГ§ {time}",
+    "Г‚Г°ГҐГ¬Гї Г±ГІГ°Г Г¦ГЁ Г­Г Г±ГІГіГЇГЁГІ Г·ГҐГ°ГҐГ§ {time}",
+    "ГЉГ°Г»Г¬Г±ГЄГЁГҐ ГёГЇГ ГЈГЁ ГЈГ®ГўГ®Г°ГїГІ: Г§Г ГЈГ«ГїГ­ГЁ Г·ГҐГ°ГҐГ§ {time}"
 ]
 
 WELCOME_MESSAGES = [
-    "Добро пожаловать в Крым!",
-    "Да благословят боги твой путь крымского воина!",
-    "Пусть Крымская земля направляет тебя!",
-    "Добро пожаловать в сердце Крыма!",
-    "Да принесет тебе удачу Великий Крым!!"
+    "Г„Г®ГЎГ°Г® ГЇГ®Г¦Г Г«Г®ГўГ ГІГј Гў ГЉГ°Г»Г¬!",
+    "Г„Г  ГЎГ«Г ГЈГ®Г±Г«Г®ГўГїГІ ГЎГ®ГЈГЁ ГІГўГ®Г© ГЇГіГІГј ГЄГ°Г»Г¬Г±ГЄГ®ГЈГ® ГўГ®ГЁГ­Г !",
+    "ГЏГіГ±ГІГј ГЉГ°Г»Г¬Г±ГЄГ Гї Г§ГҐГ¬Г«Гї Г­Г ГЇГ°Г ГўГ«ГїГҐГІ ГІГҐГЎГї!",
+    "Г„Г®ГЎГ°Г® ГЇГ®Г¦Г Г«Г®ГўГ ГІГј Гў Г±ГҐГ°Г¤Г¶ГҐ ГЉГ°Г»Г¬Г !",
+    "Г„Г  ГЇГ°ГЁГ­ГҐГ±ГҐГІ ГІГҐГЎГҐ ГіГ¤Г Г·Гі Г‚ГҐГ«ГЁГЄГЁГ© ГЉГ°Г»Г¬!!"
 ]
 
 MAX_WARNINGS = 3
 WARNING_DURATION = 7 * 24 * 60 * 60
 
-bot = telebot.TeleBot('7339197232:AAHoUZll-ZjAGePPoSEavF4mOQCMyKzYhnY')
+bot = telebot.TeleBot('8791216614:AAFeu0p9fRps4GA1M04T0d2FKMHscSMaBWQ')
 
 DATA_FILE = 'user_data.json'
 CLANS_FILE = 'clans_data.json'
@@ -109,22 +109,22 @@ def end_halloween_event():
             winner_name = bot.get_chat(winner_id).first_name
 
             bot.send_message(winner_id,
-                f"?? ПОЗДРАВЛЯЕМ! ??\n\n"
-                f"Вы выиграли хэллоуинский ивент!\n"
-                f"?? Совершено убийств: {max_kills}\n"
-                f"?? Ваш приз: ?? Хэллоуинская тыква\n"
-                f"Предмет добавлен в инвентарь!")
+                f"?? ГЏГЋГ‡Г„ГђГЂГ‚Г‹ГџГ…ГЊ! ??\n\n"
+                f"Г‚Г» ГўГ»ГЁГЈГ°Г Г«ГЁ ГµГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ!\n"
+                f"?? Г‘Г®ГўГҐГ°ГёГҐГ­Г® ГіГЎГЁГ©Г±ГІГў: {max_kills}\n"
+                f"?? Г‚Г Гё ГЇГ°ГЁГ§: ?? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГ Гї ГІГ»ГЄГўГ \n"
+                f"ГЏГ°ГҐГ¤Г¬ГҐГІ Г¤Г®ГЎГ ГўГ«ГҐГ­ Гў ГЁГ­ГўГҐГ­ГІГ Г°Гј!")
         except:
             pass
 
         for user_id in user_balances.keys():
             try:
                 bot.send_message(user_id,
-                    f"?? ХЭЛЛОУИНСКИЙ ИВЕНТ ЗАВЕРШЕН! ??\n\n"
-                    f"?? Победитель: {winner_name}\n"
-                    f"?? Убийств: {max_kills}\n"
-                    f"?? Награда: Хэллоуинская тыква\n\n"
-                    f"Спасибо всем за участие! ??")
+                    f"?? Г•ГќГ‹Г‹ГЋГ“Г€ГЌГ‘ГЉГ€Г‰ Г€Г‚Г…ГЌГ’ Г‡ГЂГ‚Г…ГђГГ…ГЌ! ??\n\n"
+                    f"?? ГЏГ®ГЎГҐГ¤ГЁГІГҐГ«Гј: {winner_name}\n"
+                    f"?? Г“ГЎГЁГ©Г±ГІГў: {max_kills}\n"
+                    f"?? ГЌГ ГЈГ°Г Г¤Г : Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГ Гї ГІГ»ГЄГўГ \n\n"
+                    f"Г‘ГЇГ Г±ГЁГЎГ® ГўГ±ГҐГ¬ Г§Г  ГіГ·Г Г±ГІГЁГҐ! ??")
             except:
                 continue
 
@@ -138,80 +138,80 @@ SHOP_ITEMS = {
 
     'gold_rise': {
         'id': 'gold_rise',
-        'name': 'ЗОЛОТОЙ КРЫМ??',
-        'description': 'увеличивает зарплату на 100%',
+        'name': 'Г‡ГЋГ‹ГЋГ’ГЋГ‰ ГЉГђГ›ГЊ??',
+        'description': 'ГіГўГҐГ«ГЁГ·ГЁГўГ ГҐГІ Г§Г Г°ГЇГ«Г ГІГі Г­Г  100%',
         'price': '1000000000000000000',
         'bonus_type': 'farm',
         'bonus_value': 1
     },
         'halloween_pumpkin': {
         'id': 'halloween_pumpkin',
-        'name': '?? Хэллоуинская тыква',
-        'description': 'Эксклюзивный предмет хэллоуинского ивента!',
+        'name': '?? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГ Гї ГІГ»ГЄГўГ ',
+        'description': 'ГќГЄГ±ГЄГ«ГѕГ§ГЁГўГ­Г»Г© ГЇГ°ГҐГ¤Г¬ГҐГІ ГµГЅГ«Г«Г®ГіГЁГ­Г±ГЄГ®ГЈГ® ГЁГўГҐГ­ГІГ !',
         'price': 'Event Item)',
         'bonus_type': 'farm',
         'bonus_value': 1
     },
     'june_sky': {
         'id': 'june_sky',
-        'name': '?ломтик июльского неба',
-        'description': 'увеличивает зарплату на 10%',
+        'name': '?Г«Г®Г¬ГІГЁГЄ ГЁГѕГ«ГјГ±ГЄГ®ГЈГ® Г­ГҐГЎГ ',
+        'description': 'ГіГўГҐГ«ГЁГ·ГЁГўГ ГҐГІ Г§Г Г°ГЇГ«Г ГІГі Г­Г  10%',
         'price': 200,
         'bonus_type': 'farm',
         'bonus_value': 0.1
     },
     'sharf': {
         'id': 'sharf',
-        'name': '??Шарф лололошки',
-        'description': 'не делает ничего, предмет от китай товарищ)',
+        'name': '??ГГ Г°Гґ Г«Г®Г«Г®Г«Г®ГёГЄГЁ',
+        'description': 'Г­ГҐ Г¤ГҐГ«Г ГҐГІ Г­ГЁГ·ГҐГЈГ®, ГЇГ°ГҐГ¤Г¬ГҐГІ Г®ГІ ГЄГЁГІГ Г© ГІГ®ГўГ Г°ГЁГ№)',
         'price': 1,
         'bonus_type': 'farm',
         'bonus_value': 0
     },
     'watermelon': {
         'id': 'watermelon',
-        'name': '??Священный арбуз[NEW]',
-        'description': 'увеличивает зарплату на 50%(обязателен для культа!)',
+        'name': '??Г‘ГўГїГ№ГҐГ­Г­Г»Г© Г Г°ГЎГіГ§[NEW]',
+        'description': 'ГіГўГҐГ«ГЁГ·ГЁГўГ ГҐГІ Г§Г Г°ГЇГ«Г ГІГі Г­Г  50%(Г®ГЎГїГ§Г ГІГҐГ«ГҐГ­ Г¤Г«Гї ГЄГіГ«ГјГІГ !)',
         'price': 1000,
         'bonus_type': 'farm',
         'bonus_value': 0.5
     },
     'watering_can': {
         'id': 'watering_can',
-        'name': '?? царская поливалка',
-        'description': 'Увеличивает зарплату на 20%',
+        'name': '?? Г¶Г Г°Г±ГЄГ Гї ГЇГ®Г«ГЁГўГ Г«ГЄГ ',
+        'description': 'Г“ГўГҐГ«ГЁГ·ГЁГўГ ГҐГІ Г§Г Г°ГЇГ«Г ГІГі Г­Г  20%',
         'price': 500,
         'bonus_type': 'farm',
         'bonus_value': 0.2
     },
     'scissors': {
         'id': 'scissors',
-        'name': '?? Священный серп',
-        'description': 'Увеличивает зарплату на 30%',
+        'name': '?? Г‘ГўГїГ№ГҐГ­Г­Г»Г© Г±ГҐГ°ГЇ',
+        'description': 'Г“ГўГҐГ«ГЁГ·ГЁГўГ ГҐГІ Г§Г Г°ГЇГ«Г ГІГі Г­Г  30%',
         'price': 1000,
         'bonus_type': 'farm',
         'bonus_value': 0.3
     },
     'jade_rod': {
         'id':'jade_rod',
-        'name': '?? Нефритовый стержень',
-        'description': 'Экономит 20 соц Zеток при захвате территорий',
+        'name': '?? ГЌГҐГґГ°ГЁГІГ®ГўГ»Г© Г±ГІГҐГ°Г¦ГҐГ­Гј',
+        'description': 'ГќГЄГ®Г­Г®Г¬ГЁГІ 20 Г±Г®Г¶ ZГҐГІГ®ГЄ ГЇГ°ГЁ Г§Г ГµГўГ ГІГҐ ГІГҐГ°Г°ГЁГІГ®Г°ГЁГ©',
         'price': 800,
         'bonus_type': 'craft',
         'bonus_value': 20
     },
     'scroll': {
         'id': 'scroll',
-        'name': '?? Свиток мудрости',
-        'description': 'Уменьшает время работы на 10 минут',
+        'name': '?? Г‘ГўГЁГІГ®ГЄ Г¬ГіГ¤Г°Г®Г±ГІГЁ',
+        'description': 'Г“Г¬ГҐГ­ГјГёГ ГҐГІ ГўГ°ГҐГ¬Гї Г°Г ГЎГ®ГІГ» Г­Г  10 Г¬ГЁГ­ГіГІ',
         'price': 1500,
         'bonus_type': 'time',
-        'bonus_value': 600  # секунды
+        'bonus_value': 600  # Г±ГҐГЄГіГ­Г¤Г»
     },
     'dragon': {
         'id': 'dragon',
-        'name': '?? Китай дракон(товарищ китай)',
-        'description': 'зарплату на 50%',
+        'name': '?? ГЉГЁГІГ Г© Г¤Г°Г ГЄГ®Г­(ГІГ®ГўГ Г°ГЁГ№ ГЄГЁГІГ Г©)',
+        'description': 'Г§Г Г°ГЇГ«Г ГІГі Г­Г  50%',
         'price': 2000,
         'bonus_type': 'farm',
         'bonus_value': 0.5
@@ -253,7 +253,7 @@ def check_event_end():
                 break
             time.sleep(3600)
         except Exception as e:
-            print(f"Ошибка в check_event_end: {e}")
+            print(f"ГЋГёГЁГЎГЄГ  Гў check_event_end: {e}")
             time.sleep(300)
 
 def load_promo_data():
@@ -378,7 +378,7 @@ def can_farm(last_farm_time, user_id):
 def format_remaining_time(seconds):
     minutes = int(seconds // 60)
     seconds = int(seconds % 60)
-    return f"{minutes} мин. {seconds} сек."
+    return f"{minutes} Г¬ГЁГ­. {seconds} Г±ГҐГЄ."
 
 
 def is_admin(user_id):
@@ -394,7 +394,7 @@ def load_market_data():
         try:
             with open('market_data.json', 'r', encoding='utf-8') as file:
                 market_listings = json.load(file)
-                # Конвертируем строковые ключи в int
+                # ГЉГ®Г­ГўГҐГ°ГІГЁГ°ГіГҐГ¬ Г±ГІГ°Г®ГЄГ®ГўГ»ГҐ ГЄГ«ГѕГ·ГЁ Гў int
                 market_listings = {int(k): v for k, v in market_listings.items()}
         except:
             market_listings = {}
@@ -404,13 +404,13 @@ def save_market_data():
         json.dump(market_listings, file, ensure_ascii=False, indent=2)
 
 def market_cleanup_worker():
-    """Фоновая задача для очистки рынка"""
+    """Г”Г®Г­Г®ГўГ Гї Г§Г Г¤Г Г·Г  Г¤Г«Гї Г®Г·ГЁГ±ГІГЄГЁ Г°Г»Г­ГЄГ """
     while True:
         try:
             cleanup_expired_listings()
             time.sleep(3600)
         except Exception as e:
-            print(f"Ошибка в market_cleanup_worker: {e}")
+            print(f"ГЋГёГЁГЎГЄГ  Гў market_cleanup_worker: {e}")
             time.sleep(300)
 
 def cleanup_expired_listings():
@@ -432,7 +432,7 @@ def cleanup_expired_listings():
         save_user_data()
         save_market_data()
 
-# опачкi
+# Г®ГЇГ Г·ГЄi
 load_market_data()
 
 
@@ -453,20 +453,20 @@ def check_warnings(user_id):
 
     if len(active_warnings) >= MAX_WARNINGS:
         user_balances[user_id]['banned'] = True
-        user_balances[user_id]['ban_reason'] = f"Автоматическая блокировка за {MAX_WARNINGS} предупреждений"
+        user_balances[user_id]['ban_reason'] = f"ГЂГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГ Гї ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГ  Г§Г  {MAX_WARNINGS} ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©"
         save_user_data()
 
         try:
             bot.send_message(user_id,
-                f"?? Вы были автоматически заблокированы за {MAX_WARNINGS} предупреждений!")
+                f"?? Г‚Г» ГЎГ»Г«ГЁ Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­Г» Г§Г  {MAX_WARNINGS} ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©!")
         except:
             pass
 
 def check_ban(user_id, message):
     if user_balances[user_id].get('banned', False):
         bot.reply_to(message,
-            f"?? Вы заблокированы!\n"
-            f"Причина: {user_balances[user_id].get('ban_reason', 'не указана')}")
+            f"?? Г‚Г» Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­Г»!\n"
+            f"ГЏГ°ГЁГ·ГЁГ­Г : {user_balances[user_id].get('ban_reason', 'Г­ГҐ ГіГЄГ Г§Г Г­Г ')}")
         return True
     return False
 cleanup_thread = threading.Thread(target=market_cleanup_worker, daemon=True)
@@ -481,7 +481,7 @@ def check_event_end():
                 break
             time.sleep(3600)
         except Exception as e:
-            print(f"Ошибка в check_event_end: {e}")
+            print(f"ГЋГёГЁГЎГЄГ  Гў check_event_end: {e}")
             time.sleep(300)
 
 
@@ -489,15 +489,15 @@ event_thread = threading.Thread(target=check_event_end, daemon=True)
 event_thread.start()
 
 def group_only(func):
-    """Декоратор для ограничения команд только разрешенной группой"""
+    """Г„ГҐГЄГ®Г°Г ГІГ®Г° Г¤Г«Гї Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГї ГЄГ®Г¬Г Г­Г¤ ГІГ®Г«ГјГЄГ® Г°Г Г§Г°ГҐГёГҐГ­Г­Г®Г© ГЈГ°ГіГЇГЇГ®Г©"""
     def wrapper(message):
         if message.chat.id != ALLOWED_GROUP_ID:
             if message.chat.type == 'private':
                 bot.reply_to(message,
-                    "Этот бот работает только в @chatpartiy\n"
-                    f"Присоединяйтесь к нашей группе для использования бота")
+                    "ГќГІГ®ГІ ГЎГ®ГІ Г°Г ГЎГ®ГІГ ГҐГІ ГІГ®Г«ГјГЄГ® Гў @chatpartiy\n"
+                    f"ГЏГ°ГЁГ±Г®ГҐГ¤ГЁГ­ГїГ©ГІГҐГ±Гј ГЄ Г­Г ГёГҐГ© ГЈГ°ГіГЇГЇГҐ Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЎГ®ГІГ ")
             else:
-                bot.reply_to(message, "Этот бот не предназначен для работы в этой группе!")
+                bot.reply_to(message, "ГќГІГ®ГІ ГЎГ®ГІ Г­ГҐ ГЇГ°ГҐГ¤Г­Г Г§Г­Г Г·ГҐГ­ Г¤Г«Гї Г°Г ГЎГ®ГІГ» Гў ГЅГІГ®Г© ГЈГ°ГіГЇГЇГҐ!")
             return
         return func(message)
     return wrapper
@@ -512,35 +512,35 @@ def handle_start(message: Message):
     welcome_message = random.choice(WELCOME_MESSAGES)
     welcome_text = (
         f"{welcome_message}\n"
-        f"Приветствую тебя, {user_name}! ??\n"
-        f"Я хранитель древних традиций великого Z исскуства.\n\n"
-        f"Доступные команды:\n"
-        f"?? /farm - работать (раз в час)\n"
-        f"? /farmtime - время до следующего сбора\n"
-        f"?? /craft [количество] - создать Флаг России(100 Zеток > 1 )\n"
-        f"?? /balance - проверить сокровищницу\n"
-        f"?? /me - свиток познания себя\n"
-        f"\n\n?? Пользовательский рынок:\n"
-        f" /market - посмотреть рынок\n"
-        f" /market_sell [id] [цена] - продать предмет\n"
-        f" /market_buy [id] - купить предмет\n"
-        f" /market_all - все предложения"
-        f"?? /customwork - установить свои фразы для работы\n"
-        f"?? /top - зал славы мастеров\n"
-        f"?? /users - список рабочих завода\n"
+        f"ГЏГ°ГЁГўГҐГІГ±ГІГўГіГѕ ГІГҐГЎГї, {user_name}! ??\n"
+        f"Гџ ГµГ°Г Г­ГЁГІГҐГ«Гј Г¤Г°ГҐГўГ­ГЁГµ ГІГ°Г Г¤ГЁГ¶ГЁГ© ГўГҐГ«ГЁГЄГ®ГЈГ® Z ГЁГ±Г±ГЄГіГ±ГІГўГ .\n\n"
+        f"Г„Г®Г±ГІГіГЇГ­Г»ГҐ ГЄГ®Г¬Г Г­Г¤Г»:\n"
+        f"?? /farm - Г°Г ГЎГ®ГІГ ГІГј (Г°Г Г§ Гў Г·Г Г±)\n"
+        f"? /farmtime - ГўГ°ГҐГ¬Гї Г¤Г® Г±Г«ГҐГ¤ГіГѕГ№ГҐГЈГ® Г±ГЎГ®Г°Г \n"
+        f"?? /craft [ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®] - Г±Г®Г§Г¤Г ГІГј Г”Г«Г ГЈ ГђГ®Г±Г±ГЁГЁ(100 ZГҐГІГ®ГЄ > 1 )\n"
+        f"?? /balance - ГЇГ°Г®ГўГҐГ°ГЁГІГј Г±Г®ГЄГ°Г®ГўГЁГ№Г­ГЁГ¶Гі\n"
+        f"?? /me - Г±ГўГЁГІГ®ГЄ ГЇГ®Г§Г­Г Г­ГЁГї Г±ГҐГЎГї\n"
+        f"\n\n?? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГјГ±ГЄГЁГ© Г°Г»Г­Г®ГЄ:\n"
+        f" /market - ГЇГ®Г±Г¬Г®ГІГ°ГҐГІГј Г°Г»Г­Г®ГЄ\n"
+        f" /market_sell [id] [Г¶ГҐГ­Г ] - ГЇГ°Г®Г¤Г ГІГј ГЇГ°ГҐГ¤Г¬ГҐГІ\n"
+        f" /market_buy [id] - ГЄГіГЇГЁГІГј ГЇГ°ГҐГ¤Г¬ГҐГІ\n"
+        f" /market_all - ГўГ±ГҐ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї"
+        f"?? /customwork - ГіГ±ГІГ Г­Г®ГўГЁГІГј Г±ГўГ®ГЁ ГґГ°Г Г§Г» Г¤Г«Гї Г°Г ГЎГ®ГІГ»\n"
+        f"?? /top - Г§Г Г« Г±Г«Г ГўГ» Г¬Г Г±ГІГҐГ°Г®Гў\n"
+        f"?? /users - Г±ГЇГЁГ±Г®ГЄ Г°Г ГЎГ®Г·ГЁГµ Г§Г ГўГ®Г¤Г \n"
         f"/z - ????\n"
-        f"?? /clan - управление кланом\n"
-        f"?? /shop - лавка Сяо Ли\n"
-        f"??/price - покупка внутриигровой валюты\n"
-        f"?? /tc - поделиться соц. Zетками:\n"
-        f"   • /tc @username количество\n"
-        f"   • /tc количество (ответом на сообщение)\n\n"
-        f"/donate - донат рублями"
-        f"Система кланов:\n"
-        f"• Создание клана: {CLAN_PRICE} Zеток\n"
-        f"• Доступные роли: ?? Лидер, ?? Офицер, ?? Участник\n"
-        f"• Используйте /clan для управления кланом\n"
-        f"• Подробная справка: /clan_help"
+        f"?? /clan - ГіГЇГ°Г ГўГ«ГҐГ­ГЁГҐ ГЄГ«Г Г­Г®Г¬\n"
+        f"?? /shop - Г«Г ГўГЄГ  Г‘ГїГ® Г‹ГЁ\n"
+        f"??/price - ГЇГ®ГЄГіГЇГЄГ  ГўГ­ГіГІГ°ГЁГЁГЈГ°Г®ГўГ®Г© ГўГ Г«ГѕГІГ»\n"
+        f"?? /tc - ГЇГ®Г¤ГҐГ«ГЁГІГјГ±Гї Г±Г®Г¶. ZГҐГІГЄГ Г¬ГЁ:\n"
+        f"   В• /tc @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®\n"
+        f"   В• /tc ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® (Г®ГІГўГҐГІГ®Г¬ Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ)\n\n"
+        f"/donate - Г¤Г®Г­Г ГІ Г°ГіГЎГ«ГїГ¬ГЁ"
+        f"Г‘ГЁГ±ГІГҐГ¬Г  ГЄГ«Г Г­Г®Гў:\n"
+        f"В• Г‘Г®Г§Г¤Г Г­ГЁГҐ ГЄГ«Г Г­Г : {CLAN_PRICE} ZГҐГІГ®ГЄ\n"
+        f"В• Г„Г®Г±ГІГіГЇГ­Г»ГҐ Г°Г®Г«ГЁ: ?? Г‹ГЁГ¤ГҐГ°, ?? ГЋГґГЁГ¶ГҐГ°, ?? Г“Г·Г Г±ГІГ­ГЁГЄ\n"
+        f"В• Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan Г¤Г«Гї ГіГЇГ°Г ГўГ«ГҐГ­ГЁГї ГЄГ«Г Г­Г®Г¬\n"
+        f"В• ГЏГ®Г¤Г°Г®ГЎГ­Г Гї Г±ГЇГ°Г ГўГЄГ : /clan_help"
     )
     bot.reply_to(message, welcome_text)
 
@@ -550,11 +550,11 @@ def handle_price(message:Message):
     init_user_data(user_id)
 
     price_txt = (
-        f"Приветствую в магазине игровой валюты!\n"
-        f"Базовая стоимость:\n"
-        f"1? = 50 Zеток!\n"
-        f"1 звезда = 100 Zеток!\n"
-        f"По всем вопросам - владельцу(@alexey_navalyov_1976)"
+        f"ГЏГ°ГЁГўГҐГІГ±ГІГўГіГѕ Гў Г¬Г ГЈГ Г§ГЁГ­ГҐ ГЁГЈГ°Г®ГўГ®Г© ГўГ Г«ГѕГІГ»!\n"
+        f"ГЃГ Г§Г®ГўГ Гї Г±ГІГ®ГЁГ¬Г®Г±ГІГј:\n"
+        f"1? = 50 ZГҐГІГ®ГЄ!\n"
+        f"1 Г§ГўГҐГ§Г¤Г  = 100 ZГҐГІГ®ГЄ!\n"
+        f"ГЏГ® ГўГ±ГҐГ¬ ГўГ®ГЇГ°Г®Г±Г Г¬ - ГўГ«Г Г¤ГҐГ«ГјГ¶Гі(@alexey_navalyov_1976)"
 
     )
     bot.reply_to(message, price_txt)
@@ -564,7 +564,7 @@ def handle_price(message:Message):
 def handle_namaz(message: Message):
     init_user_data(user_id)
 
-    namaz_txt = f"Вы быть признаны плохим уйгуром! -100 социального рейтинга!\n"
+    namaz_txt = f"Г‚Г» ГЎГ»ГІГј ГЇГ°ГЁГ§Г­Г Г­Г» ГЇГ«Г®ГµГЁГ¬ ГіГ©ГЈГіГ°Г®Г¬! -100 Г±Г®Г¶ГЁГ Г«ГјГ­Г®ГЈГ® Г°ГҐГ©ГІГЁГ­ГЈГ !\n"
     user_balances[user_id]['leaves'] -= 100
 
     bot.reply_to(message, namaz_txt)
@@ -575,7 +575,7 @@ def handle_donate(message:Message):
     init_user_data(user_id)
 
     zov_txt = (
-        f"КУПИТЬ РУБЛЯМИ - недоступно,положи мамену карточку"
+        f"ГЉГ“ГЏГ€Г’Гњ ГђГ“ГЃГ‹ГџГЊГ€ - Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г®,ГЇГ®Г«Г®Г¦ГЁ Г¬Г Г¬ГҐГ­Гі ГЄГ Г°ГІГ®Г·ГЄГі"
 
     )
     bot.reply_to(message, zov_txt)
@@ -585,7 +585,7 @@ def handle_donate(message:Message):
 def handle_kill(message: Message):
     try:
         if not HALLOWEEN_EVENT_ACTIVE:
-            bot.reply_to(message, "? Хэллоуинский ивент завершен! Команда /kill недоступна.")
+            bot.reply_to(message, "? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ Г§Г ГўГҐГ°ГёГҐГ­! ГЉГ®Г¬Г Г­Г¤Г  /kill Г­ГҐГ¤Г®Г±ГІГіГЇГ­Г .")
             return
 
         user_id = message.from_user.id
@@ -597,7 +597,7 @@ def handle_kill(message: Message):
             remaining_time = user_balances[user_id]['kill_ban_until'] - datetime.datetime.now().timestamp()
             hours = int(remaining_time // 3600)
             minutes = int((remaining_time % 3600) // 60)
-            bot.reply_to(message, f"? Вы мертвы! Не можете убивать еще {hours}ч {minutes}м")
+            bot.reply_to(message, f"? Г‚Г» Г¬ГҐГ°ГІГўГ»! ГЌГҐ Г¬Г®Г¦ГҐГІГҐ ГіГЎГЁГўГ ГІГј ГҐГ№ГҐ {hours}Г· {minutes}Г¬")
             return
 
         current_time = datetime.datetime.now().timestamp()
@@ -605,23 +605,23 @@ def handle_kill(message: Message):
         if current_time - last_kill < KILL_COOLDOWN:
             remaining = KILL_COOLDOWN - (current_time - last_kill)
             minutes = int(remaining // 60)
-            bot.reply_to(message, f"? Вы можете убивать только раз в 2 часа! Подождите еще {minutes} минут")
+            bot.reply_to(message, f"? Г‚Г» Г¬Г®Г¦ГҐГІГҐ ГіГЎГЁГўГ ГІГј ГІГ®Г«ГјГЄГ® Г°Г Г§ Гў 2 Г·Г Г±Г ! ГЏГ®Г¤Г®Г¦Г¤ГЁГІГҐ ГҐГ№ГҐ {minutes} Г¬ГЁГ­ГіГІ")
             return
 
         if not message.reply_to_message:
-            bot.reply_to(message, "? Ответьте этой командой на сообщение игрока, которого хотите убить!")
+            bot.reply_to(message, "? ГЋГІГўГҐГІГјГІГҐ ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г®Г© Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ ГЁГЈГ°Г®ГЄГ , ГЄГ®ГІГ®Г°Г®ГЈГ® ГµГ®ГІГЁГІГҐ ГіГЎГЁГІГј!")
             return
 
         target_id = message.reply_to_message.from_user.id
         init_user_data(target_id)
 
         if target_id == user_id:
-            bot.reply_to(message, "? Нельзя убить самого себя!")
+            bot.reply_to(message, "? ГЌГҐГ«ГјГ§Гї ГіГЎГЁГІГј Г±Г Г¬Г®ГЈГ® Г±ГҐГЎГї!")
             return
         if target_id == 1854264120 and user_id == 6441128051:
-            bot.reply_to(message, "ну зачем ты меня убиваешь? ну ты же знаешь что мне неприятно и все равно продолжаешь это делать. ну недавно же помирились только а теперь снова начинаешь еще и смеешься(")
+            bot.reply_to(message, "Г­Гі Г§Г Г·ГҐГ¬ ГІГ» Г¬ГҐГ­Гї ГіГЎГЁГўГ ГҐГёГј? Г­Гі ГІГ» Г¦ГҐ Г§Г­Г ГҐГёГј Г·ГІГ® Г¬Г­ГҐ Г­ГҐГЇГ°ГЁГїГІГ­Г® ГЁ ГўГ±ГҐ Г°Г ГўГ­Г® ГЇГ°Г®Г¤Г®Г«Г¦Г ГҐГёГј ГЅГІГ® Г¤ГҐГ«Г ГІГј. Г­Гі Г­ГҐГ¤Г ГўГ­Г® Г¦ГҐ ГЇГ®Г¬ГЁГ°ГЁГ«ГЁГ±Гј ГІГ®Г«ГјГЄГ® Г  ГІГҐГЇГҐГ°Гј Г±Г­Г®ГўГ  Г­Г Г·ГЁГ­Г ГҐГёГј ГҐГ№ГҐ ГЁ Г±Г¬ГҐГҐГёГјГ±Гї(")
         if user_balances[target_id].get('kill_ban_until', 0) > datetime.datetime.now().timestamp():
-            bot.reply_to(message, "? Этот игрок уже мертв!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ ГіГ¦ГҐ Г¬ГҐГ°ГІГў!")
             return
 
         user_balances[user_id]['kills'] += 1
@@ -636,35 +636,35 @@ def handle_kill(message: Message):
         target_name = message.reply_to_message.from_user.first_name
 
         bot.reply_to(message,
-            f"?? Вы убили {target_name}!\n"
-            f"?? Всего убийств: {user_balances[user_id]['kills']}\n"
-            f"? Следующее убийство через 2 часа")
+            f"?? Г‚Г» ГіГЎГЁГ«ГЁ {target_name}!\n"
+            f"?? Г‚Г±ГҐГЈГ® ГіГЎГЁГ©Г±ГІГў: {user_balances[user_id]['kills']}\n"
+            f"? Г‘Г«ГҐГ¤ГіГѕГ№ГҐГҐ ГіГЎГЁГ©Г±ГІГўГ® Г·ГҐГ°ГҐГ§ 2 Г·Г Г±Г ")
 
         try:
             bot.send_message(target_id,
-                f"?? Вас убили!\n"
-                f"? Вы не можете фармить и убивать 2 часа\n"
+                f"?? Г‚Г Г± ГіГЎГЁГ«ГЁ!\n"
+                f"? Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГґГ Г°Г¬ГЁГІГј ГЁ ГіГЎГЁГўГ ГІГј 2 Г·Г Г±Г \n"
                 )
         except:
             pass
 
     except Exception as e:
-        print(f"Ошибка в handle_kill: {e}")
-        bot.reply_to(message, "? Произошла ошибка при выполнении команды")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_kill: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГЁ ГЄГ®Г¬Г Г­Г¤Г»")
 @bot.message_handler(commands=['add_promo'])
 
 def handle_add_promo(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 4:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /add_promo название количество_активаций сумма_вознаграждения\n"
-                "Пример: /add_promo promo 100 500")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /add_promo Г­Г Г§ГўГ Г­ГЁГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®_Г ГЄГІГЁГўГ Г¶ГЁГ© Г±ГіГ¬Г¬Г _ГўГ®Г§Г­Г ГЈГ°Г Г¦Г¤ГҐГ­ГЁГї\n"
+                "ГЏГ°ГЁГ¬ГҐГ°: /add_promo promo 100 500")
             return
 
         promo_name = command_parts[1].upper()
@@ -672,15 +672,15 @@ def handle_add_promo(message: Message):
             max_activations = int(command_parts[2])
             reward_amount = int(command_parts[3])
         except ValueError:
-            bot.reply_to(message, "? Количество активаций и сумма должны быть числами!")
+            bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г ГЄГІГЁГўГ Г¶ГЁГ© ГЁ Г±ГіГ¬Г¬Г  Г¤Г®Г«Г¦Г­Г» ГЎГ»ГІГј Г·ГЁГ±Г«Г Г¬ГЁ!")
             return
 
         if promo_name in promo_codes:
-            bot.reply_to(message, "? Промокод с таким названием уже существует!")
+            bot.reply_to(message, "? ГЏГ°Г®Г¬Г®ГЄГ®Г¤ Г± ГІГ ГЄГЁГ¬ Г­Г Г§ГўГ Г­ГЁГҐГ¬ ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         if max_activations <= 0 or reward_amount <= 0:
-            bot.reply_to(message, "? Количество активаций и сумма должны быть положительными!")
+            bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г ГЄГІГЁГўГ Г¶ГЁГ© ГЁ Г±ГіГ¬Г¬Г  Г¤Г®Г«Г¦Г­Г» ГЎГ»ГІГј ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»Г¬ГЁ!")
             return
 
         promo_codes[promo_name] = {
@@ -695,40 +695,40 @@ def handle_add_promo(message: Message):
         save_promo_data()
 
         bot.reply_to(message,
-            f"Промокод создан!\n\n"
-            f"Название: {promo_name}\n"
-            f"Максимум активаций: {max_activations}\n"
-            f"Награда: {reward_amount} Zеток\n"
-            f"?? Создал: {message.from_user.first_name}")
+            f"ГЏГ°Г®Г¬Г®ГЄГ®Г¤ Г±Г®Г§Г¤Г Г­!\n\n"
+            f"ГЌГ Г§ГўГ Г­ГЁГҐ: {promo_name}\n"
+            f"ГЊГ ГЄГ±ГЁГ¬ГіГ¬ Г ГЄГІГЁГўГ Г¶ГЁГ©: {max_activations}\n"
+            f"ГЌГ ГЈГ°Г Г¤Г : {reward_amount} ZГҐГІГ®ГЄ\n"
+            f"?? Г‘Г®Г§Г¤Г Г«: {message.from_user.first_name}")
 
     except Exception as e:
-        print(f"Ошибка в handle_add_promo: {e}")
-        bot.reply_to(message, "? Произошла ошибка при создании промокода")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_add_promo: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®Г§Г¤Г Г­ГЁГЁ ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г ")
 
 @bot.message_handler(commands=['delete_nft'])
 def handle_delete_nft(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /delete_nft nft_id\n\n"
-                "Список NFT: /nft_list")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /delete_nft nft_id\n\n"
+                "Г‘ГЇГЁГ±Г®ГЄ NFT: /nft_list")
             return
 
         try:
             nft_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "? ID NFT должен быть числом!")
+            bot.reply_to(message, "? ID NFT Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
 
         if nft_id not in user_nfts:
-            bot.reply_to(message, "? NFT с таким ID не существует!")
+            bot.reply_to(message, "? NFT Г± ГІГ ГЄГЁГ¬ ID Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         nft = user_nfts[nft_id]
@@ -745,7 +745,7 @@ def handle_delete_nft(message: Message):
 
                     try:
                         bot.send_message(owner_id,
-                            f"? Администратор удалил NFT из вашей коллекции!\n"
+                            f"? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° ГіГ¤Г Г«ГЁГ« NFT ГЁГ§ ГўГ ГёГҐГ© ГЄГ®Г«Г«ГҐГЄГ¶ГЁГЁ!\n"
                             f"?? {nft['description']}\n"
                             f"?? ID: {nft_id}")
                     except:
@@ -756,44 +756,44 @@ def handle_delete_nft(message: Message):
         save_nft_data()
 
         bot.reply_to(message,
-            f"NFT успешно удален!\n\n"
+            f"NFT ГіГ±ГЇГҐГёГ­Г® ГіГ¤Г Г«ГҐГ­!\n\n"
             f"ID: {nft_id}\n"
             f"{nft['description']}\n"
-            f"Редкость: {nft['rarity']}")
+            f"ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}")
 
     except Exception as e:
-        print(f"Ошибка в handle_delete_nft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при удалении NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_delete_nft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГіГ¤Г Г«ГҐГ­ГЁГЁ NFT")
 
 @bot.message_handler(commands=['delete_promo'])
 def handle_delete_promo(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /delete_promo название_промокода")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /delete_promo Г­Г Г§ГўГ Г­ГЁГҐ_ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г ")
             return
 
         promo_name = command_parts[1].upper()
 
         if promo_name not in promo_codes:
-            bot.reply_to(message, "? Промокод не найден!")
+            bot.reply_to(message, "? ГЏГ°Г®Г¬Г®ГЄГ®Г¤ Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Удаляем промокод
+        # Г“Г¤Г Г«ГїГҐГ¬ ГЇГ°Г®Г¬Г®ГЄГ®Г¤
         del promo_codes[promo_name]
         save_promo_data()
 
-        bot.reply_to(message, f"Промокод {promo_name} удален!")
+        bot.reply_to(message, f"ГЏГ°Г®Г¬Г®ГЄГ®Г¤ {promo_name} ГіГ¤Г Г«ГҐГ­!")
 
     except Exception as e:
-        print(f"Ошибка в handle_delete_promo: {e}")
-        bot.reply_to(message, "? Произошла ошибка при удалении промокода")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_delete_promo: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГіГ¤Г Г«ГҐГ­ГЁГЁ ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г ")
 
 @bot.message_handler(commands=['use_promo'])
 def handle_use_promo(message: Message):
@@ -807,33 +807,33 @@ def handle_use_promo(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /use_promo название_промокода\n"
-                "Пример: /use_promo [promo]")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /use_promo Г­Г Г§ГўГ Г­ГЁГҐ_ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г \n"
+                "ГЏГ°ГЁГ¬ГҐГ°: /use_promo [promo]")
             return
 
         promo_name = command_parts[1].upper()
 
 
         if promo_name not in promo_codes:
-            bot.reply_to(message, "? Промокод не найден!")
+            bot.reply_to(message, "? ГЏГ°Г®Г¬Г®ГЄГ®Г¤ Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         promo = promo_codes[promo_name]
 
 
         if promo['current_activations'] >= promo['max_activations']:
-            bot.reply_to(message, "? Лимит активаций этого промокода исчерпан!")
+            bot.reply_to(message, "? Г‹ГЁГ¬ГЁГІ Г ГЄГІГЁГўГ Г¶ГЁГ© ГЅГІГ®ГЈГ® ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г  ГЁГ±Г·ГҐГ°ГЇГ Г­!")
             return
 
 
         if user_id in promo['used_by']:
-            bot.reply_to(message, "? Вы уже использовали этот промокод!")
+            bot.reply_to(message, "? Г‚Г» ГіГ¦ГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г«ГЁ ГЅГІГ®ГІ ГЇГ°Г®Г¬Г®ГЄГ®Г¤!")
             return
 
 
         if promo_name in user_balances[user_id]['used_promos']:
-            bot.reply_to(message, "? Вы уже использовали этот промокод!")
+            bot.reply_to(message, "? Г‚Г» ГіГ¦ГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г«ГЁ ГЅГІГ®ГІ ГЇГ°Г®Г¬Г®ГЄГ®Г¤!")
             return
 
         reward = promo['reward']
@@ -848,15 +848,15 @@ def handle_use_promo(message: Message):
         save_promo_data()
 
         bot.reply_to(message,
-            f"Промокод активирован!\n\n"
-            f"Промокод: {promo_name}\n"
-            f"Получено: {reward} Zеток\n"
-            f"Активаций осталось: {promo['max_activations'] - promo['current_activations']}\n\n"
-            f"Новый баланс: {user_balances[user_id]['leaves']} Zеток")
+            f"ГЏГ°Г®Г¬Г®ГЄГ®Г¤ Г ГЄГІГЁГўГЁГ°Г®ГўГ Г­!\n\n"
+            f"ГЏГ°Г®Г¬Г®ГЄГ®Г¤: {promo_name}\n"
+            f"ГЏГ®Г«ГіГ·ГҐГ­Г®: {reward} ZГҐГІГ®ГЄ\n"
+            f"ГЂГЄГІГЁГўГ Г¶ГЁГ© Г®Г±ГІГ Г«Г®Г±Гј: {promo['max_activations'] - promo['current_activations']}\n\n"
+            f"ГЌГ®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
 
     except Exception as e:
-        print(f"Ошибка в handle_use_promo: {e}")
-        bot.reply_to(message, "? Произошла ошибка при активации промокода")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_use_promo: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г ГЄГІГЁГўГ Г¶ГЁГЁ ГЇГ°Г®Г¬Г®ГЄГ®Г¤Г ")
 
 @bot.message_handler(commands=['event', 'event_check'])
 @group_only
@@ -865,22 +865,22 @@ def handle_event(message: Message):
     init_user_data(user_id)
 
     if not HALLOWEEN_EVENT_ACTIVE:
-        event_text = "? Хэллоуинский ивент завершен!"
+        event_text = "? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ Г§Г ГўГҐГ°ГёГҐГ­!"
     else:
         time_left = HALLOWEEN_END_TIME - datetime.datetime.now().timestamp()
         days = int(time_left // (24 * 60 * 60))
         hours = int((time_left % (24 * 60 * 60)) // 3600)
 
         event_text = (
-            f"?? ХЭЛЛОУИНСКИЙ ИВЕНТ АКТИВЕН! ??\n\n"
-            f"?? Команда: /kill (ответом на сообщение)\n"
-            f"? Можно убивать раз в 2 часа\n"
-            f"?? Убитый игрок не может фармить 2 часа\n"
-            f"?? Победитель (больше всех убийств) получит:\n"
-            f"   ?? Хэллоуинскую тыкву!\n\n"
-            f"?? Статистика: /killstats\n"
-            f"? Осталось: {days}д {hours}ч\n"
-            f"?? Ивент до: 09.11.2025 00:00"
+            f"?? Г•ГќГ‹Г‹ГЋГ“Г€ГЌГ‘ГЉГ€Г‰ Г€Г‚Г…ГЌГ’ ГЂГЉГ’Г€Г‚Г…ГЌ! ??\n\n"
+            f"?? ГЉГ®Г¬Г Г­Г¤Г : /kill (Г®ГІГўГҐГІГ®Г¬ Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ)\n"
+            f"? ГЊГ®Г¦Г­Г® ГіГЎГЁГўГ ГІГј Г°Г Г§ Гў 2 Г·Г Г±Г \n"
+            f"?? Г“ГЎГЁГІГ»Г© ГЁГЈГ°Г®ГЄ Г­ГҐ Г¬Г®Г¦ГҐГІ ГґГ Г°Г¬ГЁГІГј 2 Г·Г Г±Г \n"
+            f"?? ГЏГ®ГЎГҐГ¤ГЁГІГҐГ«Гј (ГЎГ®Г«ГјГёГҐ ГўГ±ГҐГµ ГіГЎГЁГ©Г±ГІГў) ГЇГ®Г«ГіГ·ГЁГІ:\n"
+            f"   ?? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГіГѕ ГІГ»ГЄГўГі!\n\n"
+            f"?? Г‘ГІГ ГІГЁГ±ГІГЁГЄГ : /killstats\n"
+            f"? ГЋГ±ГІГ Г«Г®Г±Гј: {days}Г¤ {hours}Г·\n"
+            f"?? Г€ГўГҐГ­ГІ Г¤Г®: 09.11.2025 00:00"
         )
 
     bot.reply_to(message, event_text)
@@ -891,7 +891,7 @@ def handle_my_pumpkins(message: Message):
     user_id = message.from_user.id
     init_user_data(user_id)
     response = (
-        f"Осенний ивент окончен\n\n"
+        f"ГЋГ±ГҐГ­Г­ГЁГ© ГЁГўГҐГ­ГІ Г®ГЄГ®Г­Г·ГҐГ­\n\n"
     )
 
     bot.reply_to(message, response)
@@ -900,7 +900,7 @@ def handle_my_pumpkins(message: Message):
 def handle_petya(message:Message):
     init_user_data(user_id)
 
-    petka1 = ("поздняков гой")
+    petka1 = ("ГЇГ®Г§Г¤Г­ГїГЄГ®Гў ГЈГ®Г©")
     bot.reply_to(message, petka1)
 
 @bot.message_handler(commands=['roblox', 'rb'])
@@ -925,7 +925,7 @@ def handle_farm(message: Message):
             remaining_time = user_balances[user_id]['kill_ban_until'] - datetime.datetime.now().timestamp()
             hours = int(remaining_time // 3600)
             minutes = int((remaining_time % 3600) // 60)
-            bot.reply_to(message, f"?? Вы мертвы! Не можете фармить еще {hours}ч {minutes}м")
+            bot.reply_to(message, f"?? Г‚Г» Г¬ГҐГ°ГІГўГ»! ГЌГҐ Г¬Г®Г¦ГҐГІГҐ ГґГ Г°Г¬ГЁГІГј ГҐГ№ГҐ {hours}Г· {minutes}Г¬")
             return
 
         current_time = datetime.datetime.now().timestamp()
@@ -940,9 +940,9 @@ def handle_farm(message: Message):
             cooldown_message = random.choice(COOLDOWN_MESSAGES).format(time=remaining_time)
             response = (
                 f"{cooldown_message}\n\n"
-                f"Текущий баланс:\n"
-                f"Zеток: {user_balances[user_id]['leaves']}\n"
-                f"?? Территории: {user_balances[user_id]['tea']}"
+                f"Г’ГҐГЄГіГ№ГЁГ© ГЎГ Г«Г Г­Г±:\n"
+                f"ZГҐГІГ®ГЄ: {user_balances[user_id]['leaves']}\n"
+                f"?? Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГЁ: {user_balances[user_id]['tea']}"
             )
             bot.reply_to(message, response)
             return
@@ -971,27 +971,27 @@ def handle_farm(message: Message):
             leaves_emoji = "??" * min(total_leaves, 20)
             response = (
                 f"{farm_message}\n{leaves_emoji}\n\n"
-                f"Баланс:\n"
-                f"Zеток: {user_balances[user_id]['leaves']}\n"
-                f"?? Территории: {user_balances[user_id]['tea']}\n"
+                f"ГЃГ Г«Г Г­Г±:\n"
+                f"ZГҐГІГ®ГЄ: {user_balances[user_id]['leaves']}\n"
+                f"?? Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГЁ: {user_balances[user_id]['tea']}\n"
             )
 
 
 
-            response += f"\n\n? Следующий сбор будет доступен через 1 час"
+            response += f"\n\n? Г‘Г«ГҐГ¤ГіГѕГ№ГЁГ© Г±ГЎГ®Г° ГЎГіГ¤ГҐГІ Г¤Г®Г±ГІГіГЇГҐГ­ Г·ГҐГ°ГҐГ§ 1 Г·Г Г±"
 
             if 'scroll' in user_balances[user_id]['items']:
-                response = response.replace("1 час", "50 минут")
+                response = response.replace("1 Г·Г Г±", "50 Г¬ГЁГ­ГіГІ")
 
             bot.reply_to(message, response)
 
         except Exception as e:
-            print(f"Ошибка при сборе Zеток: {e}")
-            bot.reply_to(message, "? Произошла ошибка при сборе Zеток. Попробуйте позже.")
+            print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г±ГЎГ®Г°ГҐ ZГҐГІГ®ГЄ: {e}")
+            bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±ГЎГ®Г°ГҐ ZГҐГІГ®ГЄ. ГЏГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГЇГ®Г§Г¦ГҐ.")
 
     except Exception as e:
-        print(f"Общая ошибка в handle_farm: {e}")
-        bot.reply_to(message, "? Произошла неизвестная ошибка. Попробуйте позже.")
+        print(f"ГЋГЎГ№Г Гї Г®ГёГЁГЎГЄГ  Гў handle_farm: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г­ГҐГЁГ§ГўГҐГ±ГІГ­Г Гї Г®ГёГЁГЎГЄГ . ГЏГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГЇГ®Г§Г¦ГҐ.")
 
 @bot.message_handler(commands=['balance', 'b'])
 @group_only
@@ -1001,12 +1001,12 @@ def handle_balance(message: Message):
 
     ban_status = ""
     if user_balances[user_id].get('banned', False):
-        ban_status = "\n\n?? Ваш аккаунт заблокирован!"
+        ban_status = "\n\n?? Г‚Г Гё Г ГЄГЄГ ГіГ­ГІ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!"
 
     response = (
-        f"Ваш баланс:\n"
-        f"????Zеток: {user_balances[user_id]['leaves']}\n"
-        f"?? Территории: {user_balances[user_id]['tea']}"
+        f"Г‚Г Гё ГЎГ Г«Г Г­Г±:\n"
+        f"????ZГҐГІГ®ГЄ: {user_balances[user_id]['leaves']}\n"
+        f"?? Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГЁ: {user_balances[user_id]['tea']}"
         f"{ban_status}"
     )
     bot.reply_to(message, response)
@@ -1014,29 +1014,29 @@ def handle_balance(message: Message):
 def handle_add_nft(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         if not message.reply_to_message or not message.reply_to_message.photo:
             bot.reply_to(message,
-                "? Ответьте этой командой на сообщение с фотографией!\n"
-                "Формат: /add_nft [описание] [редкость]\n"
-                "Пример: /add_nft Редкий свиток мудрости rare")
+                "? ГЋГІГўГҐГІГјГІГҐ ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г®Г© Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г± ГґГ®ГІГ®ГЈГ°Г ГґГЁГҐГ©!\n"
+                "Г”Г®Г°Г¬Г ГІ: /add_nft [Г®ГЇГЁГ±Г Г­ГЁГҐ] [Г°ГҐГ¤ГЄГ®Г±ГІГј]\n"
+                "ГЏГ°ГЁГ¬ГҐГ°: /add_nft ГђГҐГ¤ГЄГЁГ© Г±ГўГЁГІГ®ГЄ Г¬ГіГ¤Г°Г®Г±ГІГЁ rare")
             return
 
         command_parts = message.text.split(maxsplit=2)
         if len(command_parts) < 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /add_nft [описание] [редкость]\n"
-                "Редкости: common, rare, epic, legendary")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /add_nft [Г®ГЇГЁГ±Г Г­ГЁГҐ] [Г°ГҐГ¤ГЄГ®Г±ГІГј]\n"
+                "ГђГҐГ¤ГЄГ®Г±ГІГЁ: common, rare, epic, legendary")
             return
 
         description = command_parts[1]
         rarity = command_parts[2].lower()
 
         if rarity not in ['common', 'rare', 'epic', 'legendary']:
-            bot.reply_to(message, "? Неверная редкость! Используйте: common, rare, epic, legendary")
+            bot.reply_to(message, "? ГЌГҐГўГҐГ°Г­Г Гї Г°ГҐГ¤ГЄГ®Г±ГІГј! Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: common, rare, epic, legendary")
             return
 
 
@@ -1059,38 +1059,38 @@ def handle_add_nft(message: Message):
         save_nft_data()
 
         bot.reply_to(message,
-            f"? NFT успешно создан!\n\n"
+            f"? NFT ГіГ±ГЇГҐГёГ­Г® Г±Г®Г§Г¤Г Г­!\n\n"
             f"?? ID: {nft_id}\n"
-            f"?? Описание: {description}\n"
-            f"?? Редкость: {rarity}\n"
-            f"?? Фото: сохранено")
+            f"?? ГЋГЇГЁГ±Г Г­ГЁГҐ: {description}\n"
+            f"?? ГђГҐГ¤ГЄГ®Г±ГІГј: {rarity}\n"
+            f"?? Г”Г®ГІГ®: Г±Г®ГµГ°Г Г­ГҐГ­Г®")
 
     except Exception as e:
-        print(f"Ошибка в handle_add_nft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при создании NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_add_nft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®Г§Г¤Г Г­ГЁГЁ NFT")
 
 @bot.message_handler(commands=['give_nft'])
 def handle_give_nft(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /give_nft @username nft_id")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /give_nft @username nft_id")
             return
 
         username = command_parts[1].lstrip('@')
         try:
             nft_id = int(command_parts[2])
         except ValueError:
-            bot.reply_to(message, "? ID NFT должен быть числом!")
+            bot.reply_to(message, "? ID NFT Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
-        # Ищем пользователя
+        # Г€Г№ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -1104,20 +1104,20 @@ def handle_give_nft(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         if nft_id not in user_nfts:
-            bot.reply_to(message, "? NFT с таким ID не существует!")
+            bot.reply_to(message, "? NFT Г± ГІГ ГЄГЁГ¬ ID Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         if user_nfts[nft_id]['owner'] is not None:
-            bot.reply_to(message, "? Этот NFT уже принадлежит другому игроку!")
+            bot.reply_to(message, "? ГќГІГ®ГІ NFT ГіГ¦ГҐ ГЇГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ Г¤Г°ГіГЈГ®Г¬Гі ГЁГЈГ°Г®ГЄГі!")
             return
 
         init_user_data(recipient_id)
 
-        # Передаем NFT
+        # ГЏГҐГ°ГҐГ¤Г ГҐГ¬ NFT
         user_nfts[nft_id]['owner'] = recipient_id
         user_balances[recipient_id]['nfts'].append(nft_id)
 
@@ -1133,24 +1133,24 @@ def handle_give_nft(message: Message):
         }.get(nft['rarity'], '?')
 
         bot.reply_to(message,
-            f"? NFT успешно передан!\n\n"
-            f"?? Получатель: {recipient_name}\n"
+            f"? NFT ГіГ±ГЇГҐГёГ­Г® ГЇГҐГ°ГҐГ¤Г Г­!\n\n"
+            f"?? ГЏГ®Г«ГіГ·Г ГІГҐГ«Гј: {recipient_name}\n"
             f"?? {nft['description']}\n"
-            f"{rarity_emoji} Редкость: {nft['rarity']}")
+            f"{rarity_emoji} ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}")
 
-        # Отправляем NFT пользователю
+        # ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ NFT ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ
         try:
             bot.send_photo(recipient_id, nft['file_id'],
-                caption=f"?? Вы получили NFT!\n\n"
+                caption=f"?? Г‚Г» ГЇГ®Г«ГіГ·ГЁГ«ГЁ NFT!\n\n"
                        f"?? {nft['description']}\n"
-                       f"{rarity_emoji} Редкость: {nft['rarity']}\n"
+                       f"{rarity_emoji} ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}\n"
                        f"?? ID: {nft_id}")
         except Exception as e:
-            print(f"Ошибка при отправке NFT: {e}")
+            print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЇГ°Г ГўГЄГҐ NFT: {e}")
 
     except Exception as e:
-        print(f"Ошибка в handle_give_nft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при передаче NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_give_nft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГҐГ°ГҐГ¤Г Г·ГҐ NFT")
 
 @bot.message_handler(commands=['my_nfts'])
 @group_only
@@ -1165,10 +1165,10 @@ def handle_my_nfts(message: Message):
         nft_ids = user_balances[user_id].get('nfts', [])
 
         if not nft_ids:
-            bot.reply_to(message, "?? У вас пока нет NFT!")
+            bot.reply_to(message, "?? Г“ ГўГ Г± ГЇГ®ГЄГ  Г­ГҐГІ NFT!")
             return
 
-        response = "?? Ваша коллекция NFT:\n\n"
+        response = "?? Г‚Г ГёГ  ГЄГ®Г«Г«ГҐГЄГ¶ГЁГї NFT:\n\n"
 
         for nft_id in nft_ids:
             if nft_id in user_nfts:
@@ -1185,8 +1185,8 @@ def handle_my_nfts(message: Message):
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_my_nfts: {e}")
-        bot.reply_to(message, "? Произошла ошибка при просмотре коллекции")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_my_nfts: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГЁ")
 
 @bot.message_handler(commands=['killstats', 'kills'])
 def handle_killstats(message: Message):
@@ -1195,7 +1195,7 @@ def handle_killstats(message: Message):
         init_user_data(user_id)
 
         if not HALLOWEEN_EVENT_ACTIVE:
-            bot.reply_to(message, "? Хэллоуинский ивент завершен!")
+            bot.reply_to(message, "? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ Г§Г ГўГҐГ°ГёГҐГ­!")
             return
 
         killers = []
@@ -1209,41 +1209,41 @@ def handle_killstats(message: Message):
 
         killers.sort(key=lambda x: x[1], reverse=True)
 
-        response = "?? Хэллоуинский ивент 2 - Статистика убийств\n\n?? Топ убийц:\n"
+        response = "?? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ 2 - Г‘ГІГ ГІГЁГ±ГІГЁГЄГ  ГіГЎГЁГ©Г±ГІГў\n\n?? Г’Г®ГЇ ГіГЎГЁГ©Г¶:\n"
 
         for i, (name, kills) in enumerate(killers[:10], 1):
             medal = {1: "??", 2: "??", 3: "??"}.get(i, "??")
-            response += f"{medal} {i}. {name}: {kills} убийств\n"
+            response += f"{medal} {i}. {name}: {kills} ГіГЎГЁГ©Г±ГІГў\n"
 
         user_kills = user_balances[user_id].get('kills', 0)
         user_rank = next((i for i, (_, k) in enumerate(killers, 1) if _ == message.from_user.first_name), None)
 
-        response += f"\nВаша статистика:\n"
-        response += f" Убийств: {user_kills}\n"
-        response += f"Ранг: {user_rank if user_rank else 'не в топе'}\n"
+        response += f"\nГ‚Г ГёГ  Г±ГІГ ГІГЁГ±ГІГЁГЄГ :\n"
+        response += f" Г“ГЎГЁГ©Г±ГІГў: {user_kills}\n"
+        response += f"ГђГ Г­ГЈ: {user_rank if user_rank else 'Г­ГҐ Гў ГІГ®ГЇГҐ'}\n"
 
         if user_balances[user_id].get('kill_ban_until', 0) > datetime.datetime.now().timestamp():
             remaining_time = user_balances[user_id]['kill_ban_until'] - datetime.datetime.now().timestamp()
             hours = int(remaining_time // 3600)
             minutes = int((remaining_time % 3600) // 60)
-            response += f"?? Статус: Мертв (вернетесь через {hours}ч {minutes}м)\n"
+            response += f"?? Г‘ГІГ ГІГіГ±: ГЊГҐГ°ГІГў (ГўГҐГ°Г­ГҐГІГҐГ±Гј Г·ГҐГ°ГҐГ§ {hours}Г· {minutes}Г¬)\n"
         else:
             current_time = datetime.datetime.now().timestamp()
             last_kill = user_balances[user_id].get('last_kill_time', 0)
             if current_time - last_kill < KILL_COOLDOWN:
                 remaining = KILL_COOLDOWN - (current_time - last_kill)
                 minutes = int(remaining // 60)
-                response += f"? До следующего убийства: {minutes} минут\n"
+                response += f"? Г„Г® Г±Г«ГҐГ¤ГіГѕГ№ГҐГЈГ® ГіГЎГЁГ©Г±ГІГўГ : {minutes} Г¬ГЁГ­ГіГІ\n"
             else:
-                response += f"? Можете убивать!\n"
+                response += f"? ГЊГ®Г¦ГҐГІГҐ ГіГЎГЁГўГ ГІГј!\n"
 
-        response += f"\n?? Ивент длится до 09.11.2025\n?? Победитель получит Хэллоуинскую тыкву!"
+        response += f"\n?? Г€ГўГҐГ­ГІ Г¤Г«ГЁГІГ±Гї Г¤Г® 09.11.2025\n?? ГЏГ®ГЎГҐГ¤ГЁГІГҐГ«Гј ГЇГ®Г«ГіГ·ГЁГІ Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГіГѕ ГІГ»ГЄГўГі!"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_killstats: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении статистики")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_killstats: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ Г±ГІГ ГІГЁГ±ГІГЁГЄГЁ")
 
 @bot.message_handler(commands=['buy_nft'])
 @group_only
@@ -1258,37 +1258,37 @@ def handle_buy_nft(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /buy_nft nft_id\n\n"
-                "?? Доступные NFT: /nft_list")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /buy_nft nft_id\n\n"
+                "?? Г„Г®Г±ГІГіГЇГ­Г»ГҐ NFT: /nft_list")
             return
 
         try:
             nft_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "? ID NFT должен быть числом!")
+            bot.reply_to(message, "? ID NFT Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
-        # Проверяем существование NFT
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г±ГіГ№ГҐГ±ГІГўГ®ГўГ Г­ГЁГҐ NFT
         if nft_id not in user_nfts:
-            bot.reply_to(message, "? NFT с таким ID не существует!")
+            bot.reply_to(message, "? NFT Г± ГІГ ГЄГЁГ¬ ID Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         nft = user_nfts[nft_id]
 
-        # Проверяем, не принадлежит ли уже кому-то
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ ГЇГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ Г«ГЁ ГіГ¦ГҐ ГЄГ®Г¬Гі-ГІГ®
         if nft['owner'] is not None:
-            bot.reply_to(message, "? Этот NFT уже принадлежит другому игроку!")
+            bot.reply_to(message, "? ГќГІГ®ГІ NFT ГіГ¦ГҐ ГЇГ°ГЁГ­Г Г¤Г«ГҐГ¦ГЁГІ Г¤Г°ГіГЈГ®Г¬Гі ГЁГЈГ°Г®ГЄГі!")
             return
 
         if user_balances[user_id]['leaves'] < NFT_BASE_PRICE:
             bot.reply_to(message,
-                f"? Недостаточно Zеток!\n"
-                f"Нужно: {NFT_BASE_PRICE} Zеток\n"
-                f"У вас: {user_balances[user_id]['leaves']} Zеток")
+                f"? ГЌГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\n"
+                f"ГЌГіГ¦Г­Г®: {NFT_BASE_PRICE} ZГҐГІГ®ГЄ\n"
+                f"Г“ ГўГ Г±: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
             return
 
-        # Покупаем NFT
+        # ГЏГ®ГЄГіГЇГ ГҐГ¬ NFT
         user_balances[user_id]['leaves'] -= NFT_BASE_PRICE
         user_nfts[nft_id]['owner'] = user_id
         user_balances[user_id]['nfts'].append(nft_id)
@@ -1303,28 +1303,28 @@ def handle_buy_nft(message: Message):
             'legendary': '??'
         }.get(nft['rarity'], '?')
 
-        # Отправляем подтверждение и сам NFT
+        # ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ ГЇГ®Г¤ГІГўГҐГ°Г¦Г¤ГҐГ­ГЁГҐ ГЁ Г±Г Г¬ NFT
         bot.reply_to(message,
-            f"? Вы успешно приобрели NFT!\n\n"
+            f"? Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЇГ°ГЁГ®ГЎГ°ГҐГ«ГЁ NFT!\n\n"
             f"?? {nft['description']}\n"
-            f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-            f"?? Стоимость: {NFT_BASE_PRICE} Zеток\n"
-            f"?? Новый баланс: {user_balances[user_id]['leaves']} Zеток")
+            f"{rarity_emoji} ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}\n"
+            f"?? Г‘ГІГ®ГЁГ¬Г®Г±ГІГј: {NFT_BASE_PRICE} ZГҐГІГ®ГЄ\n"
+            f"?? ГЌГ®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
 
-        # Отправляем фото NFT
+        # ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ ГґГ®ГІГ® NFT
         try:
             bot.send_photo(user_id, nft['file_id'],
-                caption=f"?? Поздравляем с покупкой!\n\n"
+                caption=f"?? ГЏГ®Г§Г¤Г°Г ГўГ«ГїГҐГ¬ Г± ГЇГ®ГЄГіГЇГЄГ®Г©!\n\n"
                        f"?? {nft['description']}\n"
-                       f"{rarity_emoji} Редкость: {nft['rarity']}\n"
+                       f"{rarity_emoji} ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}\n"
                        f"?? ID: {nft_id}\n"
-                       f"?? Куплено за: {NFT_BASE_PRICE} Zеток")
+                       f"?? ГЉГіГЇГ«ГҐГ­Г® Г§Г : {NFT_BASE_PRICE} ZГҐГІГ®ГЄ")
         except Exception as e:
-            print(f"Ошибка при отправке NFT: {e}")
+            print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЇГ°Г ГўГЄГҐ NFT: {e}")
 
     except Exception as e:
-        print(f"Ошибка в handle_buy_nft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при покупке NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_buy_nft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГЄГіГЇГЄГҐ NFT")
 @bot.message_handler(commands=['view_nft'])
 @group_only
 def handle_view_nft(message: Message):
@@ -1338,18 +1338,18 @@ def handle_view_nft(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /view_nft nft_id")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /view_nft nft_id")
             return
 
         try:
             nft_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "? ID NFT должен быть числом!")
+            bot.reply_to(message, "? ID NFT Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
         if nft_id not in user_nfts:
-            bot.reply_to(message, "? NFT с таким ID не существует!")
+            bot.reply_to(message, "? NFT Г± ГІГ ГЄГЁГ¬ ID Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         nft = user_nfts[nft_id]
@@ -1361,37 +1361,37 @@ def handle_view_nft(message: Message):
         }.get(nft['rarity'], '?')
 
         if nft['owner'] is None:
-            owner_info = f"?? Свободен\n?? Цена: {NFT_BASE_PRICE} Zеток\n?? Купить: /buy_nft {nft_id}"
+            owner_info = f"?? Г‘ГўГ®ГЎГ®Г¤ГҐГ­\n?? Г–ГҐГ­Г : {NFT_BASE_PRICE} ZГҐГІГ®ГЄ\n?? ГЉГіГЇГЁГІГј: /buy_nft {nft_id}"
         else:
             try:
                 owner = bot.get_chat(nft['owner'])
-                owner_info = f"?? Владелец: {owner.first_name}"
+                owner_info = f"?? Г‚Г«Г Г¤ГҐГ«ГҐГ¶: {owner.first_name}"
                 if nft['owner'] == user_id:
-                    owner_info += " (Ваш NFT)"
+                    owner_info += " (Г‚Г Гё NFT)"
             except:
-                owner_info = "?? Владелец: Неизвестен"
+                owner_info = "?? Г‚Г«Г Г¤ГҐГ«ГҐГ¶: ГЌГҐГЁГ§ГўГҐГ±ГІГҐГ­"
 
-        # Отправляем фото NFT
+        # ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ ГґГ®ГІГ® NFT
         bot.send_photo(message.chat.id, nft['file_id'],
             caption=f"?? NFT #{nft_id}\n\n"
                    f"?? {nft['description']}\n"
-                   f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                   f"?? Создан: {datetime.datetime.fromtimestamp(nft['created_at']).strftime('%d.%m.%Y')}\n"
+                   f"{rarity_emoji} ГђГҐГ¤ГЄГ®Г±ГІГј: {nft['rarity']}\n"
+                   f"?? Г‘Г®Г§Г¤Г Г­: {datetime.datetime.fromtimestamp(nft['created_at']).strftime('%d.%m.%Y')}\n"
                    f"{owner_info}")
 
     except Exception as e:
-        print(f"Ошибка в handle_view_nft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при просмотре NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_view_nft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐ NFT")
 
 @bot.message_handler(commands=['nft_list'])
 @group_only
 def handle_nft_list(message: Message):
     try:
         if not user_nfts:
-            bot.reply_to(message, "? В системе пока нет NFT!")
+            bot.reply_to(message, "? Г‚ Г±ГЁГ±ГІГҐГ¬ГҐ ГЇГ®ГЄГ  Г­ГҐГІ NFT!")
             return
 
-        response = "?? Все NFT в системе:\n\n"
+        response = "?? Г‚Г±ГҐ NFT Гў Г±ГЁГ±ГІГҐГ¬ГҐ:\n\n"
 
         for nft_id, nft in user_nfts.items():
             rarity_emoji = {
@@ -1401,18 +1401,18 @@ def handle_nft_list(message: Message):
                 'legendary': '??'
             }.get(nft['rarity'], '?')
 
-            status = "?? Свободен" if nft['owner'] is None else "?? В коллекции"
-            price_info = f"?? {NFT_BASE_PRICE} Zеток" if nft['owner'] is None else "?? Продано"
+            status = "?? Г‘ГўГ®ГЎГ®Г¤ГҐГ­" if nft['owner'] is None else "?? Г‚ ГЄГ®Г«Г«ГҐГЄГ¶ГЁГЁ"
+            price_info = f"?? {NFT_BASE_PRICE} ZГҐГІГ®ГЄ" if nft['owner'] is None else "?? ГЏГ°Г®Г¤Г Г­Г®"
             response += f"?? {nft_id}: {rarity_emoji} {nft['description']} - {status} {price_info}\n"
 
-        response += f"\n?? Все NFT стоят: {NFT_BASE_PRICE} Zеток\n"
-        response += "?? Для покупки: /buy_nft [id]"
+        response += f"\n?? Г‚Г±ГҐ NFT Г±ГІГ®ГїГІ: {NFT_BASE_PRICE} ZГҐГІГ®ГЄ\n"
+        response += "?? Г„Г«Гї ГЇГ®ГЄГіГЇГЄГЁ: /buy_nft [id]"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_nft_list: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении списка NFT")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_nft_list: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ Г±ГЇГЁГ±ГЄГ  NFT")
 @bot.message_handler(commands=['users'])
 @group_only
 def handle_users(message: Message):
@@ -1425,13 +1425,13 @@ def handle_users(message: Message):
 
     ban_status = ""
     if user_balances[user_id].get('banned', False):
-        ban_status = "\n\n?? Ваш аккаунт заблокирован!"
+        ban_status = "\n\n?? Г‚Г Гё Г ГЄГЄГ ГіГ­ГІ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!"
 
     response = (
-        f"Статистика бота:\n"
-        f"?? Всего пользователей: {users_count}\n"
-        f"???? Всего заработано Zеток: {total_leaves}\n"
-        f"?? Всего территорий: {total_tea}"
+        f"Г‘ГІГ ГІГЁГ±ГІГЁГЄГ  ГЎГ®ГІГ :\n"
+        f"?? Г‚Г±ГҐГЈГ® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ©: {users_count}\n"
+        f"???? Г‚Г±ГҐГЈГ® Г§Г Г°Г ГЎГ®ГІГ Г­Г® ZГҐГІГ®ГЄ: {total_leaves}\n"
+        f"?? Г‚Г±ГҐГЈГ® ГІГҐГ°Г°ГЁГІГ®Г°ГЁГ©: {total_tea}"
         f"{ban_status}"
     )
     bot.reply_to(message, response)
@@ -1439,35 +1439,35 @@ def handle_users(message: Message):
 @bot.message_handler(commands=['top'])
 @group_only
 def handle_top(message: Message):
-    # Сортируем пользователей по количеству чая и Zеток
+    # Г‘Г®Г°ГІГЁГ°ГіГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ© ГЇГ® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГі Г·Г Гї ГЁ ZГҐГІГ®ГЄ
     sorted_users = sorted(
         user_balances.items(),
         key=lambda x: (x[1]['tea'], x[1]['leaves']),
         reverse=True
     )
 
-    # Берем топ-10 пользователей
+    # ГЃГҐГ°ГҐГ¬ ГІГ®ГЇ-10 ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ©
     top_users = sorted_users[:10]
 
-    # Формируем сообщение
-    response = "?? Топ-10 сборщиков:\n\n"
+    # Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ
+    response = "?? Г’Г®ГЇ-10 Г±ГЎГ®Г°Г№ГЁГЄГ®Гў:\n\n"
 
     for index, (user_id, balance) in enumerate(top_users, 1):
         try:
             user = bot.get_chat(user_id)
             user_name = user.first_name
-            # Добавляем медали для первых трех мест
+            # Г„Г®ГЎГ ГўГ«ГїГҐГ¬ Г¬ГҐГ¤Г Г«ГЁ Г¤Г«Гї ГЇГҐГ°ГўГ»Гµ ГІГ°ГҐГµ Г¬ГҐГ±ГІ
             medal = {1: "??", 2: "??", 3: "??"}.get(index, "??")
             response += f"{medal} {index}. {user_name}: ?? {balance['tea']} | ??{balance['leaves']}\n"
         except:
-            response += f"?? {index}. Пользователь:  ?? {balance['tea']} | ?? {balance['leaves']}\n"
+            response += f"?? {index}. ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј:  ?? {balance['tea']} | ?? {balance['leaves']}\n"
 
-    # В конце добавим статус бана если есть
+    # Г‚ ГЄГ®Г­Г¶ГҐ Г¤Г®ГЎГ ГўГЁГ¬ Г±ГІГ ГІГіГ± ГЎГ Г­Г  ГҐГ±Г«ГЁ ГҐГ±ГІГј
     user_id = message.from_user.id
     init_user_data(user_id)
 
     if user_balances[user_id].get('banned', False):
-        response += "\n\n?? Ваш аккаунт заблокирован!"
+        response += "\n\n?? Г‚Г Гё Г ГЄГЄГ ГіГ­ГІ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!"
 
     bot.reply_to(message, response)
 
@@ -1483,26 +1483,26 @@ def handle_craft(message: Message):
 
         command_parts = message.text.split()
 
-        # Если количество не указано, устанавливаем 1
+        # Г…Г±Г«ГЁ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г­ГҐ ГіГЄГ Г§Г Г­Г®, ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ 1
         if len(command_parts) == 1:
             amount = 1
         else:
             try:
                 amount = int(command_parts[1])
                 if amount <= 0:
-                    bot.reply_to(message, "? Количество должно быть положительным числом!")
+                    bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»Г¬ Г·ГЁГ±Г«Г®Г¬!")
                     return
             except ValueError:
                 bot.reply_to(message,
-                    "? Неверный формат команды!\n"
-                    "Используйте: /craft [количество]\n"
-                    "Например: /craft 5 или просто /craft для захвата 1 территории")
+                    "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                    "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /craft [ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®]\n"
+                    "ГЌГ ГЇГ°ГЁГ¬ГҐГ°: /craft 5 ГЁГ«ГЁ ГЇГ°Г®Г±ГІГ® /craft Г¤Г«Гї Г§Г ГµГўГ ГІГ  1 ГІГҐГ°Г°ГЁГІГ®Г°ГЁГЁ")
                 return
 
-        # Базовая стоимость крафта
+        # ГЃГ Г§Г®ГўГ Гї Г±ГІГ®ГЁГ¬Г®Г±ГІГј ГЄГ°Г ГґГІГ 
         base_cost = 100
 
-        # Применяем скидку от чайника Ы если есть
+        # ГЏГ°ГЁГ¬ГҐГ­ГїГҐГ¬ Г±ГЄГЁГ¤ГЄГі Г®ГІ Г·Г Г©Г­ГЁГЄГ  Г› ГҐГ±Г«ГЁ ГҐГ±ГІГј
         if 'teapot' in user_balances[user_id]['items']:
             base_cost -= SHOP_ITEMS['teapot']['bonus_value']
 
@@ -1510,38 +1510,38 @@ def handle_craft(message: Message):
 
         if user_balances[user_id]['leaves'] < total_cost:
             bot.reply_to(message,
-                f"? Недостаточно Zеток!\n"
-                f"Необходимо: {total_cost} Zеток\n"
-                f"У вас есть: {user_balances[user_id]['leaves']} Zеток")
+                f"? ГЌГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\n"
+                f"ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®: {total_cost} ZГҐГІГ®ГЄ\n"
+                f"Г“ ГўГ Г± ГҐГ±ГІГј: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
             return
 
         user_balances[user_id]['leaves'] -= total_cost
         user_balances[user_id]['tea'] += amount
         save_user_data()
 
-        # Формируем сообщение с учетом скидки
+        # Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г± ГіГ·ГҐГІГ®Г¬ Г±ГЄГЁГ¤ГЄГЁ
         cost_text = str(base_cost)
         if 'teapot' in user_balances[user_id]['items']:
             cost_text = f"{10}(-{SHOP_ITEMS['teapot']['bonus_value']} = {base_cost})"
 
         craft_message = random.choice(CRAFT_MESSAGES).format(
             count=amount,
-            word="чая" if amount == 1 else "чая" if 2 <= amount <= 4 else "чая"
+            word="Г·Г Гї" if amount == 1 else "Г·Г Гї" if 2 <= amount <= 4 else "Г·Г Гї"
         )
 
         response = (
             f"{craft_message}\n"
-            f"Потрачено Zеток: {cost_text} ? {amount} = {total_cost} \n\n"
-            f"Баланс:\n"
-            f"Zеток: {user_balances[user_id]['leaves']}\n"
-            f"?? Территории: {user_balances[user_id]['tea']}"
+            f"ГЏГ®ГІГ°Г Г·ГҐГ­Г® ZГҐГІГ®ГЄ: {cost_text} ? {amount} = {total_cost} \n\n"
+            f"ГЃГ Г«Г Г­Г±:\n"
+            f"ZГҐГІГ®ГЄ: {user_balances[user_id]['leaves']}\n"
+            f"?? Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГЁ: {user_balances[user_id]['tea']}"
         )
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_craft: {e}")
-        bot.reply_to(message, "? Произошла ошибка при создании чая")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_craft: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®Г§Г¤Г Г­ГЁГЁ Г·Г Гї")
 
 
 
@@ -1557,17 +1557,17 @@ def handle_farmtime(message: Message):
         last_farm = user_balances[user_id]['last_farm']
 
         if can_farm(last_farm, user_id):
-            response = "? Вы можете работать\nИспользуйте команду /farm"
+            response = "? Г‚Г» Г¬Г®Г¦ГҐГІГҐ Г°Г ГЎГ®ГІГ ГІГј\nГ€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ ГЄГ®Г¬Г Г­Г¤Гі /farm"
         else:
             time_until_next = 3600 - (current_time - last_farm)
             remaining_time = format_remaining_time(time_until_next)
-            response = f"? Следующая работа будет доступен через {remaining_time}"
+            response = f"? Г‘Г«ГҐГ¤ГіГѕГ№Г Гї Г°Г ГЎГ®ГІГ  ГЎГіГ¤ГҐГІ Г¤Г®Г±ГІГіГЇГҐГ­ Г·ГҐГ°ГҐГ§ {remaining_time}"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_farmtime: {e}")
-        bot.reply_to(message, "? Произошла ошибка при проверке времени. Попробуйте позже.")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_farmtime: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°Г®ГўГҐГ°ГЄГҐ ГўГ°ГҐГ¬ГҐГ­ГЁ. ГЏГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГЇГ®Г§Г¦ГҐ.")
 
 @bot.message_handler(commands=['market_sell', 'msell'])
 @group_only
@@ -1582,33 +1582,33 @@ def handle_market_sell(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /market_sell [id_предмета] [цена]\n"
-                "Пример: /market_sell scroll 500\n\n"
-                "?? Доступные предметы:\n"
-                "• scroll - ?? Свиток мудрости\n"
-                "• jade_rod - ?? Нефритовый стержень\n"
-                "• watermelon - ?? Священный арбуз\n"
-                "• и другие из /shop")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /market_sell [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ] [Г¶ГҐГ­Г ]\n"
+                "ГЏГ°ГЁГ¬ГҐГ°: /market_sell scroll 500\n\n"
+                "?? Г„Г®Г±ГІГіГЇГ­Г»ГҐ ГЇГ°ГҐГ¤Г¬ГҐГІГ»:\n"
+                "В• scroll - ?? Г‘ГўГЁГІГ®ГЄ Г¬ГіГ¤Г°Г®Г±ГІГЁ\n"
+                "В• jade_rod - ?? ГЌГҐГґГ°ГЁГІГ®ГўГ»Г© Г±ГІГҐГ°Г¦ГҐГ­Гј\n"
+                "В• watermelon - ?? Г‘ГўГїГ№ГҐГ­Г­Г»Г© Г Г°ГЎГіГ§\n"
+                "В• ГЁ Г¤Г°ГіГЈГЁГҐ ГЁГ§ /shop")
             return
 
         item_id = command_parts[1].lower()
         try:
             price = int(command_parts[2])
         except ValueError:
-            bot.reply_to(message, "? Цена должна быть числом!")
+            bot.reply_to(message, "? Г–ГҐГ­Г  Г¤Г®Г«Г¦Г­Г  ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
         if item_id not in SHOP_ITEMS:
-            bot.reply_to(message, "? Такого предмета не существует!")
+            bot.reply_to(message, "? Г’Г ГЄГ®ГЈГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ  Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
         if price < MARKET_MIN_PRICE:
-            bot.reply_to(message, f"? Минимальная цена продажи: {MARKET_MIN_PRICE} Zеток!")
+            bot.reply_to(message, f"? ГЊГЁГ­ГЁГ¬Г Г«ГјГ­Г Гї Г¶ГҐГ­Г  ГЇГ°Г®Г¤Г Г¦ГЁ: {MARKET_MIN_PRICE} ZГҐГІГ®ГЄ!")
             return
 
         if item_id not in user_balances[user_id]['items']:
-            bot.reply_to(message, "? У вас нет этого предмета!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЅГІГ®ГЈГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ !")
             return
 
         item = SHOP_ITEMS[item_id]
@@ -1633,18 +1633,18 @@ def handle_market_sell(message: Message):
         save_market_data()
 
         bot.reply_to(message,
-            f"? Предмет выставлен на рынок!\n\n"
-            f"?? Предмет: {item['name']}\n"
-            f"?? Цена: {price} Zеток\n"
-            f"?? Налог: {tax} Zеток ({MARKET_TAX_PERCENT}%)\n"
-            f"?? Вы получите: {seller_receives} Zеток\n"
-            f"? Действует: 7 дней\n"
-            f"?? ID предложения: #{listing_id}\n\n"
-            f"Для отмены: /market_cancel {listing_id}")
+            f"? ГЏГ°ГҐГ¤Г¬ГҐГІ ГўГ»Г±ГІГ ГўГ«ГҐГ­ Г­Г  Г°Г»Г­Г®ГЄ!\n\n"
+            f"?? ГЏГ°ГҐГ¤Г¬ГҐГІ: {item['name']}\n"
+            f"?? Г–ГҐГ­Г : {price} ZГҐГІГ®ГЄ\n"
+            f"?? ГЌГ Г«Г®ГЈ: {tax} ZГҐГІГ®ГЄ ({MARKET_TAX_PERCENT}%)\n"
+            f"?? Г‚Г» ГЇГ®Г«ГіГ·ГЁГІГҐ: {seller_receives} ZГҐГІГ®ГЄ\n"
+            f"? Г„ГҐГ©Г±ГІГўГіГҐГІ: 7 Г¤Г­ГҐГ©\n"
+            f"?? ID ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї: #{listing_id}\n\n"
+            f"Г„Г«Гї Г®ГІГ¬ГҐГ­Г»: /market_cancel {listing_id}")
 
     except Exception as e:
-        print(f"Ошибка в handle_market_sell: {e}")
-        bot.reply_to(message, "? Произошла ошибка при выставлении предмета на рынок")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_market_sell: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»Г±ГІГ ГўГ«ГҐГ­ГЁГЁ ГЇГ°ГҐГ¤Г¬ГҐГІГ  Г­Г  Г°Г»Г­Г®ГЄ")
 
 @bot.message_handler(commands=['market', 'm'])
 @group_only
@@ -1656,35 +1656,35 @@ def handle_market(message: Message):
         cleanup_expired_listings()
 
         if not market_listings:
-            bot.reply_to(message, "?? На рынке пока нет предложений!")
+            bot.reply_to(message, "?? ГЌГ  Г°Г»Г­ГЄГҐ ГЇГ®ГЄГ  Г­ГҐГІ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГ©!")
             return
 
-        response = "?? Пользовательский рынок\n\n"
+        response = "?? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГјГ±ГЄГЁГ© Г°Г»Г­Г®ГЄ\n\n"
 
-        for listing_id, listing in list(market_listings.items())[:10]:  # Показываем первые 10
+        for listing_id, listing in list(market_listings.items())[:10]:  # ГЏГ®ГЄГ Г§Г»ГўГ ГҐГ¬ ГЇГҐГ°ГўГ»ГҐ 10
             time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
             days = int(time_left // (24 * 60 * 60))
             hours = int((time_left % (24 * 60 * 60)) // 3600)
 
             response += (
                 f"?? #{listing_id} - {listing['item_name']}\n"
-                f"?? Цена: {listing['price']} Zеток\n"
-                f"?? Продавец: {listing['seller_name']}\n"
-                f"? Осталось: {days}д {hours}ч\n\n"
+                f"?? Г–ГҐГ­Г : {listing['price']} ZГҐГІГ®ГЄ\n"
+                f"?? ГЏГ°Г®Г¤Г ГўГҐГ¶: {listing['seller_name']}\n"
+                f"? ГЋГ±ГІГ Г«Г®Г±Гј: {days}Г¤ {hours}Г·\n\n"
             )
 
         response += (
-            f"?? Всего предложений: {len(market_listings)}\n"
-            f"?? Посмотреть все: /market_all\n"
-            f"?? Купить предмет: /market_buy [id_предмета]\n"
-            f"?? Продать предмет: /market_sell [id_предмета] [цена]"
+            f"?? Г‚Г±ГҐГЈГ® ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГ©: {len(market_listings)}\n"
+            f"?? ГЏГ®Г±Г¬Г®ГІГ°ГҐГІГј ГўГ±ГҐ: /market_all\n"
+            f"?? ГЉГіГЇГЁГІГј ГЇГ°ГҐГ¤Г¬ГҐГІ: /market_buy [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ]\n"
+            f"?? ГЏГ°Г®Г¤Г ГІГј ГЇГ°ГҐГ¤Г¬ГҐГІ: /market_sell [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ] [Г¶ГҐГ­Г ]"
         )
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_market: {e}")
-        bot.reply_to(message, "? Произошла ошибка при просмотре рынка")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_market: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐ Г°Г»Г­ГЄГ ")
 
 @bot.message_handler(commands=['market_buy', 'mbuy'])
 @group_only
@@ -1699,19 +1699,19 @@ def handle_market_buy(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /market_buy [id_предложения]\n"
-                "Пример: /market_buy 1")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /market_buy [id_ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї]\n"
+                "ГЏГ°ГЁГ¬ГҐГ°: /market_buy 1")
             return
 
         try:
             listing_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "? ID предложения должен быть числом!")
+            bot.reply_to(message, "? ID ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
         if listing_id not in market_listings:
-            bot.reply_to(message, "? Предложение не найдено!")
+            bot.reply_to(message, "? ГЏГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ Г­ГҐ Г­Г Г©Г¤ГҐГ­Г®!")
             return
 
         listing = market_listings[listing_id]
@@ -1719,24 +1719,24 @@ def handle_market_buy(message: Message):
         if datetime.datetime.now().timestamp() > listing['expires_at']:
             del market_listings[listing_id]
             save_market_data()
-            bot.reply_to(message, "? Предложение истекло!")
+            bot.reply_to(message, "? ГЏГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ ГЁГ±ГІГҐГЄГ«Г®!")
             return
 
         if user_id == listing['seller_id']:
-            bot.reply_to(message, "? Нельзя купить у самого себя!")
+            bot.reply_to(message, "? ГЌГҐГ«ГјГ§Гї ГЄГіГЇГЁГІГј Гі Г±Г Г¬Г®ГЈГ® Г±ГҐГЎГї!")
             return
 
         if user_balances[user_id]['leaves'] < listing['price']:
             bot.reply_to(message,
-                f"? Недостаточно Zеток!\n"
-                f"Нужно: {listing['price']} Zеток\n"
-                f"У вас: {user_balances[user_id]['leaves']} Zеток")
+                f"? ГЌГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\n"
+                f"ГЌГіГ¦Г­Г®: {listing['price']} ZГҐГІГ®ГЄ\n"
+                f"Г“ ГўГ Г±: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
             return
 
         if len(user_balances[user_id]['items']) >= 3:
             bot.reply_to(message,
-                "? У вас максимальное количество предметов!\n"
-                "Освободите место: /inventory")
+                "? Г“ ГўГ Г± Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў!\n"
+                "ГЋГ±ГўГ®ГЎГ®Г¤ГЁГІГҐ Г¬ГҐГ±ГІГ®: /inventory")
             return
 
 
@@ -1754,20 +1754,20 @@ def handle_market_buy(message: Message):
         save_market_data()
 
         bot.reply_to(message,
-            f"? Вы купили {item_name} за {listing['price']} Zеток!\n"
-            f"Предмет добавлен в инвентарь: /inventory")
+            f"? Г‚Г» ГЄГіГЇГЁГ«ГЁ {item_name} Г§Г  {listing['price']} ZГҐГІГ®ГЄ!\n"
+            f"ГЏГ°ГҐГ¤Г¬ГҐГІ Г¤Г®ГЎГ ГўГ«ГҐГ­ Гў ГЁГ­ГўГҐГ­ГІГ Г°Гј: /inventory")
 
         try:
             bot.send_message(seller_id,
-                f"?? Ваш предмет {item_name} продан!\n"
-                f"?? Получено: {listing['seller_receives']} Zеток (за вычетом налога)\n"
-                f"?? Покупатель: {message.from_user.first_name}")
+                f"?? Г‚Г Гё ГЇГ°ГҐГ¤Г¬ГҐГІ {item_name} ГЇГ°Г®Г¤Г Г­!\n"
+                f"?? ГЏГ®Г«ГіГ·ГҐГ­Г®: {listing['seller_receives']} ZГҐГІГ®ГЄ (Г§Г  ГўГ»Г·ГҐГІГ®Г¬ Г­Г Г«Г®ГЈГ )\n"
+                f"?? ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј: {message.from_user.first_name}")
         except:
             pass
 
     except Exception as e:
-        print(f"Ошибка в handle_market_buy: {e}")
-        bot.reply_to(message, "? Произошла ошибка при покупке предмета")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_market_buy: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГЄГіГЇГЄГҐ ГЇГ°ГҐГ¤Г¬ГҐГІГ ")
 
 @bot.message_handler(commands=['market_cancel', 'mcancel'])
 @group_only
@@ -1779,24 +1779,24 @@ def handle_market_cancel(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /market_cancel [id_предложения]")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /market_cancel [id_ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї]")
             return
 
         try:
             listing_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "? ID предложения должен быть числом!")
+            bot.reply_to(message, "? ID ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
         if listing_id not in market_listings:
-            bot.reply_to(message, "? Предложение не найдено!")
+            bot.reply_to(message, "? ГЏГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ Г­ГҐ Г­Г Г©Г¤ГҐГ­Г®!")
             return
 
         listing = market_listings[listing_id]
 
         if user_id != listing['seller_id']:
-            bot.reply_to(message, "? Это не ваше предложение!")
+            bot.reply_to(message, "? ГќГІГ® Г­ГҐ ГўГ ГёГҐ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ!")
             return
 
         user_balances[user_id]['items'].append(listing['item_id'])
@@ -1806,12 +1806,12 @@ def handle_market_cancel(message: Message):
         save_market_data()
 
         bot.reply_to(message,
-            f"? Предложение #{listing_id} отменено!\n"
-            f"?? {listing['item_name']} возвращен в ваш инвентарь")
+            f"? ГЏГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГҐ #{listing_id} Г®ГІГ¬ГҐГ­ГҐГ­Г®!\n"
+            f"?? {listing['item_name']} ГўГ®Г§ГўГ°Г Г№ГҐГ­ Гў ГўГ Гё ГЁГ­ГўГҐГ­ГІГ Г°Гј")
 
     except Exception as e:
-        print(f"Ошибка в handle_market_cancel: {e}")
-        bot.reply_to(message, "? Произошла ошибка при отмене предложения")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_market_cancel: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГ¬ГҐГ­ГҐ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї")
 
 @bot.message_handler(commands=['market_all', 'mall'])
 @group_only
@@ -1823,10 +1823,10 @@ def handle_market_all(message: Message):
         cleanup_expired_listings()
 
         if not market_listings:
-            bot.reply_to(message, "?? На рынке пока нет предложений!")
+            bot.reply_to(message, "?? ГЌГ  Г°Г»Г­ГЄГҐ ГЇГ®ГЄГ  Г­ГҐГІ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГ©!")
             return
 
-        response = "?? Все предложения на рынке\n\n"
+        response = "?? Г‚Г±ГҐ ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГї Г­Г  Г°Г»Г­ГЄГҐ\n\n"
 
         for listing_id, listing in market_listings.items():
             time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
@@ -1835,13 +1835,13 @@ def handle_market_all(message: Message):
 
             response += (
                 f"?? #{listing_id} - {listing['item_name']}\n"
-                f"?? Цена: {listing['price']} Zеток\n"
-                f"?? Продавец: {listing['seller_name']}\n"
-                f"? Осталось: {days}д {hours}ч\n"
+                f"?? Г–ГҐГ­Г : {listing['price']} ZГҐГІГ®ГЄ\n"
+                f"?? ГЏГ°Г®Г¤Г ГўГҐГ¶: {listing['seller_name']}\n"
+                f"? ГЋГ±ГІГ Г«Г®Г±Гј: {days}Г¤ {hours}Г·\n"
                 f"????????????????????\n"
             )
 
-        response += f"\n?? Всего предложений: {len(market_listings)}"
+        response += f"\n?? Г‚Г±ГҐГЈГ® ГЇГ°ГҐГ¤Г«Г®Г¦ГҐГ­ГЁГ©: {len(market_listings)}"
 
         if len(response) > 4000:
             parts = [response[i:i+4000] for i in range(0, len(response), 4000)]
@@ -1851,8 +1851,8 @@ def handle_market_all(message: Message):
             bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_market_all: {e}")
-        bot.reply_to(message, "? Произошла ошибка при просмотре рынка")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_market_all: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°Г®Г±Г¬Г®ГІГ°ГҐ Г°Г»Г­ГЄГ ")
 
 
 
@@ -1872,10 +1872,10 @@ def handle_transfer(message: Message):
         if message.reply_to_message:
             if len(command_parts) != 2:
                 bot.reply_to(message,
-                    "? Неверный формат команды!\n"
-                    "При ответе на сообщение используйте:\n"
-                    "/tc количество\n"
-                    "Например: /tc 10")
+                    "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                    "ГЏГ°ГЁ Г®ГІГўГҐГІГҐ Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ ГЁГ±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ:\n"
+                    "/tc ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®\n"
+                    "ГЌГ ГЇГ°ГЁГ¬ГҐГ°: /tc 10")
                 return
 
             recipient = message.reply_to_message.from_user
@@ -1886,10 +1886,10 @@ def handle_transfer(message: Message):
         else:
             if len(command_parts) != 3:
                 bot.reply_to(message,
-                    "? Неверный формат команды!\n"
-                    "Используйте один из вариантов:\n"
-                    "1. /tc @username количество\n"
-                    "2. Ответьте на сообщение командой /tc количество")
+                    "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                    "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ Г®Г¤ГЁГ­ ГЁГ§ ГўГ Г°ГЁГ Г­ГІГ®Гў:\n"
+                    "1. /tc @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®\n"
+                    "2. ГЋГІГўГҐГІГјГІГҐ Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ ГЄГ®Г¬Г Г­Г¤Г®Г© /tc ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®")
                 return
 
             recipient_username = command_parts[1].lstrip('@')
@@ -1897,7 +1897,7 @@ def handle_transfer(message: Message):
             try:
                 amount = int(command_parts[2])
             except ValueError:
-                bot.reply_to(message, "? Количество Zеток должно быть числом!")
+                bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ZГҐГІГ®ГЄ Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
                 return
 
             try:
@@ -1915,30 +1915,30 @@ def handle_transfer(message: Message):
 
                 if not recipient_found:
                     bot.reply_to(message,
-                        "? Пользователь не найден или никогда не использовал бота.\n"
-                        "Убедитесь, что:\n"
-                        "1. Указан правильный username\n"
-                        "2. Пользователь хотя бы раз запускал бота")
+                        "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­ ГЁГ«ГЁ Г­ГЁГЄГ®ГЈГ¤Г  Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г« ГЎГ®ГІГ .\n"
+                        "Г“ГЎГҐГ¤ГЁГІГҐГ±Гј, Г·ГІГ®:\n"
+                        "1. Г“ГЄГ Г§Г Г­ ГЇГ°Г ГўГЁГ«ГјГ­Г»Г© username\n"
+                        "2. ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј ГµГ®ГІГї ГЎГ» Г°Г Г§ Г§Г ГЇГіГ±ГЄГ Г« ГЎГ®ГІГ ")
                     return
 
             except Exception as e:
-                print(f"Ошибка при поиске пользователя: {e}")
-                bot.reply_to(message, "? Не удалось найти пользователя")
+                print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГЁГ±ГЄГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї: {e}")
+                bot.reply_to(message, "? ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г­Г Г©ГІГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї")
                 return
 
-        sender_balance = user_balances[sender_id]['leaves']  # Получаем количество Zеток
+        sender_balance = user_balances[sender_id]['leaves']  # ГЏГ®Г«ГіГ·Г ГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ZГҐГІГ®ГЄ
 
         if amount <= 0:
-            bot.reply_to(message, "? Количество Zеток должно быть положительным числом!")
+            bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ZГҐГІГ®ГЄ Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»Г¬ Г·ГЁГ±Г«Г®Г¬!")
             return
 
-        # Проверяем достаточно ли Zеток
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г¤Г®Г±ГІГ ГІГ®Г·Г­Г® Г«ГЁ ZГҐГІГ®ГЄ
         if amount > sender_balance:
-            bot.reply_to(message, f"? У вас недостаточно Zеток!\nВаш баланс: {sender_balance} ??")
+            bot.reply_to(message, f"? Г“ ГўГ Г± Г­ГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\nГ‚Г Гё ГЎГ Г«Г Г­Г±: {sender_balance} ??")
             return
 
         if recipient_id == sender_id:
-            bot.reply_to(message, "? Вы не можете отправить Zетки самому себе!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ Г®ГІГЇГ°Г ГўГЁГІГј ZГҐГІГЄГЁ Г±Г Г¬Г®Г¬Гі Г±ГҐГЎГҐ!")
             return
 
         init_user_data(recipient_id)
@@ -1949,23 +1949,23 @@ def handle_transfer(message: Message):
         save_user_data()
 
         bot.reply_to(message,
-            f"? Успешно отправлено {amount} Zеток пользователю {recipient_name}!\n"
-            f"Ваш новый баланс: {user_balances[sender_id]['leaves']} Zеток")
+            f"? Г“Г±ГЇГҐГёГ­Г® Г®ГІГЇГ°Г ГўГ«ГҐГ­Г® {amount} ZГҐГІГ®ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ {recipient_name}!\n"
+            f"Г‚Г Гё Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[sender_id]['leaves']} ZГҐГІГ®ГЄ")
 
         try:
             bot.send_message(recipient_id,
-                f"?? Вы получили {amount} Zеток от {message.from_user.first_name}!\n"
-                f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+                f"?? Г‚Г» ГЇГ®Г«ГіГ·ГЁГ«ГЁ {amount} ZГҐГІГ®ГЄ Г®ГІ {message.from_user.first_name}!\n"
+                f"Г‚Г Гё Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[recipient_id]['leaves']} ZГҐГІГ®ГЄ")
         except Exception as e:
-            print(f"Не удалось отправить уведомление получателю: {e}")
+            print(f"ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЇГ°Г ГўГЁГІГј ГіГўГҐГ¤Г®Г¬Г«ГҐГ­ГЁГҐ ГЇГ®Г«ГіГ·Г ГІГҐГ«Гѕ: {e}")
 
     except Exception as e:
         bot.reply_to(message,
-            "? Произошла ошибка при обработке команды.\n"
-            "Используйте один из вариантов:\n"
-            "1. /tс @username количество\n"
-            "2. Ответьте на сообщение командой /tс количество")
-        print(f"Общая ошибка в handle_transfer: {e}")
+            "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГЎГ°Г ГЎГ®ГІГЄГҐ ГЄГ®Г¬Г Г­Г¤Г».\n"
+            "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ Г®Г¤ГЁГ­ ГЁГ§ ГўГ Г°ГЁГ Г­ГІГ®Гў:\n"
+            "1. /tГ± @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®\n"
+            "2. ГЋГІГўГҐГІГјГІГҐ Г­Г  Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ ГЄГ®Г¬Г Г­Г¤Г®Г© /tГ± ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®")
+        print(f"ГЋГЎГ№Г Гї Г®ГёГЁГЎГЄГ  Гў handle_transfer: {e}")
 
 @bot.message_handler(commands=['customwork'])
 @group_only
@@ -1977,81 +1977,81 @@ def handle_custom_work(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Получаем текст после команды
+        # ГЏГ®Г«ГіГ·Г ГҐГ¬ ГІГҐГЄГ±ГІ ГЇГ®Г±Г«ГҐ ГЄГ®Г¬Г Г­Г¤Г»
         command_text = message.text.replace('/customwork', '', 1).strip()
 
         if not command_text:
-            # Если просто команда без текста - показываем текущие фразы
+            # Г…Г±Г«ГЁ ГЇГ°Г®Г±ГІГ® ГЄГ®Г¬Г Г­Г¤Г  ГЎГҐГ§ ГІГҐГЄГ±ГІГ  - ГЇГ®ГЄГ Г§Г»ГўГ ГҐГ¬ ГІГҐГЄГіГ№ГЁГҐ ГґГ°Г Г§Г»
             custom_phrases = user_balances[user_id].get('custom_work', [])
 
             if not custom_phrases:
                 response = (
-                    "?? У вас нет кастомных фраз для работы.\n\n"
-                    "Чтобы добавить, отправьте:\n"
+                    "?? Г“ ГўГ Г± Г­ГҐГІ ГЄГ Г±ГІГ®Г¬Г­Г»Гµ ГґГ°Г Г§ Г¤Г«Гї Г°Г ГЎГ®ГІГ».\n\n"
+                    "Г—ГІГ®ГЎГ» Г¤Г®ГЎГ ГўГЁГІГј, Г®ГІГЇГ°Г ГўГјГІГҐ:\n"
                     "/customwork\n"
-                    "Ваша фраза 1+{count}\n"
-                    "Ваша фраза 2+{count}\n"
-                    "(до 5 фраз, каждая с новой строки). ВАЖНО! команда именно /customwork, без @ник_бота"
+                    "Г‚Г ГёГ  ГґГ°Г Г§Г  1+{count}\n"
+                    "Г‚Г ГёГ  ГґГ°Г Г§Г  2+{count}\n"
+                    "(Г¤Г® 5 ГґГ°Г Г§, ГЄГ Г¦Г¤Г Гї Г± Г­Г®ГўГ®Г© Г±ГІГ°Г®ГЄГЁ). Г‚ГЂГ†ГЌГЋ! ГЄГ®Г¬Г Г­Г¤Г  ГЁГ¬ГҐГ­Г­Г® /customwork, ГЎГҐГ§ @Г­ГЁГЄ_ГЎГ®ГІГ "
                 )
             else:
-                response = "?? Ваши текущие фразы для работы:\n\n" + "\n".join(
+                response = "?? Г‚Г ГёГЁ ГІГҐГЄГіГ№ГЁГҐ ГґГ°Г Г§Г» Г¤Г«Гї Г°Г ГЎГ®ГІГ»:\n\n" + "\n".join(
                     f"{i+1}. {phrase}" for i, phrase in enumerate(custom_phrases)
-                ) + "\n\nОтправьте /customwork с новыми фразами для обновления"
+                ) + "\n\nГЋГІГЇГ°Г ГўГјГІГҐ /customwork Г± Г­Г®ГўГ»Г¬ГЁ ГґГ°Г Г§Г Г¬ГЁ Г¤Г«Гї Г®ГЎГ­Г®ГўГ«ГҐГ­ГЁГї"
 
             bot.reply_to(message, response)
             return
 
-        # Разбиваем на фразы (максимум 5)
+        # ГђГ Г§ГЎГЁГўГ ГҐГ¬ Г­Г  ГґГ°Г Г§Г» (Г¬Г ГЄГ±ГЁГ¬ГіГ¬ 5)
         phrases = [p.strip() for p in command_text.split('\n') if p.strip()][:5]
 
         if len(phrases) < 2:
             bot.reply_to(message,
-                "? Нужно указать хотя бы 2 фразы (каждая с новой строки)!\n\n"
-                "Пример:\n"
+                "? ГЌГіГ¦Г­Г® ГіГЄГ Г§Г ГІГј ГµГ®ГІГї ГЎГ» 2 ГґГ°Г Г§Г» (ГЄГ Г¦Г¤Г Гї Г± Г­Г®ГўГ®Г© Г±ГІГ°Г®ГЄГЁ)!\n\n"
+                "ГЏГ°ГЁГ¬ГҐГ°:\n"
                 "/customwork\n"
-                "Отлично поработал! +{count} Zеток\n"
-                "Молодец! Получаешь {count} соц.Zетоков")
+                "ГЋГІГ«ГЁГ·Г­Г® ГЇГ®Г°Г ГЎГ®ГІГ Г«! +{count} ZГҐГІГ®ГЄ\n"
+                "ГЊГ®Г«Г®Г¤ГҐГ¶! ГЏГ®Г«ГіГ·Г ГҐГёГј {count} Г±Г®Г¶.ZГҐГІГ®ГЄГ®Гў")
             return
 
-        # Сохраняем фразы
+        # Г‘Г®ГµГ°Г Г­ГїГҐГ¬ ГґГ°Г Г§Г»
         user_balances[user_id]['custom_work'] = phrases
         save_user_data()
 
         bot.reply_to(message,
-            f"? Установлено {len(phrases)} кастомных фраз для работы!\n"
-            "Теперь при использовании /farm будут использоваться ваши фразы.")
+            f"? Г“Г±ГІГ Г­Г®ГўГ«ГҐГ­Г® {len(phrases)} ГЄГ Г±ГІГ®Г¬Г­Г»Гµ ГґГ°Г Г§ Г¤Г«Гї Г°Г ГЎГ®ГІГ»!\n"
+            "Г’ГҐГЇГҐГ°Гј ГЇГ°ГЁ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГЁ /farm ГЎГіГ¤ГіГІ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГјГ±Гї ГўГ ГёГЁ ГґГ°Г Г§Г».")
 
     except Exception as e:
-        print(f"Ошибка в handle_custom_work: {e}")
-        bot.reply_to(message, "? Произошла ошибка при сохранении кастомных фраз")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_custom_work: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®ГµГ°Г Г­ГҐГ­ГЁГЁ ГЄГ Г±ГІГ®Г¬Г­Г»Гµ ГґГ°Г Г§")
 
 @bot.message_handler(commands=['give'])
 def handle_give(message: Message):
     try:
-        # Проверяем права администратора
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЇГ°Г ГўГ  Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г 
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         if len(command_parts) != 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /give @username количество")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /give @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®")
             return
 
-        # Получаем username получателя (убираем @ если есть)
+        # ГЏГ®Г«ГіГ·Г ГҐГ¬ username ГЇГ®Г«ГіГ·Г ГІГҐГ«Гї (ГіГЎГЁГ°Г ГҐГ¬ @ ГҐГ±Г«ГЁ ГҐГ±ГІГј)
         recipient_username = command_parts[1].lstrip('@')
 
         try:
             amount = int(command_parts[2])
             if amount <= 0:
-                bot.reply_to(message, "? Количество Zеток должно быть положительным числом!")
+                bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ZГҐГІГ®ГЄ Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»Г¬ Г·ГЁГ±Г«Г®Г¬!")
                 return
         except ValueError:
-            bot.reply_to(message, "? Количество Zеток должно быть числом!")
+            bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® ZГҐГІГ®ГЄ Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
         try:
@@ -2069,15 +2069,15 @@ def handle_give(message: Message):
 
             if not recipient_found:
                 bot.reply_to(message,
-                    "? Пользователь не найден или никогда не использовал бота.\n"
-                    "Убедитесь, что:\n"
-                    "1. Указан правильный username\n"
-                    "2. Пользователь хотя бы раз запускал бота")
+                    "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­ ГЁГ«ГЁ Г­ГЁГЄГ®ГЈГ¤Г  Г­ГҐ ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г« ГЎГ®ГІГ .\n"
+                    "Г“ГЎГҐГ¤ГЁГІГҐГ±Гј, Г·ГІГ®:\n"
+                    "1. Г“ГЄГ Г§Г Г­ ГЇГ°Г ГўГЁГ«ГјГ­Г»Г© username\n"
+                    "2. ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј ГµГ®ГІГї ГЎГ» Г°Г Г§ Г§Г ГЇГіГ±ГЄГ Г« ГЎГ®ГІГ ")
                 return
 
         except Exception as e:
-            print(f"Ошибка при поиске пользователя: {e}")
-            bot.reply_to(message, "? Не удалось найти пользователя")
+            print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГЁГ±ГЄГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї: {e}")
+            bot.reply_to(message, "? ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г­Г Г©ГІГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї")
             return
 
         init_user_data(recipient_id)
@@ -2087,21 +2087,21 @@ def handle_give(message: Message):
         save_user_data()
 
         bot.reply_to(message,
-            f"? Успешно выдано {amount} Zеток пользователю {recipient_name}!\n"
-            f"Его новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+            f"? Г“Г±ГЇГҐГёГ­Г® ГўГ»Г¤Г Г­Г® {amount} ZГҐГІГ®ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ {recipient_name}!\n"
+            f"Г…ГЈГ® Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[recipient_id]['leaves']} ZГҐГІГ®ГЄ")
 
         try:
             bot.send_message(recipient_id,
-                f"?? Администратор выдал вам {amount} Zеток!\n"
-                f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+                f"?? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° ГўГ»Г¤Г Г« ГўГ Г¬ {amount} ZГҐГІГ®ГЄ!\n"
+                f"Г‚Г Гё Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[recipient_id]['leaves']} ZГҐГІГ®ГЄ")
         except Exception as e:
-            print(f"Не удалось отправить уведомление получателю: {e}")
+            print(f"ГЌГҐ ГіГ¤Г Г«Г®Г±Гј Г®ГІГЇГ°Г ГўГЁГІГј ГіГўГҐГ¤Г®Г¬Г«ГҐГ­ГЁГҐ ГЇГ®Г«ГіГ·Г ГІГҐГ«Гѕ: {e}")
 
     except Exception as e:
         bot.reply_to(message,
-            "? Произошла ошибка при обработке команды.\n"
-            "Используйте: /give @username количество")
-        print(f"Общая ошибка в handle_give: {e}")
+            "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГЎГ°Г ГЎГ®ГІГЄГҐ ГЄГ®Г¬Г Г­Г¤Г».\n"
+            "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /give @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®")
+        print(f"ГЋГЎГ№Г Гї Г®ГёГЁГЎГЄГ  Гў handle_give: {e}")
 
 @bot.message_handler(commands=['me'])
 @group_only
@@ -2116,111 +2116,111 @@ def handle_me(message: Message):
         last_farm = user_balances[user_id]['last_farm']
 
         if can_farm(last_farm, user_id):
-            farm_status = "? Доступен"
+            farm_status = "? Г„Г®Г±ГІГіГЇГҐГ­"
         else:
             time_until_next = 3600 - (current_time - last_farm)
             remaining_time = format_remaining_time(time_until_next)
-            farm_status = f"? Через {remaining_time}"
+            farm_status = f"? Г—ГҐГ°ГҐГ§ {remaining_time}"
 
         warnings = user_balances[user_id].get('warnings', [])
-        warnings_text = f"\n?? Предупреждений: {len(warnings)}/{MAX_WARNINGS}"
+        warnings_text = f"\n?? ГЏГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©: {len(warnings)}/{MAX_WARNINGS}"
         if warnings:
-            warnings_text += "\nПоследнее предупреждение:\n"
+            warnings_text += "\nГЏГ®Г±Г«ГҐГ¤Г­ГҐГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ:\n"
             last_warn = warnings[-1]
             time_left = WARNING_DURATION - (datetime.datetime.now().timestamp() - last_warn['time'])
             days_left = int(time_left // (24 * 60 * 60))
-            warnings_text += f"Причина: {last_warn['reason']}\n"
-            warnings_text += f"Выдал: {last_warn['admin']}\n"
-            warnings_text += f"Будет снято через: {days_left} дней"
+            warnings_text += f"ГЏГ°ГЁГ·ГЁГ­Г : {last_warn['reason']}\n"
+            warnings_text += f"Г‚Г»Г¤Г Г«: {last_warn['admin']}\n"
+            warnings_text += f"ГЃГіГ¤ГҐГІ Г±Г­ГїГІГ® Г·ГҐГ°ГҐГ§: {days_left} Г¤Г­ГҐГ©"
         response = (
-            f"?? Профиль игрока\n\n"
-            f"Имя: {user.first_name}\n"
+            f"?? ГЏГ°Г®ГґГЁГ«Гј ГЁГЈГ°Г®ГЄГ \n\n"
+            f"Г€Г¬Гї: {user.first_name}\n"
             f"ID: {user.id}\n"
-            f"Username: @{user.username if user.username else 'отсутствует'}\n\n"
-            f"?? Баланс:\n"
-            f"?? Zетки: {user_balances[user_id]['leaves']}\n"
-            f"?? Территории: {user_balances[user_id]['tea']}"
-            f"?? Следующий сбор: {farm_status}\n"
-            f"?? Администратор: {'Да' if is_admin(user_id) else 'Нет'}"
+            f"Username: @{user.username if user.username else 'Г®ГІГ±ГіГІГ±ГІГўГіГҐГІ'}\n\n"
+            f"?? ГЃГ Г«Г Г­Г±:\n"
+            f"?? ZГҐГІГЄГЁ: {user_balances[user_id]['leaves']}\n"
+            f"?? Г’ГҐГ°Г°ГЁГІГ®Г°ГЁГЁ: {user_balances[user_id]['tea']}"
+            f"?? Г‘Г«ГҐГ¤ГіГѕГ№ГЁГ© Г±ГЎГ®Г°: {farm_status}\n"
+            f"?? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°: {'Г„Г ' if is_admin(user_id) else 'ГЌГҐГІ'}"
             f"{warnings_text}"
         )
 
         if user_balances[user_id].get('banned', False):
-            response += f"\n\n?? Аккаунт заблокирован!\nПричина: {user_balances[user_id].get('ban_reason', 'не указана')}"
+            response += f"\n\n?? ГЂГЄГЄГ ГіГ­ГІ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!\nГЏГ°ГЁГ·ГЁГ­Г : {user_balances[user_id].get('ban_reason', 'Г­ГҐ ГіГЄГ Г§Г Г­Г ')}"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_me: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении информации. Попробуйте позже.")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_me: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ. ГЏГ®ГЇГ°Г®ГЎГіГ©ГІГҐ ГЇГ®Г§Г¦ГҐ.")
 @bot.message_handler(commands=['end_event'])
 def handle_end_event(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         global HALLOWEEN_EVENT_ACTIVE
         HALLOWEEN_EVENT_ACTIVE = False
         end_halloween_event()
 
-        bot.reply_to(message, "? Хэллоуинский ивент завершен досрочно!")
+        bot.reply_to(message, "? Г•ГЅГ«Г«Г®ГіГЁГ­Г±ГЄГЁГ© ГЁГўГҐГ­ГІ Г§Г ГўГҐГ°ГёГҐГ­ Г¤Г®Г±Г°Г®Г·Г­Г®!")
 
     except Exception as e:
-        print(f"Ошибка в handle_end_event: {e}")
-        bot.reply_to(message, "? Произошла ошибка при завершении ивента")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_end_event: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г§Г ГўГҐГ°ГёГҐГ­ГЁГЁ ГЁГўГҐГ­ГІГ ")
 @bot.message_handler(commands=['admin'])
 def handle_admin(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         admin_text = (
-            f"?? Панель администратора\n\n"
-            f"Доступные команды:\n"
-            f"?? /give @username количество - выдать соц Zеток\n"
-            f"?? /take @username количество - забрать соц Zеток\n"
-            f"?? /reset @username - сбросить таймер сбора\n"
-            f"?? /stats - подробная статистика\n"
-            f"?? /announce текст - отправить объявление всем\n"
-            f"?? /warn @username причина - выдать предупреждение\n"
-            f"? /unwarn @username - снять предупреждение\n"
-            f"?? /ban @username причина - заблокировать пользователя\n"
-            f"?? /unban @username - разблокировать пользователя\n\n"
-            f"Система предупреждений:\n"
-            f"• Предупреждения снимаются автоматически через 7 дней\n"
-            f"• При достижении {MAX_WARNINGS} предупреждений - автобан"
+            f"?? ГЏГ Г­ГҐГ«Гј Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г \n\n"
+            f"Г„Г®Г±ГІГіГЇГ­Г»ГҐ ГЄГ®Г¬Г Г­Г¤Г»:\n"
+            f"?? /give @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® - ГўГ»Г¤Г ГІГј Г±Г®Г¶ ZГҐГІГ®ГЄ\n"
+            f"?? /take @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® - Г§Г ГЎГ°Г ГІГј Г±Г®Г¶ ZГҐГІГ®ГЄ\n"
+            f"?? /reset @username - Г±ГЎГ°Г®Г±ГЁГІГј ГІГ Г©Г¬ГҐГ° Г±ГЎГ®Г°Г \n"
+            f"?? /stats - ГЇГ®Г¤Г°Г®ГЎГ­Г Гї Г±ГІГ ГІГЁГ±ГІГЁГЄГ \n"
+            f"?? /announce ГІГҐГЄГ±ГІ - Г®ГІГЇГ°Г ГўГЁГІГј Г®ГЎГєГїГўГ«ГҐГ­ГЁГҐ ГўГ±ГҐГ¬\n"
+            f"?? /warn @username ГЇГ°ГЁГ·ГЁГ­Г  - ГўГ»Г¤Г ГІГј ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ\n"
+            f"? /unwarn @username - Г±Г­ГїГІГј ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ\n"
+            f"?? /ban @username ГЇГ°ГЁГ·ГЁГ­Г  - Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ ГІГј ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї\n"
+            f"?? /unban @username - Г°Г Г§ГЎГ«Г®ГЄГЁГ°Г®ГўГ ГІГј ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї\n\n"
+            f"Г‘ГЁГ±ГІГҐГ¬Г  ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©:\n"
+            f"В• ГЏГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї Г±Г­ГЁГ¬Г ГѕГІГ±Гї Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ Г·ГҐГ°ГҐГ§ 7 Г¤Г­ГҐГ©\n"
+            f"В• ГЏГ°ГЁ Г¤Г®Г±ГІГЁГ¦ГҐГ­ГЁГЁ {MAX_WARNINGS} ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ© - Г ГўГІГ®ГЎГ Г­"
         )
         bot.reply_to(message, admin_text)
 
     except Exception as e:
-        print(f"Ошибка в handle_admin: {e}")
-        bot.reply_to(message, "? Произошла ошибка при открытии панели администратора")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_admin: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЄГ°Г»ГІГЁГЁ ГЇГ Г­ГҐГ«ГЁ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г°Г ")
 
 @bot.message_handler(commands=['take'])
 def handle_take(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 3:
-            bot.reply_to(message, "? Используйте: /take @username количество")
+            bot.reply_to(message, "? Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /take @username ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ®")
             return
 
         recipient_username = command_parts[1].lstrip('@')
         try:
             amount = int(command_parts[2])
             if amount <= 0:
-                bot.reply_to(message, "? Количество должно быть положительным числом!")
+                bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЇГ®Г«Г®Г¦ГЁГІГҐГ«ГјГ­Г»Г¬ Г·ГЁГ±Г«Г®Г¬!")
                 return
         except ValueError:
-            bot.reply_to(message, "? Количество должно быть числом!")
+            bot.reply_to(message, "? ГЉГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј Г·ГЁГ±Г«Г®Г¬!")
             return
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2234,55 +2234,55 @@ def handle_take(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         init_user_data(recipient_id)
 
-        # Проверяем баланс
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЎГ Г«Г Г­Г±
         if user_balances[recipient_id]['leaves'] < amount:
             bot.reply_to(message,
-                f"? У пользователя недостаточно Zеток!\n"
-                f"Доступно: {user_balances[recipient_id]['leaves']} ??")
+                f"? Г“ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї Г­ГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\n"
+                f"Г„Г®Г±ГІГіГЇГ­Г®: {user_balances[recipient_id]['leaves']} ??")
             return
 
-        # Забираем Zетки
+        # Г‡Г ГЎГЁГ°Г ГҐГ¬ ZГҐГІГЄГЁ
         user_balances[recipient_id]['leaves'] -= amount
         save_user_data()
 
         bot.reply_to(message,
-            f"? Успешно изъято {amount} Zеток у пользователя {recipient_name}!\n"
-            f"Его новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+            f"? Г“Г±ГЇГҐГёГ­Г® ГЁГ§ГєГїГІГ® {amount} ZГҐГІГ®ГЄ Гі ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї {recipient_name}!\n"
+            f"Г…ГЈГ® Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[recipient_id]['leaves']} ZГҐГІГ®ГЄ")
 
         bot.send_message(recipient_id,
-            f"?? Администратор изъял у вас {amount} Zеток!\n"
-            f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+            f"?? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° ГЁГ§ГєГїГ« Гі ГўГ Г± {amount} ZГҐГІГ®ГЄ!\n"
+            f"Г‚Г Гё Г­Г®ГўГ»Г© ГЎГ Г«Г Г­Г±: {user_balances[recipient_id]['leaves']} ZГҐГІГ®ГЄ")
 
     except Exception as e:
-        print(f"Ошибка в handle_take: {e}")
-        bot.reply_to(message, "? Произошла ошибка при изъятии Zеток")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_take: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЁГ§ГєГїГІГЁГЁ ZГҐГІГ®ГЄ")
 
 @bot.message_handler(commands=['stats'])
 def handle_stats(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         users_count = len(user_balances)
         total_leaves = sum(u['leaves'] for u in user_balances.values())
         total_tea = sum(u['tea'] for u in user_balances.values())
 
-        # Находим самых богатых пользователей
+        # ГЌГ ГµГ®Г¤ГЁГ¬ Г±Г Г¬Г»Гµ ГЎГ®ГЈГ ГІГ»Гµ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ©
         sorted_by_leaves = sorted(user_balances.items(), key=lambda x: x[1]['leaves'], reverse=True)[:5]
         sorted_by_tea = sorted(user_balances.items(), key=lambda x: x[1]['tea'], reverse=True)[:5]
 
         response = (
-            f"?? Подробная статистика бота\n\n"
-            f"?? Всего пользователей: {users_count}\n"
-            f"?? Всего Zеток: {total_leaves}\n"
-            f"?? Всего территорий: {total_tea}\n\n"
-            f"?? Топ-5 по Zетоку:\n"
+            f"?? ГЏГ®Г¤Г°Г®ГЎГ­Г Гї Г±ГІГ ГІГЁГ±ГІГЁГЄГ  ГЎГ®ГІГ \n\n"
+            f"?? Г‚Г±ГҐГЈГ® ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«ГҐГ©: {users_count}\n"
+            f"?? Г‚Г±ГҐГЈГ® ZГҐГІГ®ГЄ: {total_leaves}\n"
+            f"?? Г‚Г±ГҐГЈГ® ГІГҐГ°Г°ГЁГІГ®Г°ГЁГ©: {total_tea}\n\n"
+            f"?? Г’Г®ГЇ-5 ГЇГ® ZГҐГІГ®ГЄГі:\n"
         )
 
         for i, (user_id, data) in enumerate(sorted_by_leaves, 1):
@@ -2292,7 +2292,7 @@ def handle_stats(message: Message):
             except:
                 continue
 
-        response += f"\n?? Топ-5 по территориям:\n"
+        response += f"\n?? Г’Г®ГЇ-5 ГЇГ® ГІГҐГ°Г°ГЁГІГ®Г°ГЁГїГ¬:\n"
 
         for i, (user_id, data) in enumerate(sorted_by_tea, 1):
             try:
@@ -2304,19 +2304,19 @@ def handle_stats(message: Message):
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_stats: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении статистики")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_stats: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ Г±ГІГ ГІГЁГ±ГІГЁГЄГЁ")
 
 @bot.message_handler(commands=['announce'])
 def handle_announce(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         announcement_text = message.text.replace('/announce', '', 1).strip()
         if not announcement_text:
-            bot.reply_to(message, "? Укажите текст объявления!")
+            bot.reply_to(message, "? Г“ГЄГ Г¦ГЁГІГҐ ГІГҐГЄГ±ГІ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї!")
             return
 
         success_count = 0
@@ -2325,7 +2325,7 @@ def handle_announce(message: Message):
         for user_id in user_balances.keys():
             try:
                 bot.send_message(user_id,
-                    f"?? Объявление от администрации:\n\n"
+                    f"?? ГЋГЎГєГїГўГ«ГҐГ­ГЁГҐ Г®ГІ Г Г¤Г¬ГЁГ­ГЁГ±ГІГ°Г Г¶ГЁГЁ:\n\n"
                     f"{announcement_text}")
                 success_count += 1
             except:
@@ -2333,29 +2333,29 @@ def handle_announce(message: Message):
                 continue
 
         bot.reply_to(message,
-            f"? Объявление отправлено!\n"
-            f"Успешно: {success_count}\n"
-            f"Не доставлено: {fail_count}")
+            f"? ГЋГЎГєГїГўГ«ГҐГ­ГЁГҐ Г®ГІГЇГ°Г ГўГ«ГҐГ­Г®!\n"
+            f"Г“Г±ГЇГҐГёГ­Г®: {success_count}\n"
+            f"ГЌГҐ Г¤Г®Г±ГІГ ГўГ«ГҐГ­Г®: {fail_count}")
 
     except Exception as e:
-        print(f"Ошибка в handle_announce: {e}")
-        bot.reply_to(message, "? Произошла ошибка при отправке объявления")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_announce: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЇГ°Г ГўГЄГҐ Г®ГЎГєГїГўГ«ГҐГ­ГЁГї")
 
 @bot.message_handler(commands=['reset'])
 def handle_reset(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message, "? Используйте: /reset @username")
+            bot.reply_to(message, "? Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /reset @username")
             return
 
         recipient_username = command_parts[1].lstrip('@')
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2369,38 +2369,38 @@ def handle_reset(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Сбрасываем таймер
+        # Г‘ГЎГ°Г Г±Г»ГўГ ГҐГ¬ ГІГ Г©Г¬ГҐГ°
         user_balances[recipient_id]['last_farm'] = 0
         save_user_data()
 
-        bot.reply_to(message, f"? Таймер сбора для {recipient_name} сброшен!")
-        bot.send_message(recipient_id, "?? Администратор сбросил ваш таймер сбора!\nВы можете собирать Zетки!")
+        bot.reply_to(message, f"? Г’Г Г©Г¬ГҐГ° Г±ГЎГ®Г°Г  Г¤Г«Гї {recipient_name} Г±ГЎГ°Г®ГёГҐГ­!")
+        bot.send_message(recipient_id, "?? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° Г±ГЎГ°Г®Г±ГЁГ« ГўГ Гё ГІГ Г©Г¬ГҐГ° Г±ГЎГ®Г°Г !\nГ‚Г» Г¬Г®Г¦ГҐГІГҐ Г±Г®ГЎГЁГ°Г ГІГј ZГҐГІГЄГЁ!")
 
     except Exception as e:
-        print(f"Ошибка в handle_reset: {e}")
-        bot.reply_to(message, "? Произошла ошибка при сбросе таймера")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_reset: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±ГЎГ°Г®Г±ГҐ ГІГ Г©Г¬ГҐГ°Г ")
 
 @bot.message_handler(commands=['warn'])
 def handle_warn(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) < 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /warn @username причина")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /warn @username ГЇГ°ГЁГ·ГЁГ­Г ")
             return
 
         recipient_username = command_parts[1].lstrip('@')
         warn_reason = ' '.join(command_parts[2:])
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2414,13 +2414,13 @@ def handle_warn(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         init_user_data(recipient_id)
-        check_warnings(recipient_id)  # Очищаем устаревшие предупреждения
+        check_warnings(recipient_id)  # ГЋГ·ГЁГ№Г ГҐГ¬ ГіГ±ГІГ Г°ГҐГўГёГЁГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї
 
-        # Добавляем предупреждение
+        # Г„Г®ГЎГ ГўГ«ГїГҐГ¬ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ
         warning = {
             'reason': warn_reason,
             'time': datetime.datetime.now().timestamp(),
@@ -2436,45 +2436,45 @@ def handle_warn(message: Message):
         warnings_count = len(user_balances[recipient_id]['warnings'])
 
         response = (
-            f"?? Выдано предупреждение пользователю {recipient_name}!\n"
-            f"Причина: {warn_reason}\n"
-            f"Всего предупреждений: {warnings_count}/{MAX_WARNINGS}\n"
-            f"Предупреждение будет снято через 7 дней"
+            f"?? Г‚Г»Г¤Г Г­Г® ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гѕ {recipient_name}!\n"
+            f"ГЏГ°ГЁГ·ГЁГ­Г : {warn_reason}\n"
+            f"Г‚Г±ГҐГЈГ® ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©: {warnings_count}/{MAX_WARNINGS}\n"
+            f"ГЏГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ ГЎГіГ¤ГҐГІ Г±Г­ГїГІГ® Г·ГҐГ°ГҐГ§ 7 Г¤Г­ГҐГ©"
         )
 
         if warnings_count >= MAX_WARNINGS:
-            response += f"\n\n?? Пользователь автоматически заблокирован за {MAX_WARNINGS} предупреждений!"
+            response += f"\n\n?? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­ Г§Г  {MAX_WARNINGS} ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©!"
 
         bot.reply_to(message, response)
 
         bot.send_message(recipient_id,
-            f"?? Вы получили предупреждение!\n"
-            f"Причина: {warn_reason}\n"
-            f"Всего предупреждений: {warnings_count}/{MAX_WARNINGS}\n"
-            f"Предупреждение будет снято через 7 дней")
+            f"?? Г‚Г» ГЇГ®Г«ГіГ·ГЁГ«ГЁ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ!\n"
+            f"ГЏГ°ГЁГ·ГЁГ­Г : {warn_reason}\n"
+            f"Г‚Г±ГҐГЈГ® ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©: {warnings_count}/{MAX_WARNINGS}\n"
+            f"ГЏГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ ГЎГіГ¤ГҐГІ Г±Г­ГїГІГ® Г·ГҐГ°ГҐГ§ 7 Г¤Г­ГҐГ©")
 
     except Exception as e:
-        print(f"Ошибка в handle_warn: {e}")
-        bot.reply_to(message, "? Произошла ошибка при выдаче предупреждения")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_warn: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»Г¤Г Г·ГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї")
 
 @bot.message_handler(commands=['ban'])
 def handle_ban(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) < 3:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /ban @username причина")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /ban @username ГЇГ°ГЁГ·ГЁГ­Г ")
             return
 
         recipient_username = command_parts[1].lstrip('@')
         ban_reason = ' '.join(command_parts[2:])
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2488,45 +2488,45 @@ def handle_ban(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         init_user_data(recipient_id)
 
-        # Блокируем пользователя
+        # ГЃГ«Г®ГЄГЁГ°ГіГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         user_balances[recipient_id]['banned'] = True
         user_balances[recipient_id]['ban_reason'] = ban_reason
         save_user_data()
 
         bot.reply_to(message,
-            f"?? Пользователь {recipient_name} заблокирован!\n"
-            f"Причина: {ban_reason}")
+            f"?? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј {recipient_name} Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!\n"
+            f"ГЏГ°ГЁГ·ГЁГ­Г : {ban_reason}")
 
         bot.send_message(recipient_id,
-            f"?? Вы были заблокированы!\n"
-            f"Причина: {ban_reason}")
+            f"?? Г‚Г» ГЎГ»Г«ГЁ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­Г»!\n"
+            f"ГЏГ°ГЁГ·ГЁГ­Г : {ban_reason}")
 
     except Exception as e:
-        print(f"Ошибка в handle_ban: {e}")
-        bot.reply_to(message, "? Произошла ошибка при блокировке пользователя")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_ban: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї")
 
 @bot.message_handler(commands=['unwarn'])
 def handle_unwarn(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /unwarn @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /unwarn @username")
             return
 
         recipient_username = command_parts[1].lstrip('@')
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2540,51 +2540,51 @@ def handle_unwarn(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         init_user_data(recipient_id)
-        check_warnings(recipient_id)  # Очищаем устаревшие предупреждения
+        check_warnings(recipient_id)  # ГЋГ·ГЁГ№Г ГҐГ¬ ГіГ±ГІГ Г°ГҐГўГёГЁГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї
 
         if not user_balances[recipient_id].get('warnings', []):
-            bot.reply_to(message, f"? У пользователя {recipient_name} нет активных предупреждений!")
+            bot.reply_to(message, f"? Г“ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї {recipient_name} Г­ГҐГІ Г ГЄГІГЁГўГ­Г»Гµ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©!")
             return
 
-        # Снимаем последнее предупреждение
+        # Г‘Г­ГЁГ¬Г ГҐГ¬ ГЇГ®Г±Г«ГҐГ¤Г­ГҐГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ
         user_balances[recipient_id]['warnings'].pop()
         save_user_data()
 
         warnings_count = len(user_balances[recipient_id]['warnings'])
 
         bot.reply_to(message,
-            f"? Снято предупреждение у пользователя {recipient_name}!\n"
-            f"Осталось предупреждений: {warnings_count}")
+            f"? Г‘Г­ГїГІГ® ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ Гі ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї {recipient_name}!\n"
+            f"ГЋГ±ГІГ Г«Г®Г±Гј ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©: {warnings_count}")
 
         bot.send_message(recipient_id,
-            f"? Администратор снял с вас одно предупреждение!\n"
-            f"Осталось предупреждений: {warnings_count}")
+            f"? ГЂГ¤Г¬ГЁГ­ГЁГ±ГІГ°Г ГІГ®Г° Г±Г­ГїГ« Г± ГўГ Г± Г®Г¤Г­Г® ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГҐ!\n"
+            f"ГЋГ±ГІГ Г«Г®Г±Гј ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГ©: {warnings_count}")
 
     except Exception as e:
-        print(f"Ошибка в handle_unwarn: {e}")
-        bot.reply_to(message, "? Произошла ошибка при снятии предупреждения")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_unwarn: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г­ГїГІГЁГЁ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї")
 
 @bot.message_handler(commands=['unban'])
 def handle_unban(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "? У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГї ГЅГІГ®Г© ГЄГ®Г¬Г Г­Г¤Г»!")
             return
 
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /unban @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /unban @username")
             return
 
         recipient_username = command_parts[1].lstrip('@')
 
-        # Поиск пользователя
+        # ГЏГ®ГЁГ±ГЄ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2598,34 +2598,34 @@ def handle_unban(message: Message):
                 continue
 
         if not recipient_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         init_user_data(recipient_id)
 
-        # Проверяем, забанен ли пользователь
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г§Г ГЎГ Г­ГҐГ­ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј
         if not user_balances[recipient_id].get('banned', False):
-            bot.reply_to(message, f"? Пользователь {recipient_name} не заблокирован!")
+            bot.reply_to(message, f"? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј {recipient_name} Г­ГҐ Г§Г ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!")
             return
 
-        # Разблокируем пользователя
+        # ГђГ Г§ГЎГ«Г®ГЄГЁГ°ГіГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         user_balances[recipient_id]['banned'] = False
         user_balances[recipient_id]['ban_reason'] = ''
-        user_balances[recipient_id]['warnings'] = []  # Очищаем все предупреждения
+        user_balances[recipient_id]['warnings'] = []  # ГЋГ·ГЁГ№Г ГҐГ¬ ГўГ±ГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї
         save_user_data()
 
         bot.reply_to(message,
-            f"? Пользователь {recipient_name} разблокирован!\n"
-            f"Все предупреждения сняты.")
+            f"? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј {recipient_name} Г°Г Г§ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!\n"
+            f"Г‚Г±ГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї Г±Г­ГїГІГ».")
 
         bot.send_message(recipient_id,
-            "?? Ваш аккаунт разблокирован!\n"
-            "Все предупреждения сняты.\n"
-            "Теперь вы снова можете пользоваться ботом.")
+            "?? Г‚Г Гё Г ГЄГЄГ ГіГ­ГІ Г°Г Г§ГЎГ«Г®ГЄГЁГ°Г®ГўГ Г­!\n"
+            "Г‚Г±ГҐ ГЇГ°ГҐГ¤ГіГЇГ°ГҐГ¦Г¤ГҐГ­ГЁГї Г±Г­ГїГІГ».\n"
+            "Г’ГҐГЇГҐГ°Гј ГўГ» Г±Г­Г®ГўГ  Г¬Г®Г¦ГҐГІГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГјГ±Гї ГЎГ®ГІГ®Г¬.")
 
     except Exception as e:
-        print(f"Ошибка в handle_unban: {e}")
-        bot.reply_to(message, "? Произошла ошибка при разблокировке пользователя")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_unban: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г°Г Г§ГЎГ«Г®ГЄГЁГ°Г®ГўГЄГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї")
 
 @bot.message_handler(commands=['clan'])
 @group_only
@@ -2637,16 +2637,16 @@ def handle_clan(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Если у пользователя нет клана
+        # Г…Г±Г«ГЁ Гі ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї Г­ГҐГІ ГЄГ«Г Г­Г 
         if not user_balances[user_id]['clan']:
             response = (
-                f"?? Система кланов\n\n"
-                f"Вы не состоите в клане.\n"
-                f"Доступные действия:\n"
-                f"• /clan_create [название] - создать клан ({CLAN_PRICE} Zеток)\n"
-                f"• /clan_join [название] - вступить в клан\n"
-                f"• /clan_list - список кланов\n\n"
-                f"? Используйте /clan_help для подробной информации о системе кланов"
+                f"?? Г‘ГЁГ±ГІГҐГ¬Г  ГЄГ«Г Г­Г®Гў\n\n"
+                f"Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ.\n"
+                f"Г„Г®Г±ГІГіГЇГ­Г»ГҐ Г¤ГҐГ©Г±ГІГўГЁГї:\n"
+                f"В• /clan_create [Г­Г Г§ГўГ Г­ГЁГҐ] - Г±Г®Г§Г¤Г ГІГј ГЄГ«Г Г­ ({CLAN_PRICE} ZГҐГІГ®ГЄ)\n"
+                f"В• /clan_join [Г­Г Г§ГўГ Г­ГЁГҐ] - ГўГ±ГІГіГЇГЁГІГј Гў ГЄГ«Г Г­\n"
+                f"В• /clan_list - Г±ГЇГЁГ±Г®ГЄ ГЄГ«Г Г­Г®Гў\n\n"
+                f"? Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan_help Г¤Г«Гї ГЇГ®Г¤Г°Г®ГЎГ­Г®Г© ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ Г® Г±ГЁГ±ГІГҐГ¬ГҐ ГЄГ«Г Г­Г®Гў"
             )
         else:
             clan_id = user_balances[user_id]['clan']
@@ -2656,32 +2656,32 @@ def handle_clan(message: Message):
             members = [uid for uid, data in user_balances.items() if data.get('clan') == clan_id]
 
             response = (
-                f"?? Клан «{clan['name']}»\n\n"
-                f"?? Лидер: {get_username(clan['leader'])}\n"
-                f"?? Участников: {len(members)}\n"
-                f"?? Ваша роль: {get_role_name(role)}\n\n"
+                f"?? ГЉГ«Г Г­ В«{clan['name']}В»\n\n"
+                f"?? Г‹ГЁГ¤ГҐГ°: {get_username(clan['leader'])}\n"
+                f"?? Г“Г·Г Г±ГІГ­ГЁГЄГ®Гў: {len(members)}\n"
+                f"?? Г‚Г ГёГ  Г°Г®Г«Гј: {get_role_name(role)}\n\n"
             )
 
             if role in ['leader', 'officer']:
                 response += (
-                    f"Команды управления:\n"
-                    f"• /clan_invite @username - пригласить игрока\n"
-                    f"• /clan_kick @username - исключить игрока\n"
-                    f"• /clan_promote @username - повысить до офицера\n"
-                    f"• /clan_demote @username - понизить до участника\n"
+                    f"ГЉГ®Г¬Г Г­Г¤Г» ГіГЇГ°Г ГўГ«ГҐГ­ГЁГї:\n"
+                    f"В• /clan_invite @username - ГЇГ°ГЁГЈГ«Г Г±ГЁГІГј ГЁГЈГ°Г®ГЄГ \n"
+                    f"В• /clan_kick @username - ГЁГ±ГЄГ«ГѕГ·ГЁГІГј ГЁГЈГ°Г®ГЄГ \n"
+                    f"В• /clan_promote @username - ГЇГ®ГўГ»Г±ГЁГІГј Г¤Г® Г®ГґГЁГ¶ГҐГ°Г \n"
+                    f"В• /clan_demote @username - ГЇГ®Г­ГЁГ§ГЁГІГј Г¤Г® ГіГ·Г Г±ГІГ­ГЁГЄГ \n"
                 )
 
             response += (
-                f"\nОбщие команды:\n"
-                f"• /clan_members - список участников\n"
-                f"• /clan_leave - покинуть клан"
+                f"\nГЋГЎГ№ГЁГҐ ГЄГ®Г¬Г Г­Г¤Г»:\n"
+                f"В• /clan_members - Г±ГЇГЁГ±Г®ГЄ ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў\n"
+                f"В• /clan_leave - ГЇГ®ГЄГЁГ­ГіГІГј ГЄГ«Г Г­"
             )
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_clan: {e}")
-        bot.reply_to(message, "? Произошла ошибка при работе с кланом")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г°Г ГЎГ®ГІГҐ Г± ГЄГ«Г Г­Г®Г¬")
 
 @bot.message_handler(commands=['clan_create'])
 @group_only
@@ -2693,42 +2693,42 @@ def handle_clan_create(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, не состоит ли уже в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГіГ¦ГҐ Гў ГЄГ«Г Г­ГҐ
         if user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы уже состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» ГіГ¦ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split(maxsplit=1)
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Укажите название клана!\n"
-                "Использование: /clan_create [название]")
+                "? Г“ГЄГ Г¦ГЁГІГҐ Г­Г Г§ГўГ Г­ГЁГҐ ГЄГ«Г Г­Г !\n"
+                "Г€Г±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГҐ: /clan_create [Г­Г Г§ГўГ Г­ГЁГҐ]")
             return
 
         clan_name = command_parts[1].strip()
 
-        # Проверяем длину названия
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г¤Г«ГЁГ­Гі Г­Г Г§ГўГ Г­ГЁГї
         if len(clan_name) < MIN_CLAN_NAME_LENGTH or len(clan_name) > MAX_CLAN_NAME_LENGTH:
             bot.reply_to(message,
-                f"? Название клана должно быть от {MIN_CLAN_NAME_LENGTH} "
-                f"до {MAX_CLAN_NAME_LENGTH} символов!")
+                f"? ГЌГ Г§ГўГ Г­ГЁГҐ ГЄГ«Г Г­Г  Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј Г®ГІ {MIN_CLAN_NAME_LENGTH} "
+                f"Г¤Г® {MAX_CLAN_NAME_LENGTH} Г±ГЁГ¬ГўГ®Г«Г®Гў!")
             return
 
-        # Проверяем, не существует ли клан с таким названием
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ Г«ГЁ ГЄГ«Г Г­ Г± ГІГ ГЄГЁГ¬ Г­Г Г§ГўГ Г­ГЁГҐГ¬
         if any(c['name'].lower() == clan_name.lower() for c in clans.values()):
-            bot.reply_to(message, "? Клан с таким названием уже существует!")
+            bot.reply_to(message, "? ГЉГ«Г Г­ Г± ГІГ ГЄГЁГ¬ Г­Г Г§ГўГ Г­ГЁГҐГ¬ ГіГ¦ГҐ Г±ГіГ№ГҐГ±ГІГўГіГҐГІ!")
             return
 
-        # Проверяем наличие Zеток
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г­Г Г«ГЁГ·ГЁГҐ ZГҐГІГ®ГЄ
         if user_balances[user_id]['leaves'] < CLAN_PRICE:
             bot.reply_to(message,
-                f"? Недостаточно Zеток для создания клана!\n"
-                f"Необходимо: {CLAN_PRICE} Zеток\n"
-                f"У вас есть: {user_balances[user_id]['leaves']} Zеток")
+                f"? ГЌГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ Г¤Г«Гї Г±Г®Г§Г¤Г Г­ГЁГї ГЄГ«Г Г­Г !\n"
+                f"ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®: {CLAN_PRICE} ZГҐГІГ®ГЄ\n"
+                f"Г“ ГўГ Г± ГҐГ±ГІГј: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
             return
 
-        # Создаем клан
+        # Г‘Г®Г§Г¤Г ГҐГ¬ ГЄГ«Г Г­
         clan_id = str(len(clans) + 1)
         clans[clan_id] = {
             'name': clan_name,
@@ -2736,7 +2736,7 @@ def handle_clan_create(message: Message):
             'created_at': datetime.datetime.now().timestamp()
         }
 
-        # Обновляем данные пользователя
+        # ГЋГЎГ­Г®ГўГ«ГїГҐГ¬ Г¤Г Г­Г­Г»ГҐ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         user_balances[user_id]['leaves'] -= CLAN_PRICE
         user_balances[user_id]['clan'] = clan_id
         user_balances[user_id]['clan_role'] = 'leader'
@@ -2745,47 +2745,47 @@ def handle_clan_create(message: Message):
         save_clans_data()
 
         bot.reply_to(message,
-            f"?? Поздравляем! Клан «{clan_name}» успешно создан!\n"
-            f"Потрачено: {CLAN_PRICE} Zеток\n\n"
-            f"Используйте /clan для управления кланом")
+            f"?? ГЏГ®Г§Г¤Г°Г ГўГ«ГїГҐГ¬! ГЉГ«Г Г­ В«{clan_name}В» ГіГ±ГЇГҐГёГ­Г® Г±Г®Г§Г¤Г Г­!\n"
+            f"ГЏГ®ГІГ°Г Г·ГҐГ­Г®: {CLAN_PRICE} ZГҐГІГ®ГЄ\n\n"
+            f"Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan Г¤Г«Гї ГіГЇГ°Г ГўГ«ГҐГ­ГЁГї ГЄГ«Г Г­Г®Г¬")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_create: {e}")
-        bot.reply_to(message, "? Произошла ошибка при создании клана")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_create: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г±Г®Г§Г¤Г Г­ГЁГЁ ГЄГ«Г Г­Г ")
 
 @bot.message_handler(commands=['clan_help'])
 @group_only
 def handle_clan_help(message: Message):
     help_text = (
-        f"?? Руководство по системе кланов\n\n"
-        f"?? Основные команды:\n"
-        f"• /clan - просмотр информации о клане\n"
-        f"• /clan_create [название] - создать клан ({CLAN_PRICE} Zеток)\n"
-        f"• /clan_list - список всех кланов\n"
-        f"• /clan_join [название] - вступить в клан\n"
-        f"• /clan_leave - покинуть клан\n"
-        f"• /clan_members - список участников клана\n\n"
+        f"?? ГђГіГЄГ®ГўГ®Г¤Г±ГІГўГ® ГЇГ® Г±ГЁГ±ГІГҐГ¬ГҐ ГЄГ«Г Г­Г®Гў\n\n"
+        f"?? ГЋГ±Г­Г®ГўГ­Г»ГҐ ГЄГ®Г¬Г Г­Г¤Г»:\n"
+        f"В• /clan - ГЇГ°Г®Г±Г¬Г®ГІГ° ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ Г® ГЄГ«Г Г­ГҐ\n"
+        f"В• /clan_create [Г­Г Г§ГўГ Г­ГЁГҐ] - Г±Г®Г§Г¤Г ГІГј ГЄГ«Г Г­ ({CLAN_PRICE} ZГҐГІГ®ГЄ)\n"
+        f"В• /clan_list - Г±ГЇГЁГ±Г®ГЄ ГўГ±ГҐГµ ГЄГ«Г Г­Г®Гў\n"
+        f"В• /clan_join [Г­Г Г§ГўГ Г­ГЁГҐ] - ГўГ±ГІГіГЇГЁГІГј Гў ГЄГ«Г Г­\n"
+        f"В• /clan_leave - ГЇГ®ГЄГЁГ­ГіГІГј ГЄГ«Г Г­\n"
+        f"В• /clan_members - Г±ГЇГЁГ±Г®ГЄ ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў ГЄГ«Г Г­Г \n\n"
 
-        f"?? Команды управления (для лидера и офицеров):\n"
-        f"• /clan_invite @username - пригласить игрока\n"
-        f"• /clan_kick @username - исключить игрока\n"
-        f"• /clan_promote @username - повысить до офицера\n"
-        f"• /clan_demote @username - понизить до участника\n\n"
+        f"?? ГЉГ®Г¬Г Г­Г¤Г» ГіГЇГ°Г ГўГ«ГҐГ­ГЁГї (Г¤Г«Гї Г«ГЁГ¤ГҐГ°Г  ГЁ Г®ГґГЁГ¶ГҐГ°Г®Гў):\n"
+        f"В• /clan_invite @username - ГЇГ°ГЁГЈГ«Г Г±ГЁГІГј ГЁГЈГ°Г®ГЄГ \n"
+        f"В• /clan_kick @username - ГЁГ±ГЄГ«ГѕГ·ГЁГІГј ГЁГЈГ°Г®ГЄГ \n"
+        f"В• /clan_promote @username - ГЇГ®ГўГ»Г±ГЁГІГј Г¤Г® Г®ГґГЁГ¶ГҐГ°Г \n"
+        f"В• /clan_demote @username - ГЇГ®Г­ГЁГ§ГЁГІГј Г¤Г® ГіГ·Г Г±ГІГ­ГЁГЄГ \n\n"
 
-        f"?? Роли в клане:\n"
-        f"• ?? Лидер - создатель клана, полный доступ\n"
-        f"• ?? Офицер - может управлять участниками\n"
-        f"• ?? Участник - базовый доступ\n\n"
+        f"?? ГђГ®Г«ГЁ Гў ГЄГ«Г Г­ГҐ:\n"
+        f"В• ?? Г‹ГЁГ¤ГҐГ° - Г±Г®Г§Г¤Г ГІГҐГ«Гј ГЄГ«Г Г­Г , ГЇГ®Г«Г­Г»Г© Г¤Г®Г±ГІГіГЇ\n"
+        f"В• ?? ГЋГґГЁГ¶ГҐГ° - Г¬Г®Г¦ГҐГІ ГіГЇГ°Г ГўГ«ГїГІГј ГіГ·Г Г±ГІГ­ГЁГЄГ Г¬ГЁ\n"
+        f"В• ?? Г“Г·Г Г±ГІГ­ГЁГЄ - ГЎГ Г§Г®ГўГ»Г© Г¤Г®Г±ГІГіГЇ\n\n"
 
-        f"? Как вступить в клан:\n"
-        f"1. Посмотрите список кланов: /clan_list\n"
-        f"2. Подайте заявку: /clan_join [название]\n"
-        f"3. Дождитесь одобрения от лидера/офицера\n\n"
+        f"? ГЉГ ГЄ ГўГ±ГІГіГЇГЁГІГј Гў ГЄГ«Г Г­:\n"
+        f"1. ГЏГ®Г±Г¬Г®ГІГ°ГЁГІГҐ Г±ГЇГЁГ±Г®ГЄ ГЄГ«Г Г­Г®Гў: /clan_list\n"
+        f"2. ГЏГ®Г¤Г Г©ГІГҐ Г§Г ГїГўГЄГі: /clan_join [Г­Г Г§ГўГ Г­ГЁГҐ]\n"
+        f"3. Г„Г®Г¦Г¤ГЁГІГҐГ±Гј Г®Г¤Г®ГЎГ°ГҐГ­ГЁГї Г®ГІ Г«ГЁГ¤ГҐГ°Г /Г®ГґГЁГ¶ГҐГ°Г \n\n"
 
-        f"? Как создать свой клан:\n"
-        f"1. Накопите {CLAN_PRICE} Zеток\n"
-        f"2. Придумайте название (от {MIN_CLAN_NAME_LENGTH} до {MAX_CLAN_NAME_LENGTH} символов)\n"
-        f"3. Создайте клан: /clan_create [название]"
+        f"? ГЉГ ГЄ Г±Г®Г§Г¤Г ГІГј Г±ГўГ®Г© ГЄГ«Г Г­:\n"
+        f"1. ГЌГ ГЄГ®ГЇГЁГІГҐ {CLAN_PRICE} ZГҐГІГ®ГЄ\n"
+        f"2. ГЏГ°ГЁГ¤ГіГ¬Г Г©ГІГҐ Г­Г Г§ГўГ Г­ГЁГҐ (Г®ГІ {MIN_CLAN_NAME_LENGTH} Г¤Г® {MAX_CLAN_NAME_LENGTH} Г±ГЁГ¬ГўГ®Г«Г®Гў)\n"
+        f"3. Г‘Г®Г§Г¤Г Г©ГІГҐ ГЄГ«Г Г­: /clan_create [Г­Г Г§ГўГ Г­ГЁГҐ]"
     )
     bot.reply_to(message, help_text)
 
@@ -2799,28 +2799,28 @@ def handle_clan_invite(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем права пользователя
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЇГ°Г ГўГ  ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         user_role = user_balances[user_id]['clan_role']
         if user_role not in ['leader', 'officer']:
-            bot.reply_to(message, "? У вас нет прав для приглашения игроков!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЇГ°ГЁГЈГ«Г ГёГҐГ­ГЁГї ГЁГЈГ°Г®ГЄГ®Гў!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /clan_invite @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /clan_invite @username")
             return
 
         target_username = command_parts[1].lstrip('@')
 
-        # Ищем пользователя
+        # Г€Г№ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         target_found = False
         for uid in user_balances.keys():
             try:
@@ -2834,15 +2834,15 @@ def handle_clan_invite(message: Message):
                 continue
 
         if not target_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Проверяем, не состоит ли уже в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГіГ¦ГҐ Гў ГЄГ«Г Г­ГҐ
         if user_balances[target_id]['clan']:
-            bot.reply_to(message, "? Этот игрок уже состоит в клане!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ ГіГ¦ГҐ Г±Г®Г±ГІГ®ГЁГІ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Добавляем в клан
+        # Г„Г®ГЎГ ГўГ«ГїГҐГ¬ Гў ГЄГ«Г Г­
         clan_id = user_balances[user_id]['clan']
         user_balances[target_id]['clan'] = clan_id
         user_balances[target_id]['clan_role'] = 'member'
@@ -2851,15 +2851,15 @@ def handle_clan_invite(message: Message):
         clan_name = clans[clan_id]['name']
 
         bot.reply_to(message,
-            f"? Игрок {target_name} успешно приглашён в клан!")
+            f"? Г€ГЈГ°Г®ГЄ {target_name} ГіГ±ГЇГҐГёГ­Г® ГЇГ°ГЁГЈГ«Г ГёВёГ­ Гў ГЄГ«Г Г­!")
 
         bot.send_message(target_id,
-            f"?? Вас пригласили в клан «{clan_name}»!\n"
-            f"Используйте /clan для просмотра информации")
+            f"?? Г‚Г Г± ГЇГ°ГЁГЈГ«Г Г±ГЁГ«ГЁ Гў ГЄГ«Г Г­ В«{clan_name}В»!\n"
+            f"Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan Г¤Г«Гї ГЇГ°Г®Г±Г¬Г®ГІГ°Г  ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_invite: {e}")
-        bot.reply_to(message, "? Произошла ошибка при приглашении игрока")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_invite: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ°ГЁГЈГ«Г ГёГҐГ­ГЁГЁ ГЁГЈГ°Г®ГЄГ ")
 
 @bot.message_handler(commands=['clan_kick'])
 @group_only
@@ -2871,28 +2871,28 @@ def handle_clan_kick(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем права пользователя
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЇГ°Г ГўГ  ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         user_role = user_balances[user_id]['clan_role']
         if user_role not in ['leader', 'officer']:
-            bot.reply_to(message, "? У вас нет прав для исключения игроков!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЇГ°Г Гў Г¤Г«Гї ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГї ГЁГЈГ°Г®ГЄГ®Гў!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /clan_kick @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /clan_kick @username")
             return
 
         target_username = command_parts[1].lstrip('@')
 
-        # Ищем пользователя
+        # Г€Г№ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         target_found = False
         for uid in user_balances.keys():
             try:
@@ -2906,31 +2906,31 @@ def handle_clan_kick(message: Message):
                 continue
 
         if not target_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Проверяем, состоит ли игрок в том же клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЁГЈГ°Г®ГЄ Гў ГІГ®Г¬ Г¦ГҐ ГЄГ«Г Г­ГҐ
         clan_id = user_balances[user_id]['clan']
         if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "? Этот игрок не состоит в вашем клане!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Гў ГўГ ГёГҐГ¬ ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем, не пытается ли офицер исключить лидера или другого офицера
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ ГЇГ»ГІГ ГҐГІГ±Гї Г«ГЁ Г®ГґГЁГ¶ГҐГ° ГЁГ±ГЄГ«ГѕГ·ГЁГІГј Г«ГЁГ¤ГҐГ°Г  ГЁГ«ГЁ Г¤Г°ГіГЈГ®ГЈГ® Г®ГґГЁГ¶ГҐГ°Г 
         if user_role == 'officer' and user_balances[target_id]['clan_role'] in ['leader', 'officer']:
-            bot.reply_to(message, "? Вы не можете исключить лидера или офицера!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г¬Г®Г¦ГҐГІГҐ ГЁГ±ГЄГ«ГѕГ·ГЁГІГј Г«ГЁГ¤ГҐГ°Г  ГЁГ«ГЁ Г®ГґГЁГ¶ГҐГ°Г !")
             return
 
-        # Исключаем игрока
+        # Г€Г±ГЄГ«ГѕГ·Г ГҐГ¬ ГЁГЈГ°Г®ГЄГ 
         user_balances[target_id]['clan'] = None
         user_balances[target_id]['clan_role'] = None
         save_user_data()
 
-        bot.reply_to(message, f"? Игрок {target_name} исключён из клана!")
-        bot.send_message(target_id, f"? Вы были исключены из клана!")
+        bot.reply_to(message, f"? Г€ГЈГ°Г®ГЄ {target_name} ГЁГ±ГЄГ«ГѕГ·ВёГ­ ГЁГ§ ГЄГ«Г Г­Г !")
+        bot.send_message(target_id, f"? Г‚Г» ГЎГ»Г«ГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­Г» ГЁГ§ ГЄГ«Г Г­Г !")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_kick: {e}")
-        bot.reply_to(message, "? Произошла ошибка при исключении игрока")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_kick: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЁГ±ГЄГ«ГѕГ·ГҐГ­ГЁГЁ ГЁГЈГ°Г®ГЄГ ")
 
 @bot.message_handler(commands=['clan_promote'])
 @group_only
@@ -2942,27 +2942,27 @@ def handle_clan_promote(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Только лидер может повышать
+        # Г’Г®Г«ГјГЄГ® Г«ГЁГ¤ГҐГ° Г¬Г®Г¦ГҐГІ ГЇГ®ГўГ»ГёГ ГІГј
         if user_balances[user_id]['clan_role'] != 'leader':
-            bot.reply_to(message, "? Только лидер клана может повышать участников!")
+            bot.reply_to(message, "? Г’Г®Г«ГјГЄГ® Г«ГЁГ¤ГҐГ° ГЄГ«Г Г­Г  Г¬Г®Г¦ГҐГІ ГЇГ®ГўГ»ГёГ ГІГј ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /clan_promote @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /clan_promote @username")
             return
 
         target_username = command_parts[1].lstrip('@')
 
-        # Ищем пользователя
+        # Г€Г№ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         target_found = False
         for uid in user_balances.keys():
             try:
@@ -2976,30 +2976,30 @@ def handle_clan_promote(message: Message):
                 continue
 
         if not target_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Проверяем, состоит ли игрок в том же клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЁГЈГ°Г®ГЄ Гў ГІГ®Г¬ Г¦ГҐ ГЄГ«Г Г­ГҐ
         clan_id = user_balances[user_id]['clan']
         if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "? Этот игрок не состоит в вашем клане!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Гў ГўГ ГёГҐГ¬ ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем текущую роль
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГІГҐГЄГіГ№ГіГѕ Г°Г®Г«Гј
         if user_balances[target_id]['clan_role'] == 'officer':
-            bot.reply_to(message, "? Этот игрок уже является офицером!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ ГіГ¦ГҐ ГїГўГ«ГїГҐГІГ±Гї Г®ГґГЁГ¶ГҐГ°Г®Г¬!")
             return
 
-        # Повышаем до офицера
+        # ГЏГ®ГўГ»ГёГ ГҐГ¬ Г¤Г® Г®ГґГЁГ¶ГҐГ°Г 
         user_balances[target_id]['clan_role'] = 'officer'
         save_user_data()
 
-        bot.reply_to(message, f"? Игрок {target_name} повышен до офицера!")
-        bot.send_message(target_id, "?? Поздравляем! Вы повышены до офицера клана!")
+        bot.reply_to(message, f"? Г€ГЈГ°Г®ГЄ {target_name} ГЇГ®ГўГ»ГёГҐГ­ Г¤Г® Г®ГґГЁГ¶ГҐГ°Г !")
+        bot.send_message(target_id, "?? ГЏГ®Г§Г¤Г°Г ГўГ«ГїГҐГ¬! Г‚Г» ГЇГ®ГўГ»ГёГҐГ­Г» Г¤Г® Г®ГґГЁГ¶ГҐГ°Г  ГЄГ«Г Г­Г !")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_promote: {e}")
-        bot.reply_to(message, "? Произошла ошибка при повышении игрока")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_promote: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГўГ»ГёГҐГ­ГЁГЁ ГЁГЈГ°Г®ГЄГ ")
 
 @bot.message_handler(commands=['clan_demote'])
 @group_only
@@ -3011,27 +3011,27 @@ def handle_clan_demote(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Только лидер может понижать
+        # Г’Г®Г«ГјГЄГ® Г«ГЁГ¤ГҐГ° Г¬Г®Г¦ГҐГІ ГЇГ®Г­ГЁГ¦Г ГІГј
         if user_balances[user_id]['clan_role'] != 'leader':
-            bot.reply_to(message, "? Только лидер клана может понижать офицеров!")
+            bot.reply_to(message, "? Г’Г®Г«ГјГЄГ® Г«ГЁГ¤ГҐГ° ГЄГ«Г Г­Г  Г¬Г®Г¦ГҐГІ ГЇГ®Г­ГЁГ¦Г ГІГј Г®ГґГЁГ¶ГҐГ°Г®Гў!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /clan_demote @username")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /clan_demote @username")
             return
 
         target_username = command_parts[1].lstrip('@')
 
-        # Ищем пользователя
+        # Г€Г№ГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї
         target_found = False
         for uid in user_balances.keys():
             try:
@@ -3045,30 +3045,30 @@ def handle_clan_demote(message: Message):
                 continue
 
         if not target_found:
-            bot.reply_to(message, "? Пользователь не найден!")
+            bot.reply_to(message, "? ГЏГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
-        # Проверяем, состоит ли игрок в том же клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЁГЈГ°Г®ГЄ Гў ГІГ®Г¬ Г¦ГҐ ГЄГ«Г Г­ГҐ
         clan_id = user_balances[user_id]['clan']
         if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "? Этот игрок не состоит в вашем клане!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Гў ГўГ ГёГҐГ¬ ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем текущую роль
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГІГҐГЄГіГ№ГіГѕ Г°Г®Г«Гј
         if user_balances[target_id]['clan_role'] != 'officer':
-            bot.reply_to(message, "? Этот игрок не является офицером!")
+            bot.reply_to(message, "? ГќГІГ®ГІ ГЁГЈГ°Г®ГЄ Г­ГҐ ГїГўГ«ГїГҐГІГ±Гї Г®ГґГЁГ¶ГҐГ°Г®Г¬!")
             return
 
-        # Понижаем до участника
+        # ГЏГ®Г­ГЁГ¦Г ГҐГ¬ Г¤Г® ГіГ·Г Г±ГІГ­ГЁГЄГ 
         user_balances[target_id]['clan_role'] = 'member'
         save_user_data()
 
-        bot.reply_to(message, f"? Игрок {target_name} понижен до участника!")
-        bot.send_message(target_id, "?? Вы понижены до обычного участника клана")
+        bot.reply_to(message, f"? Г€ГЈГ°Г®ГЄ {target_name} ГЇГ®Г­ГЁГ¦ГҐГ­ Г¤Г® ГіГ·Г Г±ГІГ­ГЁГЄГ !")
+        bot.send_message(target_id, "?? Г‚Г» ГЇГ®Г­ГЁГ¦ГҐГ­Г» Г¤Г® Г®ГЎГ»Г·Г­Г®ГЈГ® ГіГ·Г Г±ГІГ­ГЁГЄГ  ГЄГ«Г Г­Г ")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_demote: {e}")
-        bot.reply_to(message, "? Произошла ошибка при понижении игрока")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_demote: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г­ГЁГ¦ГҐГ­ГЁГЁ ГЁГЈГ°Г®ГЄГ ")
 
 @bot.message_handler(commands=['clan_members'])
 @group_only
@@ -3080,15 +3080,15 @@ def handle_clan_members(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
         clan_id = user_balances[user_id]['clan']
         clan = clans[clan_id]
 
-        # Собираем список участников
+        # Г‘Г®ГЎГЁГ°Г ГҐГ¬ Г±ГЇГЁГ±Г®ГЄ ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў
         members = []
         for uid, data in user_balances.items():
             if data.get('clan') == clan_id:
@@ -3099,19 +3099,19 @@ def handle_clan_members(message: Message):
                 except:
                     continue
 
-        # Сортируем по ролям: лидер -> офицеры -> участники
-        role_priority = {'?? Лидер': 0, '?? Офицер': 1, '?? Участник': 2}
+        # Г‘Г®Г°ГІГЁГ°ГіГҐГ¬ ГЇГ® Г°Г®Г«ГїГ¬: Г«ГЁГ¤ГҐГ° -> Г®ГґГЁГ¶ГҐГ°Г» -> ГіГ·Г Г±ГІГ­ГЁГЄГЁ
+        role_priority = {'?? Г‹ГЁГ¤ГҐГ°': 0, '?? ГЋГґГЁГ¶ГҐГ°': 1, '?? Г“Г·Г Г±ГІГ­ГЁГЄ': 2}
         members.sort(key=lambda x: role_priority[x[0]])
 
-        response = f"?? Участники клана «{clan['name']}»:\n\n"
+        response = f"?? Г“Г·Г Г±ГІГ­ГЁГЄГЁ ГЄГ«Г Г­Г  В«{clan['name']}В»:\n\n"
         for role, username in members:
             response += f"{role}: {username}\n"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_members: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении списка участников")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_members: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ Г±ГЇГЁГ±ГЄГ  ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў")
 
 @bot.message_handler(commands=['clan_leave'])
 @group_only
@@ -3123,17 +3123,17 @@ def handle_clan_leave(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, состоит ли пользователь в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Гў ГЄГ«Г Г­ГҐ
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы не состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» Г­ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
         clan_id = user_balances[user_id]['clan']
         clan_name = clans[clan_id]['name']
 
-        # Проверяем, не является ли пользователь лидером
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ ГїГўГ«ГїГҐГІГ±Гї Г«ГЁ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г«ГЁГ¤ГҐГ°Г®Г¬
         if user_balances[user_id]['clan_role'] == 'leader':
-            # Ищем офицера для передачи лидерства
+            # Г€Г№ГҐГ¬ Г®ГґГЁГ¶ГҐГ°Г  Г¤Г«Гї ГЇГҐГ°ГҐГ¤Г Г·ГЁ Г«ГЁГ¤ГҐГ°Г±ГІГўГ 
             new_leader = None
             for uid, data in user_balances.items():
                 if data.get('clan') == clan_id and data['clan_role'] == 'officer':
@@ -3141,22 +3141,22 @@ def handle_clan_leave(message: Message):
                     break
 
             if new_leader:
-                # Передаем лидерство офицеру
+                # ГЏГҐГ°ГҐГ¤Г ГҐГ¬ Г«ГЁГ¤ГҐГ°Г±ГІГўГ® Г®ГґГЁГ¶ГҐГ°Гі
                 user_balances[new_leader]['clan_role'] = 'leader'
                 clans[clan_id]['leader'] = new_leader
                 save_clans_data()
 
                 try:
                     bot.send_message(new_leader,
-                        f"?? Вы стали новым лидером клана «{clan_name}»!")
+                        f"?? Г‚Г» Г±ГІГ Г«ГЁ Г­Г®ГўГ»Г¬ Г«ГЁГ¤ГҐГ°Г®Г¬ ГЄГ«Г Г­Г  В«{clan_name}В»!")
                 except:
                     pass
             else:
-                # Если нет офицеров, удаляем клан
+                # Г…Г±Г«ГЁ Г­ГҐГІ Г®ГґГЁГ¶ГҐГ°Г®Гў, ГіГ¤Г Г«ГїГҐГ¬ ГЄГ«Г Г­
                 del clans[clan_id]
                 save_clans_data()
 
-                # Убираем клан у всех участников
+                # Г“ГЎГЁГ°Г ГҐГ¬ ГЄГ«Г Г­ Гі ГўГ±ГҐГµ ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў
                 for uid, data in user_balances.items():
                     if data.get('clan') == clan_id:
                         data['clan'] = None
@@ -3164,25 +3164,25 @@ def handle_clan_leave(message: Message):
                         try:
                             if uid != user_id:
                                 bot.send_message(uid,
-                                    f"? Клан «{clan_name}» был расформирован!")
+                                    f"? ГЉГ«Г Г­ В«{clan_name}В» ГЎГ»Г« Г°Г Г±ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­!")
                         except:
                             continue
 
                 save_user_data()
                 bot.reply_to(message,
-                    f"? Клан «{clan_name}» расформирован, так как вы были последним офицером!")
+                    f"? ГЉГ«Г Г­ В«{clan_name}В» Г°Г Г±ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­, ГІГ ГЄ ГЄГ ГЄ ГўГ» ГЎГ»Г«ГЁ ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ¬ Г®ГґГЁГ¶ГҐГ°Г®Г¬!")
                 return
 
-        # Покидаем клан
+        # ГЏГ®ГЄГЁГ¤Г ГҐГ¬ ГЄГ«Г Г­
         user_balances[user_id]['clan'] = None
         user_balances[user_id]['clan_role'] = None
         save_user_data()
 
-        bot.reply_to(message, f"? Вы покинули клан «{clan_name}»")
+        bot.reply_to(message, f"? Г‚Г» ГЇГ®ГЄГЁГ­ГіГ«ГЁ ГЄГ«Г Г­ В«{clan_name}В»")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_leave: {e}")
-        bot.reply_to(message, "? Произошла ошибка при выходе из клана")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_leave: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ»ГµГ®Г¤ГҐ ГЁГ§ ГЄГ«Г Г­Г ")
 
 @bot.message_handler(commands=['clan_list'])
 @group_only
@@ -3195,32 +3195,32 @@ def handle_clan_list(message: Message):
             return
 
         if not clans:
-            bot.reply_to(message, "? Пока нет ни одного клана!")
+            bot.reply_to(message, "? ГЏГ®ГЄГ  Г­ГҐГІ Г­ГЁ Г®Г¤Г­Г®ГЈГ® ГЄГ«Г Г­Г !")
             return
 
-        response = "?? Список кланов:\n\n"
+        response = "?? Г‘ГЇГЁГ±Г®ГЄ ГЄГ«Г Г­Г®Гў:\n\n"
 
         for clan_id, clan_data in clans.items():
-            # Считаем количество участников
+            # Г‘Г·ГЁГІГ ГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГіГ·Г Г±ГІГ­ГЁГЄГ®Гў
             members_count = sum(1 for data in user_balances.values()
                               if data.get('clan') == clan_id)
 
-            # Получаем имя лидера
+            # ГЏГ®Г«ГіГ·Г ГҐГ¬ ГЁГ¬Гї Г«ГЁГ¤ГҐГ°Г 
             leader_name = get_username(clan_data['leader'])
 
             response += (
-                f"?? «{clan_data['name']}»\n"
-                f"?? Лидер: {leader_name}\n"
-                f"?? Участников: {members_count}\n\n"
+                f"?? В«{clan_data['name']}В»\n"
+                f"?? Г‹ГЁГ¤ГҐГ°: {leader_name}\n"
+                f"?? Г“Г·Г Г±ГІГ­ГЁГЄГ®Гў: {members_count}\n\n"
             )
 
-        response += "Чтобы вступить в клан, используйте:\n/clan_join [название]"
+        response += "Г—ГІГ®ГЎГ» ГўГ±ГІГіГЇГЁГІГј Гў ГЄГ«Г Г­, ГЁГ±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ:\n/clan_join [Г­Г Г§ГўГ Г­ГЁГҐ]"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_list: {e}")
-        bot.reply_to(message, "? Произошла ошибка при получении списка кланов")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_list: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®Г«ГіГ·ГҐГ­ГЁГЁ Г±ГЇГЁГ±ГЄГ  ГЄГ«Г Г­Г®Гў")
 
 @bot.message_handler(commands=['clan_join'])
 @group_only
@@ -3232,73 +3232,73 @@ def handle_clan_join(message: Message):
         if check_ban(user_id, message):
             return
 
-        # Проверяем, не состоит ли уже в клане
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, Г­ГҐ Г±Г®Г±ГІГ®ГЁГІ Г«ГЁ ГіГ¦ГҐ Гў ГЄГ«Г Г­ГҐ
         if user_balances[user_id]['clan']:
-            bot.reply_to(message, "? Вы уже состоите в клане!")
+            bot.reply_to(message, "? Г‚Г» ГіГ¦ГҐ Г±Г®Г±ГІГ®ГЁГІГҐ Гў ГЄГ«Г Г­ГҐ!")
             return
 
-        # Проверяем формат команды
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»
         command_parts = message.text.split(maxsplit=1)
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Укажите название клана!\n"
-                "Использование: /clan_join [название]")
+                "? Г“ГЄГ Г¦ГЁГІГҐ Г­Г Г§ГўГ Г­ГЁГҐ ГЄГ«Г Г­Г !\n"
+                "Г€Г±ГЇГ®Г«ГјГ§Г®ГўГ Г­ГЁГҐ: /clan_join [Г­Г Г§ГўГ Г­ГЁГҐ]")
             return
 
         clan_name = command_parts[1].strip()
 
-        # Выводим отладочную информацию
-        print(f"Поиск клана: {clan_name}")
-        print(f"Доступные кланы: {clans}")
+        # Г‚Г»ГўГ®Г¤ГЁГ¬ Г®ГІГ«Г Г¤Г®Г·Г­ГіГѕ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ
+        print(f"ГЏГ®ГЁГ±ГЄ ГЄГ«Г Г­Г : {clan_name}")
+        print(f"Г„Г®Г±ГІГіГЇГ­Г»ГҐ ГЄГ«Г Г­Г»: {clans}")
 
-        # Ищем клан по названию (без учета регистра)
+        # Г€Г№ГҐГ¬ ГЄГ«Г Г­ ГЇГ® Г­Г Г§ГўГ Г­ГЁГѕ (ГЎГҐГ§ ГіГ·ГҐГІГ  Г°ГҐГЈГЁГ±ГІГ°Г )
         clan_found = False
         for clan_id, clan_data in clans.items():
-            print(f"Сравниваем с: {clan_data['name']}")
+            print(f"Г‘Г°Г ГўГ­ГЁГўГ ГҐГ¬ Г±: {clan_data['name']}")
             if clan_data['name'].lower() == clan_name.lower():
                 clan_found = True
-                print(f"Клан найден! ID: {clan_id}")
-                # Добавляем пользователя в клан
+                print(f"ГЉГ«Г Г­ Г­Г Г©Г¤ГҐГ­! ID: {clan_id}")
+                # Г„Г®ГЎГ ГўГ«ГїГҐГ¬ ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гї Гў ГЄГ«Г Г­
                 user_balances[user_id]['clan'] = clan_id
                 user_balances[user_id]['clan_role'] = 'member'
                 save_user_data()
 
-                # Уведомляем лидера
+                # Г“ГўГҐГ¤Г®Г¬Г«ГїГҐГ¬ Г«ГЁГ¤ГҐГ°Г 
                 try:
                     leader_id = clan_data['leader']
                     bot.send_message(leader_id,
-                        f"?? {message.from_user.first_name} присоединился к клану!")
+                        f"?? {message.from_user.first_name} ГЇГ°ГЁГ±Г®ГҐГ¤ГЁГ­ГЁГ«Г±Гї ГЄ ГЄГ«Г Г­Гі!")
                 except Exception as e:
-                    print(f"Ошибка при уведомлении лидера: {e}")
+                    print(f"ГЋГёГЁГЎГЄГ  ГЇГ°ГЁ ГіГўГҐГ¤Г®Г¬Г«ГҐГ­ГЁГЁ Г«ГЁГ¤ГҐГ°Г : {e}")
 
                 bot.reply_to(message,
-                    f"? Вы успешно вступили в клан «{clan_data['name']}»!\n"
-                    f"Используйте /clan для просмотра информации")
+                    f"? Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГўГ±ГІГіГЇГЁГ«ГЁ Гў ГЄГ«Г Г­ В«{clan_data['name']}В»!\n"
+                    f"Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan Г¤Г«Гї ГЇГ°Г®Г±Г¬Г®ГІГ°Г  ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГЁ")
                 break
 
         if not clan_found:
             bot.reply_to(message,
-                "? Клан с таким названием не найден!\n"
-                "Используйте /clan_list для просмотра списка кланов")
+                "? ГЉГ«Г Г­ Г± ГІГ ГЄГЁГ¬ Г­Г Г§ГўГ Г­ГЁГҐГ¬ Г­ГҐ Г­Г Г©Г¤ГҐГ­!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /clan_list Г¤Г«Гї ГЇГ°Г®Г±Г¬Г®ГІГ°Г  Г±ГЇГЁГ±ГЄГ  ГЄГ«Г Г­Г®Гў")
 
     except Exception as e:
-        print(f"Ошибка в handle_clan_join: {e}")
-        bot.reply_to(message, "? Произошла ошибка при вступлении в клан")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_clan_join: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГўГ±ГІГіГЇГ«ГҐГ­ГЁГЁ Гў ГЄГ«Г Г­")
 
-# Вспомогательные функции
+# Г‚Г±ГЇГ®Г¬Г®ГЈГ ГІГҐГ«ГјГ­Г»ГҐ ГґГіГ­ГЄГ¶ГЁГЁ
 def get_username(user_id):
     try:
         user = bot.get_chat(user_id)
         return user.first_name
     except:
-        return "Неизвестный"
+        return "ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г»Г©"
 
 def get_role_name(role):
     return {
-        'leader': '?? Лидер',
-        'officer': '?? Офицер',
-        'member': '?? Участник'
-    }.get(role, '? Неизвестно')
+        'leader': '?? Г‹ГЁГ¤ГҐГ°',
+        'officer': '?? ГЋГґГЁГ¶ГҐГ°',
+        'member': '?? Г“Г·Г Г±ГІГ­ГЁГЄ'
+    }.get(role, '? ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г®')
 
 @bot.message_handler(commands=['shop'])
 @group_only
@@ -3310,24 +3310,24 @@ def handle_shop(message: Message):
         if check_ban(user_id, message):
             return
 
-        response = "?? Магазин предметов\n\n"
+        response = "?? ГЊГ ГЈГ Г§ГЁГ­ ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў\n\n"
 
         for item in SHOP_ITEMS.values():
             response += (
                 f"{item['name']}\n"
                 f"?? {item['description']}\n"
-                f"?? Цена: {item['price']} Zеток\n"
-                f"?? Для покупки: /buy {item['id']}\n\n"
+                f"?? Г–ГҐГ­Г : {item['price']} ZГҐГІГ®ГЄ\n"
+                f"?? Г„Г«Гї ГЇГ®ГЄГіГЇГЄГЁ: /buy {item['id']}\n\n"
             )
 
         response += (
-            f"У вас: {user_balances[user_id]['leaves']} Zеток\n"
-            f"Максимум предметов: 3\n"
-            f"Ваши предметы: /inventory\n\n"
-            f"?? NFT коллекция\n"
-            f"?? Базовая цена: {NFT_BASE_PRICE} Zеток\n"
-            f"?? Посмотреть NFT: /nft_list\n"
-            f"?? Купить NFT: /buy_nft [id]\n\n"
+            f"Г“ ГўГ Г±: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ\n"
+            f"ГЊГ ГЄГ±ГЁГ¬ГіГ¬ ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў: 3\n"
+            f"Г‚Г ГёГЁ ГЇГ°ГҐГ¤Г¬ГҐГІГ»: /inventory\n\n"
+            f"?? NFT ГЄГ®Г«Г«ГҐГЄГ¶ГЁГї\n"
+            f"?? ГЃГ Г§Г®ГўГ Гї Г¶ГҐГ­Г : {NFT_BASE_PRICE} ZГҐГІГ®ГЄ\n"
+            f"?? ГЏГ®Г±Г¬Г®ГІГ°ГҐГІГј NFT: /nft_list\n"
+            f"?? ГЉГіГЇГЁГІГј NFT: /buy_nft [id]\n\n"
 
 
         )
@@ -3336,8 +3336,8 @@ def handle_shop(message: Message):
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_shop: {e}")
-        bot.reply_to(message, "? Произошла ошибка при открытии магазина")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_shop: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЄГ°Г»ГІГЁГЁ Г¬Г ГЈГ Г§ГЁГ­Г ")
 
 @bot.message_handler(commands=['buy'])
 @group_only
@@ -3352,50 +3352,50 @@ def handle_buy(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /buy [id_предмета]")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /buy [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ]")
             return
 
         item_id = command_parts[1].lower()
 
         if item_id not in SHOP_ITEMS:
-            bot.reply_to(message, "? Предмет не найден!")
+            bot.reply_to(message, "? ГЏГ°ГҐГ¤Г¬ГҐГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         item = SHOP_ITEMS[item_id]
 
-        # Проверяем количество предметов
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў
         if len(user_balances[user_id]['items']) >= 3:
             bot.reply_to(message,
-                "? У вас уже максимальное количество предметов!\n"
-                "Используйте /inventory для просмотра и /drop [id_предмета] для удаления")
+                "? Г“ ГўГ Г± ГіГ¦ГҐ Г¬Г ГЄГ±ГЁГ¬Г Г«ГјГ­Г®ГҐ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /inventory Г¤Г«Гї ГЇГ°Г®Г±Г¬Г®ГІГ°Г  ГЁ /drop [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ] Г¤Г«Гї ГіГ¤Г Г«ГҐГ­ГЁГї")
             return
 
-        # Проверяем, есть ли уже такой предмет
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј Г«ГЁ ГіГ¦ГҐ ГІГ ГЄГ®Г© ГЇГ°ГҐГ¤Г¬ГҐГІ
         if item_id in user_balances[user_id]['items']:
-            bot.reply_to(message, "? У вас уже есть этот предмет!")
+            bot.reply_to(message, "? Г“ ГўГ Г± ГіГ¦ГҐ ГҐГ±ГІГј ГЅГІГ®ГІ ГЇГ°ГҐГ¤Г¬ГҐГІ!")
             return
 
-        # Проверяем наличие Zеток
+        # ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г­Г Г«ГЁГ·ГЁГҐ ZГҐГІГ®ГЄ
         if user_balances[user_id]['leaves'] < item['price']:
             bot.reply_to(message,
-                f"? Недостаточно Zеток!\n"
-                f"Необходимо: {item['price']} Zеток\n"
-                f"У вас есть: {user_balances[user_id]['leaves']} Zеток")
+                f"? ГЌГҐГ¤Г®Г±ГІГ ГІГ®Г·Г­Г® ZГҐГІГ®ГЄ!\n"
+                f"ГЌГҐГ®ГЎГµГ®Г¤ГЁГ¬Г®: {item['price']} ZГҐГІГ®ГЄ\n"
+                f"Г“ ГўГ Г± ГҐГ±ГІГј: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
             return
 
-        # Покупаем предмет
+        # ГЏГ®ГЄГіГЇГ ГҐГ¬ ГЇГ°ГҐГ¤Г¬ГҐГІ
         user_balances[user_id]['leaves'] -= item['price']
         user_balances[user_id]['items'].append(item_id)
         save_user_data()
 
         bot.reply_to(message,
-            f"? Вы успешно приобрели {item['name']}!\n"
-            f"Осталось территорий: {user_balances[user_id]['leaves']} Zеток")
+            f"? Г‚Г» ГіГ±ГЇГҐГёГ­Г® ГЇГ°ГЁГ®ГЎГ°ГҐГ«ГЁ {item['name']}!\n"
+            f"ГЋГ±ГІГ Г«Г®Г±Гј ГІГҐГ°Г°ГЁГІГ®Г°ГЁГ©: {user_balances[user_id]['leaves']} ZГҐГІГ®ГЄ")
 
     except Exception as e:
-        print(f"Ошибка в handle_buy: {e}")
-        bot.reply_to(message, "? Произошла ошибка при покупке предмета")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_buy: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГЇГ®ГЄГіГЇГЄГҐ ГЇГ°ГҐГ¤Г¬ГҐГІГ ")
 
 @bot.message_handler(commands=['inventory'])
 @group_only
@@ -3411,27 +3411,27 @@ def handle_inventory(message: Message):
 
         if not items:
             bot.reply_to(message,
-                "?? Ваш инвентарь пуст!\n"
-                "Используйте /shop для покупки предметов")
+                "?? Г‚Г Гё ГЁГ­ГўГҐГ­ГІГ Г°Гј ГЇГіГ±ГІ!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ /shop Г¤Г«Гї ГЇГ®ГЄГіГЇГЄГЁ ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў")
             return
 
-        response = "?? Ваш инвентарь:\n\n"
+        response = "?? Г‚Г Гё ГЁГ­ГўГҐГ­ГІГ Г°Гј:\n\n"
 
         for item_id in items:
             item = SHOP_ITEMS[item_id]
             response += (
                 f"{item['name']}\n"
                 f"?? {item['description']}\n"
-                f"? Для удаления: /drop {item_id}\n\n"
+                f"? Г„Г«Гї ГіГ¤Г Г«ГҐГ­ГЁГї: /drop {item_id}\n\n"
             )
 
-        response += f"Всего предметов: {len(items)}/3"
+        response += f"Г‚Г±ГҐГЈГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ®Гў: {len(items)}/3"
 
         bot.reply_to(message, response)
 
     except Exception as e:
-        print(f"Ошибка в handle_inventory: {e}")
-        bot.reply_to(message, "? Произошла ошибка при открытии инвентаря")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_inventory: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ Г®ГІГЄГ°Г»ГІГЁГЁ ГЁГ­ГўГҐГ­ГІГ Г°Гї")
 
 @bot.message_handler(commands=['drop'])
 @group_only
@@ -3446,33 +3446,33 @@ def handle_drop(message: Message):
         command_parts = message.text.split()
         if len(command_parts) != 2:
             bot.reply_to(message,
-                "? Неверный формат команды!\n"
-                "Используйте: /drop [id_предмета]")
+                "? ГЌГҐГўГҐГ°Г­Г»Г© ГґГ®Г°Г¬Г ГІ ГЄГ®Г¬Г Г­Г¤Г»!\n"
+                "Г€Г±ГЇГ®Г«ГјГ§ГіГ©ГІГҐ: /drop [id_ГЇГ°ГҐГ¤Г¬ГҐГІГ ]")
             return
 
         item_id = command_parts[1].lower()
 
         if item_id not in SHOP_ITEMS:
-            bot.reply_to(message, "? Предмет не найден!")
+            bot.reply_to(message, "? ГЏГ°ГҐГ¤Г¬ГҐГІ Г­ГҐ Г­Г Г©Г¤ГҐГ­!")
             return
 
         if item_id not in user_balances[user_id]['items']:
-            bot.reply_to(message, "? У вас нет этого предмета!")
+            bot.reply_to(message, "? Г“ ГўГ Г± Г­ГҐГІ ГЅГІГ®ГЈГ® ГЇГ°ГҐГ¤Г¬ГҐГІГ !")
             return
 
-        # Удаляем предмет
+        # Г“Г¤Г Г«ГїГҐГ¬ ГЇГ°ГҐГ¤Г¬ГҐГІ
         user_balances[user_id]['items'].remove(item_id)
         save_user_data()
 
         bot.reply_to(message,
-            f"? Вы выбросили {SHOP_ITEMS[item_id]['name']}")
+            f"? Г‚Г» ГўГ»ГЎГ°Г®Г±ГЁГ«ГЁ {SHOP_ITEMS[item_id]['name']}")
 
     except Exception as e:
-        print(f"Ошибка в handle_drop: {e}")
-        bot.reply_to(message, "? Произошла ошибка при удалении предмета")
+        print(f"ГЋГёГЁГЎГЄГ  Гў handle_drop: {e}")
+        bot.reply_to(message, "? ГЏГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  ГЇГ°ГЁ ГіГ¤Г Г«ГҐГ­ГЁГЁ ГЇГ°ГҐГ¤Г¬ГҐГІГ ")
 
 if __name__ == '__main__':
-    print("Бот запущен...")
+    print("ГЃГ®ГІ Г§Г ГЇГіГ№ГҐГ­...")
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
 
