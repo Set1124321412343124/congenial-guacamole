@@ -6,6 +6,7 @@ from telebot.types import Message
 import datetime
 import threading
 import time
+import database as db
 CLAN_PRICE = 100
 MIN_CLAN_NAME_LENGTH = 3
 MAX_CLAN_NAME_LENGTH = 20
@@ -90,20 +91,20 @@ def end_halloween_event():
         try:
             winner_name = bot.get_chat(winner_id).first_name
             bot.send_message(winner_id,
-                f"?? ПОЗДРАВЛЯЕМ! ??\n\n"
+                f"🎉 ПОЗДРАВЛЯЕМ! 🎉\n\n"
                 f"Вы выиграли хэллоуинский ивент!\n"
-                f"?? Совершено убийств: {max_kills}\n"
-                f"?? Ваш приз: ?? Хэллоуинская тыква\n"
+                f"💀 Совершено убийств: {max_kills}\n"
+                f"🏆 Ваш приз: 🎃 Хэллоуинская тыква\n"
                 f"Предмет добавлен в инвентарь!")
         except:
             pass
         for user_id in user_balances.keys():
             try:
                 bot.send_message(user_id,
-                    f"?? ХЭЛЛОУИНСКИЙ ИВЕНТ ЗАВЕРШЕН! ??\n\n"
-                    f"?? Победитель: {winner_name}\n"
-                    f"?? Убийств: {max_kills}\n"
-                    f"?? Награда: Хэллоуинская тыква\n\n"
+                    f"🎃 ХЭЛЛОУИНСКИЙ ИВЕНТ ЗАВЕРШЕН! 🎃\n\n"
+                    f"🏆 Победитель: {winner_name}\n"
+                    f"💀 Убийств: {max_kills}\n"
+                    f"🏆 Награда: Хэллоуинская тыква\n\n"
                     f"Спасибо всем за участие! ??")
             except:
                 continue
@@ -111,7 +112,7 @@ def end_halloween_event():
 SHOP_ITEMS = {
     'gold_rise': {
         'id': 'gold_rise',
-        'name': 'ЗОЛОТОЙ КРЫМ??',
+        'name': '🪙 ЗОЛОТОЙ КРЫМ',
         'description': 'увеличивает зарплату на 100%',
         'price': '1000000000000000000',
         'bonus_type': 'farm',
@@ -119,7 +120,7 @@ SHOP_ITEMS = {
     },
         'halloween_pumpkin': {
         'id': 'halloween_pumpkin',
-        'name': '?? Хэллоуинская тыква',
+        'name': '🎃 Хэллоуинская тыква',
         'description': 'Эксклюзивный предмет хэллоуинского ивента!',
         'price': 'Event Item)',
         'bonus_type': 'farm',
@@ -127,7 +128,7 @@ SHOP_ITEMS = {
     },
     'june_sky': {
         'id': 'june_sky',
-        'name': '?ломтик июльского неба',
+        'name': '☁️ Ломтик июльского неба',
         'description': 'увеличивает зарплату на 10%',
         'price': 200,
         'bonus_type': 'farm',
@@ -135,7 +136,7 @@ SHOP_ITEMS = {
     },
     'sharf': {
         'id': 'sharf',
-        'name': '??Шарф лололошки',
+        'name': '🧣 Шарф лололошки',
         'description': 'не делает ничего, предмет от китай товарищ)',
         'price': 1,
         'bonus_type': 'farm',
@@ -143,7 +144,7 @@ SHOP_ITEMS = {
     },
     'watermelon': {
         'id': 'watermelon',
-        'name': '??Священный арбуз[NEW]',
+        'name': '🍉 Священный арбуз[NEW]',
         'description': 'увеличивает зарплату на 50%(обязателен для культа!)',
         'price': 1000,
         'bonus_type': 'farm',
@@ -151,7 +152,7 @@ SHOP_ITEMS = {
     },
     'watering_can': {
         'id': 'watering_can',
-        'name': '?? царская поливалка',
+        'name': '🌱 Царская поливалка',
         'description': 'Увеличивает зарплату на 20%',
         'price': 500,
         'bonus_type': 'farm',
@@ -159,7 +160,7 @@ SHOP_ITEMS = {
     },
     'scissors': {
         'id': 'scissors',
-        'name': '?? Священный серп',
+        'name': '🔪 Священный серп',
         'description': 'Увеличивает зарплату на 30%',
         'price': 1000,
         'bonus_type': 'farm',
@@ -167,7 +168,7 @@ SHOP_ITEMS = {
     },
     'jade_rod': {
         'id':'jade_rod',
-        'name': '?? Нефритовый стержень',
+        'name': '💊 Нефритовый стержень',
         'description': 'Экономит 20 соц Zеток при захвате территорий',
         'price': 800,
         'bonus_type': 'craft',
@@ -175,7 +176,7 @@ SHOP_ITEMS = {
     },
     'scroll': {
         'id': 'scroll',
-        'name': '?? Свиток мудрости',
+        'name': '📜 Свиток мудрости',
         'description': 'Уменьшает время работы на 10 минут',
         'price': 1500,
         'bonus_type': 'time',
@@ -183,7 +184,7 @@ SHOP_ITEMS = {
     },
     'dragon': {
         'id': 'dragon',
-        'name': '?? Китай дракон(товарищ китай)',
+        'name': '🐉 Китай дракон(товарищ китай)',
         'description': 'зарплату на 50%',
         'price': 2000,
         'bonus_type': 'farm',
@@ -191,25 +192,16 @@ SHOP_ITEMS = {
     }
 }
 def load_user_data():
-    if os.path.exists(DATA_FILE):
-        with open(DATA_FILE, 'r', encoding='utf-8') as file:
-            data = json.load(file)
-            return {int(k): v for k, v in data.items()}
-    return {}
+    return db.load_all_users()
+
 def load_clans_data():
-    if os.path.exists(CLANS_FILE):
-        try:
-            with open(CLANS_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except:
-            return {}
-    return {}
+    return db.load_all_clans()
+
 def save_user_data():
-    with open(DATA_FILE, 'w', encoding='utf-8') as file:
-        json.dump(user_balances, file, ensure_ascii=False, indent=2)
+    db.save_all_users(user_balances)
+
 def save_clans_data():
-    with open(CLANS_FILE, 'w', encoding='utf-8') as file:
-        json.dump(clans, file, ensure_ascii=False, indent=2)
+    db.save_all_clans(clans)
 def check_event_end():
     while True:
         try:
@@ -222,33 +214,20 @@ def check_event_end():
             print(f"Ошибка в check_event_end: {e}")
             time.sleep(300)
 def load_promo_data():
-    if os.path.exists(PROMO_FILE):
-        try:
-            with open(PROMO_FILE, 'r', encoding='utf-8') as file:
-                return json.load(file)
-        except:
-            return {}
-    return {}
+    return db.load_all_promos()
+
 promo_codes = load_promo_data()
+
 def save_promo_data():
-    with open(PROMO_FILE, 'w', encoding='utf-8') as file:
-        json.dump(promo_codes, file, ensure_ascii=False, indent=2)
+    db.save_all_promos(promo_codes)
 user_balances = load_user_data()
 clans = load_clans_data()
 def load_nft_data():
     global user_nfts
-    if os.path.exists(NFT_DATA_FILE):
-        try:
-            with open(NFT_DATA_FILE, 'r', encoding='utf-8') as file:
-                user_nfts = json.load(file)
-                user_nfts = {int(k): v for k, v in user_nfts.items()}
-        except:
-            user_nfts = {}
-    else:
-        user_nfts = {}
+    user_nfts = db.load_all_nfts()
+
 def save_nft_data():
-    with open(NFT_DATA_FILE, 'w', encoding='utf-8') as file:
-        json.dump(user_nfts, file, ensure_ascii=False, indent=2)
+    db.save_all_nfts(user_nfts)
 load_nft_data()
 def init_user_data(user_id):
     if user_id not in user_balances:
@@ -332,17 +311,10 @@ def is_admin(user_id):
     return user_id in ADMIN_IDS
 def load_market_data():
     global market_listings
-    if os.path.exists('market_data.json'):
-        try:
-            with open('market_data.json', 'r', encoding='utf-8') as file:
-                market_listings = json.load(file)
-                # Конвертируем строковые ключи в int
-                market_listings = {int(k): v for k, v in market_listings.items()}
-        except:
-            market_listings = {}
+    market_listings = db.load_all_market()
+
 def save_market_data():
-    with open('market_data.json', 'w', encoding='utf-8') as file:
-        json.dump(market_listings, file, ensure_ascii=False, indent=2)
+    db.save_all_market(market_listings)
 def market_cleanup_worker():
     """Фоновая задача для очистки рынка"""
     while True:
@@ -385,13 +357,13 @@ def check_warnings(user_id):
         save_user_data()
         try:
             bot.send_message(user_id,
-                f"?? Вы были автоматически заблокированы за {MAX_WARNINGS} предупреждений!")
+                f"🚫 Вы были автоматически заблокированы за {MAX_WARNINGS} предупреждений!")
         except:
             pass
 def check_ban(user_id, message):
     if user_balances[user_id].get('banned', False):
         bot.reply_to(message,
-            f"?? Вы заблокированы!\n"
+            f"🚫 Вы заблокированы!\n"
             f"Причина: {user_balances[user_id].get('ban_reason', 'не указана')}")
         return True
     return False
@@ -432,33 +404,33 @@ def handle_start(message: Message):
     welcome_message = random.choice(WELCOME_MESSAGES)
     welcome_text = (
         f"{welcome_message}\n"
-        f"Приветствую тебя, {user_name}! ??\n"
+        f"Приветствую тебя, {user_name}! 🎯\n"
         f"Я хранитель древних традиций великого Z исскуства.\n\n"
         f"Доступные команды:\n"
-        f"?? /farm - работать (раз в час)\n"
+        f"🌱 /farm - работать (раз в час)\n"
         f"? /farmtime - время до следующего сбора\n"
-        f"?? /craft [количество] - создать Флаг России(100 Zеток > 1 )\n"
-        f"?? /balance - проверить сокровищницу\n"
-        f"?? /me - свиток познания себя\n"
+        f"🔨 /craft [количество] - создать Флаг России(100 Zеток > 1 )\n"
+        f"💰 /balance - проверить сокровищницу\n"
+        f"📖 /me - свиток познания себя\n"
         f"\n\n?? Пользовательский рынок:\n"
         f" /market - посмотреть рынок\n"
         f" /market_sell [id] [цена] - продать предмет\n"
         f" /market_buy [id] - купить предмет\n"
         f" /market_all - все предложения"
-        f"?? /customwork - установить свои фразы для работы\n"
-        f"?? /top - зал славы мастеров\n"
-        f"?? /users - список рабочих завода\n"
-        f"/z - ????\n"
-        f"?? /clan - управление кланом\n"
-        f"?? /shop - лавка Сяо Ли\n"
-        f"??/price - покупка внутриигровой валюты\n"
-        f"?? /tc - поделиться соц. Zетками:\n"
+        f"✏️ /customwork - установить свои фразы для работы\n"
+        f"🏆 /top - зал славы мастеров\n"
+        f"👥 /users - список рабочих завода\n"
+        f"/z - 💫\n"
+        f"🏰 /clan - управление кланом\n"
+        f"🏪 /shop - лавка Сяо Ли\n"
+        f"💵 /price - покупка внутриигровой валюты\n"
+        f"🤝 /tc - поделиться соц. Zетками:\n"
         f"   • /tc @username количество\n"
         f"   • /tc количество (ответом на сообщение)\n\n"
         f"/donate - донат рублями"
         f"Система кланов:\n"
         f"• Создание клана: {CLAN_PRICE} Zеток\n"
-        f"• Доступные роли: ?? Лидер, ?? Офицер, ?? Участник\n"
+        f"• Доступные роли: 👑 Лидер, 🛡️ Офицер, 👤 Участник\n"
         f"• Используйте /clan для управления кланом\n"
         f"• Подробная справка: /clan_help"
     )
@@ -535,12 +507,12 @@ def handle_kill(message: Message):
         killer_name = message.from_user.first_name
         target_name = message.reply_to_message.from_user.first_name
         bot.reply_to(message,
-            f"?? Вы убили {target_name}!\n"
-            f"?? Всего убийств: {user_balances[user_id]['kills']}\n"
+            f"🔪 Вы убили {target_name}!\n"
+            f"💀 Всего убийств: {user_balances[user_id]['kills']}\n"
             f"? Следующее убийство через 2 часа")
         try:
             bot.send_message(target_id,
-                f"?? Вас убили!\n"
+                f"💀 Вас убили!\n"
                 f"? Вы не можете фармить и убивать 2 часа\n"
                 )
         except:
@@ -588,7 +560,7 @@ def handle_add_promo(message: Message):
             f"Название: {promo_name}\n"
             f"Максимум активаций: {max_activations}\n"
             f"Награда: {reward_amount} Zеток\n"
-            f"?? Создал: {message.from_user.first_name}")
+            f"👤 Создал: {message.from_user.first_name}")
     except Exception as e:
         print(f"Ошибка в handle_add_promo: {e}")
         bot.reply_to(message, "? Произошла ошибка при создании промокода")
@@ -623,8 +595,8 @@ def handle_delete_nft(message: Message):
                     try:
                         bot.send_message(owner_id,
                             f"? Администратор удалил NFT из вашей коллекции!\n"
-                            f"?? {nft['description']}\n"
-                            f"?? ID: {nft_id}")
+                            f"🎨 {nft['description']}\n"
+                            f"🔗 ID: {nft_id}")
                     except:
                         pass
         del user_nfts[nft_id]
@@ -716,13 +688,13 @@ def handle_event(message: Message):
         days = int(time_left // (24 * 60 * 60))
         hours = int((time_left % (24 * 60 * 60)) // 3600)
         event_text = (
-            f"?? ХЭЛЛОУИНСКИЙ ИВЕНТ АКТИВЕН! ??\n\n"
-            f"?? Команда: /kill (ответом на сообщение)\n"
+            f"🎃 ХЭЛЛОУИНСКИЙ ИВЕНТ АКТИВЕН! ??\n\n"
+            f"💥 /kill /kill (ответом на сообщение)\n"
             f"? Можно убивать раз в 2 часа\n"
-            f"?? Убитый игрок не может фармить 2 часа\n"
-            f"?? Победитель (больше всех убийств) получит:\n"
-            f"   ?? Хэллоуинскую тыкву!\n\n"
-            f"?? Статистика: /killstats\n"
+            f"💀 Убитый игрок не может фармить 2 часа\n"
+            f"🏆 Победитель (больше всех убийств) получит:\n"
+            f"   🎃 Хэллоуинскую тыкву!\n\n"
+            f"📊 Статистика: /killstats\n"
             f"? Осталось: {days}д {hours}ч\n"
             f"?? Ивент до: 09.11.2025 00:00"
         )
@@ -823,7 +795,7 @@ def handle_balance(message: Message):
         ban_status = "\n\n?? Ваш аккаунт заблокирован!"
     response = (
         f"Ваш баланс:\n"
-        f"????Zеток: {user_balances[user_id]['leaves']}\n"
+        f"💰 Zеток: {user_balances[user_id]['leaves']}\n"
         f"?? Территории: {user_balances[user_id]['tea']}"
         f"{ban_status}"
     )
@@ -866,7 +838,7 @@ def handle_add_nft(message: Message):
         save_nft_data()
         bot.reply_to(message,
             f"? NFT успешно создан!\n\n"
-            f"?? ID: {nft_id}\n"
+            f"🔗 ID: {nft_id}\n"
             f"?? Описание: {description}\n"
             f"?? Редкость: {rarity}\n"
             f"?? Фото: сохранено")
@@ -921,22 +893,22 @@ def handle_give_nft(message: Message):
         nft = user_nfts[nft_id]
         rarity_emoji = {
             'common': '?',
-            'rare': '??',
-            'epic': '??',
-            'legendary': '??'
+            'rare': '💎',
+            'epic': '💍',
+            'legendary': '👑'
         }.get(nft['rarity'], '?')
         bot.reply_to(message,
             f"? NFT успешно передан!\n\n"
             f"?? Получатель: {recipient_name}\n"
-            f"?? {nft['description']}\n"
+            f"🎨 {nft['description']}\n"
             f"{rarity_emoji} Редкость: {nft['rarity']}")
         # Отправляем NFT пользователю
         try:
             bot.send_photo(recipient_id, nft['file_id'],
                 caption=f"?? Вы получили NFT!\n\n"
-                       f"?? {nft['description']}\n"
+                       f"🎨 {nft['description']}\n"
                        f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                       f"?? ID: {nft_id}")
+                       f"🔗 ID: {nft_id}")
         except Exception as e:
             print(f"Ошибка при отправке NFT: {e}")
     except Exception as e:
@@ -960,11 +932,11 @@ def handle_my_nfts(message: Message):
                 nft = user_nfts[nft_id]
                 rarity_emoji = {
                     'common': '?',
-                    'rare': '??',
-                    'epic': '??',
-                    'legendary': '??'
+                    'rare': '💎',
+                    'epic': '💍',
+                    'legendary': '👑'
                 }.get(nft['rarity'], '?')
-                response += f"?? {nft_id}: {rarity_emoji} {nft['description']}\n"
+                response += f"🎨 {nft_id}: {rarity_emoji} {nft['description']}\n"
         bot.reply_to(message, response)
     except Exception as e:
         print(f"Ошибка в handle_my_nfts: {e}")
@@ -988,7 +960,7 @@ def handle_killstats(message: Message):
         killers.sort(key=lambda x: x[1], reverse=True)
         response = "?? Хэллоуинский ивент 2 - Статистика убийств\n\n?? Топ убийц:\n"
         for i, (name, kills) in enumerate(killers[:10], 1):
-            medal = {1: "??", 2: "??", 3: "??"}.get(i, "??")
+            medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(i, "??")
             response += f"{medal} {i}. {name}: {kills} убийств\n"
         user_kills = user_balances[user_id].get('kills', 0)
         user_rank = next((i for i, (_, k) in enumerate(killers, 1) if _ == message.from_user.first_name), None)
@@ -1009,7 +981,7 @@ def handle_killstats(message: Message):
                 response += f"? До следующего убийства: {minutes} минут\n"
             else:
                 response += f"? Можете убивать!\n"
-        response += f"\n?? Ивент длится до 09.11.2025\n?? Победитель получит Хэллоуинскую тыкву!"
+        response += f"\n?? Ивент длится до 09.11.2025\n🏆 Победитель получит Хэллоуинскую тыкву!"
         bot.reply_to(message, response)
     except Exception as e:
         print(f"Ошибка в handle_killstats: {e}")
@@ -1057,14 +1029,14 @@ def handle_buy_nft(message: Message):
         save_user_data()
         rarity_emoji = {
             'common': '?',
-            'rare': '??',
-            'epic': '??',
-            'legendary': '??'
+            'rare': '💎',
+            'epic': '💍',
+            'legendary': '👑'
         }.get(nft['rarity'], '?')
         # Отправляем подтверждение и сам NFT
         bot.reply_to(message,
             f"? Вы успешно приобрели NFT!\n\n"
-            f"?? {nft['description']}\n"
+            f"🎨 {nft['description']}\n"
             f"{rarity_emoji} Редкость: {nft['rarity']}\n"
             f"?? Стоимость: {NFT_BASE_PRICE} Zеток\n"
             f"?? Новый баланс: {user_balances[user_id]['leaves']} Zеток")
@@ -1072,9 +1044,9 @@ def handle_buy_nft(message: Message):
         try:
             bot.send_photo(user_id, nft['file_id'],
                 caption=f"?? Поздравляем с покупкой!\n\n"
-                       f"?? {nft['description']}\n"
+                       f"🎨 {nft['description']}\n"
                        f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                       f"?? ID: {nft_id}\n"
+                       f"🔗 ID: {nft_id}\n"
                        f"?? Куплено за: {NFT_BASE_PRICE} Zеток")
         except Exception as e:
             print(f"Ошибка при отправке NFT: {e}")
@@ -1106,9 +1078,9 @@ def handle_view_nft(message: Message):
         nft = user_nfts[nft_id]
         rarity_emoji = {
             'common': '?',
-            'rare': '??',
-            'epic': '??',
-            'legendary': '??'
+            'rare': '💎',
+            'epic': '💍',
+            'legendary': '👑'
         }.get(nft['rarity'], '?')
         if nft['owner'] is None:
             owner_info = f"?? Свободен\n?? Цена: {NFT_BASE_PRICE} Zеток\n?? Купить: /buy_nft {nft_id}"
@@ -1123,7 +1095,7 @@ def handle_view_nft(message: Message):
         # Отправляем фото NFT
         bot.send_photo(message.chat.id, nft['file_id'],
             caption=f"?? NFT #{nft_id}\n\n"
-                   f"?? {nft['description']}\n"
+                   f"🎨 {nft['description']}\n"
                    f"{rarity_emoji} Редкость: {nft['rarity']}\n"
                    f"?? Создан: {datetime.datetime.fromtimestamp(nft['created_at']).strftime('%d.%m.%Y')}\n"
                    f"{owner_info}")
@@ -1141,13 +1113,13 @@ def handle_nft_list(message: Message):
         for nft_id, nft in user_nfts.items():
             rarity_emoji = {
                 'common': '?',
-                'rare': '??',
-                'epic': '??',
-                'legendary': '??'
+                'rare': '💎',
+                'epic': '💍',
+                'legendary': '👑'
             }.get(nft['rarity'], '?')
             status = "?? Свободен" if nft['owner'] is None else "?? В коллекции"
             price_info = f"?? {NFT_BASE_PRICE} Zеток" if nft['owner'] is None else "?? Продано"
-            response += f"?? {nft_id}: {rarity_emoji} {nft['description']} - {status} {price_info}\n"
+            response += f"🎨 {nft_id}: {rarity_emoji} {nft['description']} - {status} {price_info}\n"
         response += f"\n?? Все NFT стоят: {NFT_BASE_PRICE} Zеток\n"
         response += "?? Для покупки: /buy_nft [id]"
         bot.reply_to(message, response)
@@ -1168,7 +1140,7 @@ def handle_users(message: Message):
     response = (
         f"Статистика бота:\n"
         f"?? Всего пользователей: {users_count}\n"
-        f"???? Всего заработано Zеток: {total_leaves}\n"
+        f"💰 Всего заработано Zеток: {total_leaves}\n"
         f"?? Всего территорий: {total_tea}"
         f"{ban_status}"
     )
@@ -1191,7 +1163,7 @@ def handle_top(message: Message):
             user = bot.get_chat(user_id)
             user_name = user.first_name
             # Добавляем медали для первых трех мест
-            medal = {1: "??", 2: "??", 3: "??"}.get(index, "??")
+            medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(index, "??")
             response += f"{medal} {index}. {user_name}: ?? {balance['tea']} | ??{balance['leaves']}\n"
         except:
             response += f"?? {index}. Пользователь:  ?? {balance['tea']} | ?? {balance['leaves']}\n"
@@ -1492,7 +1464,6 @@ def handle_market_all(message: Message):
                 f"?? Цена: {listing['price']} Zеток\n"
                 f"?? Продавец: {listing['seller_name']}\n"
                 f"? Осталось: {days}д {hours}ч\n"
-                f"????????????????????\n"
             )
         response += f"\n?? Всего предложений: {len(market_listings)}"
         if len(response) > 4000:
@@ -2160,8 +2131,8 @@ def handle_clan(message: Message):
             members = [uid for uid, data in user_balances.items() if data.get('clan') == clan_id]
             response = (
                 f"?? Клан «{clan['name']}»\n\n"
-                f"?? Лидер: {get_username(clan['leader'])}\n"
-                f"?? Участников: {len(members)}\n"
+                f"👑 Лидер: {get_username(clan['leader'])}\n"
+                f"👤 Участников: {len(members)}\n"
                 f"?? Ваша роль: {get_role_name(role)}\n\n"
             )
             if role in ['leader', 'officer']:
@@ -2256,9 +2227,9 @@ def handle_clan_help(message: Message):
         f"• /clan_promote @username - повысить до офицера\n"
         f"• /clan_demote @username - понизить до участника\n\n"
         f"?? Роли в клане:\n"
-        f"• ?? Лидер - создатель клана, полный доступ\n"
-        f"• ?? Офицер - может управлять участниками\n"
-        f"• ?? Участник - базовый доступ\n\n"
+        f"• 👑 Лидер - создатель клана, полный доступ\n"
+        f"• 🛡️ Офицер - может управлять участниками\n"
+        f"• 👤 Участник - базовый доступ\n\n"
         f"? Как вступить в клан:\n"
         f"1. Посмотрите список кланов: /clan_list\n"
         f"2. Подайте заявку: /clan_join [название]\n"
@@ -2522,9 +2493,9 @@ def handle_clan_members(message: Message):
                 except:
                     continue
         # Сортируем по ролям: лидер -> офицеры -> участники
-        role_priority = {'?? Лидер': 0, '?? Офицер': 1, '?? Участник': 2}
+        role_priority = {'👑 Лидер': 0, '🛡️ Офицер': 1, '👤 Участник': 2}
         members.sort(key=lambda x: role_priority[x[0]])
-        response = f"?? Участники клана «{clan['name']}»:\n\n"
+        response = f"👤 Участники клана «{clan['name']}»:\n\n"
         for role, username in members:
             response += f"{role}: {username}\n"
         bot.reply_to(message, response)
@@ -2610,8 +2581,8 @@ def handle_clan_list(message: Message):
             leader_name = get_username(clan_data['leader'])
             response += (
                 f"?? «{clan_data['name']}»\n"
-                f"?? Лидер: {leader_name}\n"
-                f"?? Участников: {members_count}\n\n"
+                f"👑 Лидер: {leader_name}\n"
+                f"👤 Участников: {members_count}\n\n"
             )
         response += "Чтобы вступить в клан, используйте:\n/clan_join [название]"
         bot.reply_to(message, response)
@@ -2679,9 +2650,9 @@ def get_username(user_id):
         return "Неизвестный"
 def get_role_name(role):
     return {
-        'leader': '?? Лидер',
-        'officer': '?? Офицер',
-        'member': '?? Участник'
+        'leader': '👑 Лидер',
+        'officer': '🛡️ Офицер',
+        'member': '👤 Участник'
     }.get(role, '? Неизвестно')
 @bot.message_handler(commands=['shop'])
 @group_only
@@ -2816,7 +2787,7 @@ def handle_drop(message: Message):
         bot.reply_to(message, "? Произошла ошибка при удалении предмета")
 if __name__ == '__main__':
     print("Бот запущен...")
+    db.init_db()
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
     bot.infinity_polling()
-
