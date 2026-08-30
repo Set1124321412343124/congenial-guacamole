@@ -2785,8 +2785,22 @@ def handle_drop(message: Message):
     except Exception as e:
         print(f"Ошибка в handle_drop: {e}")
         bot.reply_to(message, "? Произошла ошибка при удалении предмета")
+def self_ping():
+    import urllib.request
+    while True:
+        time.sleep(600)
+        try:
+            url = os.environ.get('RENDER_EXTERNAL_URL', '')
+            if url:
+                urllib.request.urlopen(url, timeout=10)
+                print(f"[PING] {url} - OK")
+        except Exception as e:
+            print(f"[PING] Error: {e}")
+
 if __name__ == '__main__':
     print("Бот запущен...")
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
+    ping_thread = threading.Thread(target=self_ping, daemon=True)
+    ping_thread.start()
     bot.infinity_polling()
