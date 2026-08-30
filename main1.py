@@ -2787,7 +2787,6 @@ def handle_drop(message: Message):
         bot.reply_to(message, "? Произошла ошибка при удалении предмета")
 if __name__ == '__main__':
     print("Бот запущен...")
-    db.init_db()
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
     bot.infinity_polling()
