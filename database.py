@@ -13,40 +13,24 @@ def get_conn():
 def init_db():
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute('''
-        CREATE TABLE IF NOT EXISTS users (
-            user_id BIGINT PRIMARY KEY,
-            data JSONB NOT NULL DEFAULT '{}'
-        )
-    ''')
-    cur.execute('''
-        CREATE TABLE IF NOT EXISTS clans (
-            clan_name TEXT PRIMARY KEY,
-            data JSONB NOT NULL DEFAULT '{}'
-        )
-    ''')
-    cur.execute('''
-        CREATE TABLE IF NOT EXISTS promos (
-            promo_name TEXT PRIMARY KEY,
-            data JSONB NOT NULL DEFAULT '{}'
-        )
-    ''')
-    cur.execute('''
-        CREATE TABLE IF NOT EXISTS nfts (
-            nft_id INTEGER PRIMARY KEY,
-            data JSONB NOT NULL DEFAULT '{}'
-        )
-    ''')
-    cur.execute('''
-        CREATE TABLE IF NOT EXISTS market (
-            listing_id INTEGER PRIMARY KEY,
-            data JSONB NOT NULL DEFAULT '{}'
-        )
-    ''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS users (user_id BIGINT PRIMARY KEY, data JSONB NOT NULL DEFAULT '{}')''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS clans (clan_name TEXT PRIMARY KEY, data JSONB NOT NULL DEFAULT '{}')''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS promos (promo_name TEXT PRIMARY KEY, data JSONB NOT NULL DEFAULT '{}')''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS nfts (nft_id INTEGER PRIMARY KEY, data JSONB NOT NULL DEFAULT '{}')''')
+    cur.execute('''CREATE TABLE IF NOT EXISTS market (listing_id INTEGER PRIMARY KEY, data JSONB NOT NULL DEFAULT '{}')''')
     cur.close()
     conn.close()
 
+_db_initialized = False
+
+def ensure_db():
+    global _db_initialized
+    if not _db_initialized:
+        init_db()
+        _db_initialized = True
+
 def load_all_users():
+    ensure_db()
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT user_id, data FROM users')
@@ -77,6 +61,7 @@ def save_all_users(user_balances):
     conn.close()
 
 def load_all_clans():
+    ensure_db()
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT clan_name, data FROM clans')
@@ -97,6 +82,7 @@ def save_all_clans(clans):
     conn.close()
 
 def load_all_promos():
+    ensure_db()
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT promo_name, data FROM promos')
@@ -117,6 +103,7 @@ def save_all_promos(promos):
     conn.close()
 
 def load_all_nfts():
+    ensure_db()
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT nft_id, data FROM nfts')
@@ -137,6 +124,7 @@ def save_all_nfts(nfts):
     conn.close()
 
 def load_all_market():
+    ensure_db()
     conn = get_conn()
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT listing_id, data FROM market')
