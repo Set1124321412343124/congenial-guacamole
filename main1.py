@@ -19,6 +19,7 @@ MARKET_TAX_PERCENT = 10
 MARKET_MIN_PRICE = 10
 MARKET_MAX_DURATION = 7 * 24 * 60 * 60
 market_listings = {}
+user_id = message.from_user.id
 FARM_MESSAGES = [
     "Крымская земля щедра! Ты захватил {count} Zеток",
     "Отличная работа на крымских полях! Партия повышает твой рейтинг на +{count}!",
