@@ -3278,6 +3278,35 @@ def self_ping():
 
 if __name__ == '__main__':
     print("Bot started...")
+
+    commands = [
+        telebot.types.BotCommand("start", "Запустить бота"),
+        telebot.types.BotCommand("farm", "Фармить Zетки"),
+        telebot.types.BotCommand("craft", "Захватить территорию"),
+        telebot.types.BotCommand("balance", "Мой баланс"),
+        telebot.types.BotCommand("me", "Мой профиль"),
+        telebot.types.BotCommand("inventory", "Мой инвентарь"),
+        telebot.types.BotCommand("shop", "Магазин предметов"),
+        telebot.types.BotCommand("buy", "Купить предмет"),
+        telebot.types.BotCommand("drop", "Выбросить предмет"),
+        telebot.types.BotCommand("nft_list", "Каталог NFT"),
+        telebot.types.BotCommand("buy_nft", "Купить NFT"),
+        telebot.types.BotCommand("tc", "Перевести Zетки"),
+        telebot.types.BotCommand("duel", "Вызвать на дуэль"),
+        telebot.types.BotCommand("accept", "Принять дуэль"),
+        telebot.types.BotCommand("decline", "Отклонить дуэль"),
+        telebot.types.BotCommand("daily", "Ежедневный бонус"),
+        telebot.types.BotCommand("missions", "Мои миссии"),
+        telebot.types.BotCommand("slots", "Слоты"),
+        telebot.types.BotCommand("top", "Топ Zеток"),
+        telebot.types.BotCommand("top_t", "Топ территорий"),
+        telebot.types.BotCommand("top_clans", "Топ кланов"),
+        telebot.types.BotCommand("top_kills", "Топ убийц"),
+        telebot.types.BotCommand("clan", "Управление кланом"),
+        telebot.types.BotCommand("help", "Помощь"),
+    ]
+    bot.set_my_commands(commands)
+
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
     math_thread = threading.Thread(target=math_event_loop, daemon=True)
