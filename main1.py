@@ -22,7 +22,7 @@ MARKET_MAX_DURATION = 7 * 24 * 60 * 60
 market_listings = {}
 FARM_MESSAGES = [
     "Крымская земля щедра! Ты захватил {count} Zеток",
-    "Отличная работа на крымских полях! Партия повышает твой рейтинг на +{count}!",
+    "Отличная работа на крымских полях!ты получаешь +{count}!",
     "Крымский губернатор выдаёт вам {count} Zеток за хорошую работу!",
     "За службу на полуострове вы заработали {count} Zеток!",
     "Вы отлично справились с охраной рубежей! +{count} Zеток!",
@@ -52,7 +52,7 @@ COOLDOWN_MESSAGES = [
     "Крымские поля отдыхают. Загляни через {time}",
     "Мудрый защитник знает время стражи. Приходи через {time}",
     "Древняя мудрость гласит: вернись через {time}",
-    "Дракон охраняет Крым. Подожди {time}",
+    "двуглавый орел охраняет Крым. Подожди {time}",
     "Туман над полуостровом рассеется через {time}",
     "Время стражи наступит через {time}",
     "Крымские шпаги говорят: загляни через {time}"
@@ -112,23 +112,15 @@ def end_halloween_event():
 SHOP_ITEMS = {
     'gold_rise': {
         'id': 'gold_rise',
-        'name': '🪙 ЗОЛОТОЙ КРЫМ',
+        'name': 'ЗОЛОТОЙ КРЫМ',
         'description': 'увеличивает зарплату на 100%',
         'price': '1000000000000000000',
         'bonus_type': 'farm',
         'bonus_value': 1
     },
-        'halloween_pumpkin': {
-        'id': 'halloween_pumpkin',
-        'name': '🎃 Хэллоуинская тыква',
-        'description': 'Эксклюзивный предмет хэллоуинского ивента!',
-        'price': 'Event Item)',
-        'bonus_type': 'farm',
-        'bonus_value': 1
-    },
     'june_sky': {
         'id': 'june_sky',
-        'name': '☁️ Ломтик июльского неба',
+        'name': '☁️ Ломтик июньского неба',
         'description': 'увеличивает зарплату на 10%',
         'price': 200,
         'bonus_type': 'farm',
@@ -168,7 +160,7 @@ SHOP_ITEMS = {
     },
     'jade_rod': {
         'id':'jade_rod',
-        'name': '💊 Нефритовый стержень',
+        'name': 'царский скипетр и держава',
         'description': 'Экономит 20 соц Zеток при захвате территорий',
         'price': 800,
         'bonus_type': 'craft',
@@ -184,7 +176,7 @@ SHOP_ITEMS = {
     },
     'dragon': {
         'id': 'dragon',
-        'name': '🐉 Китай дракон(товарищ китай)',
+        'name': 'двуглавый орел',
         'description': 'зарплату на 50%',
         'price': 2000,
         'bonus_type': 'farm',
@@ -442,7 +434,7 @@ def handle_price(message:Message):
     price_txt = (
         f"Приветствую в магазине игровой валюты!\n"
         f"Базовая стоимость:\n"
-        f"1? = 50 Zеток!\n"
+        f"1(ну короче много) = 50 Zеток!\n"
         f"1 звезда = 100 Zеток!\n"
         f"По всем вопросам - владельцу(@alexey_navalyov_1976)"
     )
@@ -2788,12 +2780,14 @@ def handle_drop(message: Message):
 def self_ping():
     import urllib.request
     while True:
-        time.sleep(600)
+        time.sleep(300)
         try:
             url = os.environ.get('RENDER_EXTERNAL_URL', '')
-            if url:
-                urllib.request.urlopen(url, timeout=10)
-                print(f"[PING] {url} - OK")
+            if not url:
+                return
+            req = urllib.request.Request(url)
+            resp = urllib.request.urlopen(req, timeout=15)
+            print(f"[PING] {resp.status} OK")
         except Exception as e:
             print(f"[PING] Error: {e}")
 
