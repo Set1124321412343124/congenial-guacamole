@@ -22,7 +22,7 @@ MARKET_MAX_DURATION = 7 * 24 * 60 * 60
 market_listings = {}
 FARM_MESSAGES = [
     "Крымская земля щедра! Ты захватил {count} Zеток",
-    "Отличная работа на крымских полях!ты получаешь +{count}!",
+    "Отличная работа на крымских полях! Партия повышает твой рейтинг на +{count}!",
     "Крымский губернатор выдаёт вам {count} Zеток за хорошую работу!",
     "За службу на полуострове вы заработали {count} Zеток!",
     "Вы отлично справились с охраной рубежей! +{count} Zеток!",
@@ -52,7 +52,7 @@ COOLDOWN_MESSAGES = [
     "Крымские поля отдыхают. Загляни через {time}",
     "Мудрый защитник знает время стражи. Приходи через {time}",
     "Древняя мудрость гласит: вернись через {time}",
-    "двуглавый орел охраняет Крым. Подожди {time}",
+    "Дракон охраняет Крым. Подожди {time}",
     "Туман над полуостровом рассеется через {time}",
     "Время стражи наступит через {time}",
     "Крымские шпаги говорят: загляни через {time}"
@@ -110,78 +110,129 @@ def end_halloween_event():
                 continue
     save_user_data()
 SHOP_ITEMS = {
+    # ===== ФАРМ БОНУСЫ =====
     'gold_rise': {
         'id': 'gold_rise',
-        'name': 'ЗОЛОТОЙ КРЫМ',
-        'description': 'увеличивает зарплату на 100%',
-        'price': '1000000000000000000',
+        'name': '🪙 Золотой червонец',
+        'description': 'Легендарный предмет. +100% к зарплате',
+        'price': 99999,
         'bonus_type': 'farm',
-        'bonus_value': 1
+        'bonus_value': 1.0
+    },
+    'halloween_pumpkin': {
+        'id': 'halloween_pumpkin',
+        'name': '🎃 Тыква губернатора',
+        'description': 'Ивентный предмет. +100% к зарплате',
+        'price': 0,
+        'bonus_type': 'farm',
+        'bonus_value': 1.0
+    },
+    'watermelon': {
+        'id': 'watermelon',
+        'name': '🍉 Священный арбуз',
+        'description': 'Священный плод полуострова. +50% к зарплате',
+        'price': 1000,
+        'bonus_type': 'farm',
+        'bonus_value': 0.5
+    },
+    'dragon': {
+        'id': 'dragon',
+        'name': '🐉 Китайский дракон',
+        'description': 'Мифическое существо. +50% к зарплате',
+        'price': 2000,
+        'bonus_type': 'farm',
+        'bonus_value': 0.5
+    },
+    'scissors': {
+        'id': 'scissors',
+        'name': '🔪 Священный серп',
+        'description': 'Оружие трудовиков. +30% к зарплате',
+        'price': 700,
+        'bonus_type': 'farm',
+        'bonus_value': 0.3
+    },
+    'watering_can': {
+        'id': 'watering_can',
+        'name': '🌱 Царская поливалка',
+        'description': 'Для полива полей. +20% к зарплате',
+        'price': 500,
+        'bonus_type': 'farm',
+        'bonus_value': 0.2
+    },
+    'defender_medal': {
+        'id': 'defender_medal',
+        'name': '🎖️ Медаль защитника Полуострова',
+        'description': 'За охрану рубежей. +35% к зарплате',
+        'price': 1500,
+        'bonus_type': 'farm',
+        'bonus_value': 0.35
+    },
+    'governor_seal': {
+        'id': 'governor_seal',
+        'name': '👑 Печать губернатора',
+        'description': 'Документ власти. +25% к зарплате',
+        'price': 1200,
+        'bonus_type': 'farm',
+        'bonus_value': 0.25
+    },
+    'border_flask': {
+        'id': 'border_flask',
+        'name': '🥃 Фляга пограничника',
+        'description': 'Поднимает дух. +15% к зарплате',
+        'price': 350,
+        'bonus_type': 'farm',
+        'bonus_value': 0.15
     },
     'june_sky': {
         'id': 'june_sky',
-        'name': '☁️ Ломтик июньского неба',
-        'description': 'увеличивает зарплату на 10%',
+        'name': '☁️ Ломтик июльского неба',
+        'description': 'Природа крымская. +10% к зарплате',
         'price': 200,
         'bonus_type': 'farm',
         'bonus_value': 0.1
     },
     'sharf': {
         'id': 'sharf',
-        'name': '🧣 Шарф лололошки',
-        'description': 'не делает ничего, предмет от китай товарищ)',
+        'name': '🧣 Шарф ополченца',
+        'description': 'Теплый, но безполезный. Бонусов нет',
         'price': 1,
         'bonus_type': 'farm',
         'bonus_value': 0
     },
-    'watermelon': {
-        'id': 'watermelon',
-        'name': '🍉 Священный арбуз[NEW]',
-        'description': 'увеличивает зарплату на 50%(обязателен для культа!)',
-        'price': 1000,
-        'bonus_type': 'farm',
-        'bonus_value': 0.5
-    },
-    'watering_can': {
-        'id': 'watering_can',
-        'name': '🌱 Царская поливалка',
-        'description': 'Увеличивает зарплату на 20%',
-        'price': 500,
-        'bonus_type': 'farm',
-        'bonus_value': 0.2
-    },
-    'scissors': {
-        'id': 'scissors',
-        'name': '🔪 Священный серп',
-        'description': 'Увеличивает зарплату на 30%',
-        'price': 1000,
-        'bonus_type': 'farm',
-        'bonus_value': 0.3
-    },
+    # ===== SKRAFT / СКИДКИ =====
     'jade_rod': {
-        'id':'jade_rod',
-        'name': 'царский скипетр и держава',
-        'description': 'Экономит 20 соц Zеток при захвате территорий',
+        'id': 'jade_rod',
+        'name': '💊 Нефритовый стержень',
+        'description': 'Экономит 20 Zеток на крафте',
         'price': 800,
         'bonus_type': 'craft',
         'bonus_value': 20
     },
+    'teapot': {
+        'id': 'teapot',
+        'name': '🫖 Чайник губернатора',
+        'description': 'Экономит 10 Zеток на крафте',
+        'price': 400,
+        'bonus_type': 'craft',
+        'bonus_value': 10
+    },
+    'crimean_ticket': {
+        'id': 'crimean_ticket',
+        'name': '🎫 Билет в Крымский театр',
+        'description': 'Экономит 15 Zеток на крафте',
+        'price': 600,
+        'bonus_type': 'craft',
+        'bonus_value': 15
+    },
+    # ===== ВРЕМЯ =====
     'scroll': {
         'id': 'scroll',
         'name': '📜 Свиток мудрости',
-        'description': 'Уменьшает время работы на 10 минут',
+        'description': 'Уменьшает время фарма на 10 минут',
         'price': 1500,
         'bonus_type': 'time',
-        'bonus_value': 600  # секунды
+        'bonus_value': 600
     },
-    'dragon': {
-        'id': 'dragon',
-        'name': 'двуглавый орел',
-        'description': 'зарплату на 50%',
-        'price': 2000,
-        'bonus_type': 'farm',
-        'bonus_value': 0.5
-    }
 }
 def load_user_data():
     return db.load_all_users()
@@ -240,7 +291,13 @@ def init_user_data(user_id):
             'kills': 0,
             'killed_by': None,
             'kill_ban_until': 0,
-            'last_kill_time': 0
+            'last_kill_time': 0,
+            'daily_streak': 0,
+            'daily_last': 0,
+            'daily_wins_today': 0,
+            'daily_wins_reset': 0,
+            'missions': [],
+            'missions_date': ''
         }
         save_user_data()
     else:
@@ -259,6 +316,18 @@ def init_user_data(user_id):
             user_balances[user_id]['kill_ban_until'] = 0
         if 'last_kill_time' not in user_balances[user_id]:
             user_balances[user_id]['last_kill_time'] = 0
+        if 'daily_streak' not in user_balances[user_id]:
+            user_balances[user_id]['daily_streak'] = 0
+        if 'daily_last' not in user_balances[user_id]:
+            user_balances[user_id]['daily_last'] = 0
+        if 'daily_wins_today' not in user_balances[user_id]:
+            user_balances[user_id]['daily_wins_today'] = 0
+        if 'daily_wins_reset' not in user_balances[user_id]:
+            user_balances[user_id]['daily_wins_reset'] = 0
+        if 'missions' not in user_balances[user_id]:
+            user_balances[user_id]['missions'] = []
+        if 'missions_date' not in user_balances[user_id]:
+            user_balances[user_id]['missions_date'] = ''
 for user_id, data in list(user_balances.items()):
     if isinstance(data, dict):
         if 'last_farm' not in data:
@@ -434,7 +503,7 @@ def handle_price(message:Message):
     price_txt = (
         f"Приветствую в магазине игровой валюты!\n"
         f"Базовая стоимость:\n"
-        f"1(ну короче много) = 50 Zеток!\n"
+        f"1? = 50 Zеток!\n"
         f"1 звезда = 100 Zеток!\n"
         f"По всем вопросам - владельцу(@alexey_navalyov_1976)"
     )
@@ -771,6 +840,7 @@ def handle_farm(message: Message):
             if 'scroll' in user_balances[user_id]['items']:
                 response = response.replace("1 час", "50 минут")
             bot.reply_to(message, response)
+            track_mission(user_id, 'farm')
         except Exception as e:
             print(f"Ошибка при сборе Zеток: {e}")
             bot.reply_to(message, "? Произошла ошибка при сборе Zеток. Попробуйте позже.")
@@ -1165,6 +1235,7 @@ def handle_top(message: Message):
     if user_balances[user_id].get('banned', False):
         response += "\n\n?? Ваш аккаунт заблокирован!"
     bot.reply_to(message, response)
+    track_mission(user_id, 'top_view')
 @bot.message_handler(commands=['craft'])
 @group_only
 def handle_craft(message: Message):
@@ -1220,6 +1291,7 @@ def handle_craft(message: Message):
             f"?? Территории: {user_balances[user_id]['tea']}"
         )
         bot.reply_to(message, response)
+        track_mission(user_id, 'craft', amount)
     except Exception as e:
         print(f"Ошибка в handle_craft: {e}")
         bot.reply_to(message, "? Произошла ошибка при создании чая")
@@ -1541,8 +1613,9 @@ def handle_transfer(message: Message):
         user_balances[recipient_id]['leaves'] += amount
         save_user_data()
         bot.reply_to(message,
-            f"? Успешно отправлено {amount} Zеток пользователю {recipient_name}!\n"
+            f"✅ Успешно отправлено {amount} Zеток пользователю {recipient_name}!\n"
             f"Ваш новый баланс: {user_balances[sender_id]['leaves']} Zеток")
+        track_mission(sender_id, 'transfer')
         try:
             bot.send_message(recipient_id,
                 f"?? Вы получили {amount} Zеток от {message.from_user.first_name}!\n"
@@ -2672,6 +2745,7 @@ def handle_shop(message: Message):
             f"?? Купить NFT: /buy_nft [id]\n\n"
         )
         bot.reply_to(message, response)
+        track_mission(user_id, 'shop')
     except Exception as e:
         print(f"Ошибка в handle_shop: {e}")
         bot.reply_to(message, "? Произошла ошибка при открытии магазина")
@@ -2777,6 +2851,417 @@ def handle_drop(message: Message):
     except Exception as e:
         print(f"Ошибка в handle_drop: {e}")
         bot.reply_to(message, "? Произошла ошибка при удалении предмета")
+
+# ==================== MATH EVENT ====================
+import operator
+
+math_active = False
+math_answer = 0
+math_reward = 0
+math_chat_id = None
+
+MATH_REPLIES = [
+    "✅ Правильно! Награда: {reward} Zеток!",
+    "Победа! Вы получили {reward} Zеток!",
+    "Точно! Ваша награда: {reward} Zеток!"
+]
+
+def generate_math():
+    if random.random() < 0.3:
+        a = random.randint(2, 15)
+        b = random.randint(2, 10)
+        c = random.randint(1, 10)
+        op1 = random.choice(['+', '-'])
+        op2 = random.choice(['*', '+', '-'])
+        expr = f"({a} {op1} {b}) {op2} {c}"
+        answer = eval(expr)
+        return expr, int(answer)
+    op_func, op_symbol = random.choice([
+        (lambda a, b: a + b, '+'),
+        (lambda a, b: a - b, '-'),
+        (lambda a, b: a * b, '*'),
+    ])
+    a = random.randint(5, 50)
+    b = random.randint(2, 20)
+    result = op_func(a, b)
+    expr = f"{a} {op_symbol} {b}"
+    return expr, result
+
+def math_event_loop():
+    global math_active, math_answer, math_reward, math_chat_id
+    while True:
+        time.sleep(random.randint(600, 2400))
+        try:
+            math_chat_id = ALLOWED_GROUP_ID
+            if not math_chat_id:
+                continue
+            expr, answer = generate_math()
+            math_reward = random.randint(10, 100)
+            math_answer = answer
+            math_active = True
+            msg = (
+                f"🧮 МАТЕМАТИЧЕСКИЙ ВЫЗОВ!\n\n"
+                f"{expr} = ?\n\n"
+                f"🏆 Награда: {math_reward} Zеток\n"
+                f"⏰ Ответьте первым правильно!"
+            )
+            bot.send_message(math_chat_id, msg)
+        except Exception as e:
+            print(f"Ошибка math_event: {e}")
+
+def handle_math_reply(message: Message):
+    global math_active, math_answer, math_reward
+    if not math_active:
+        return
+    if message.chat.id != ALLOWED_GROUP_ID:
+        return
+    try:
+        user_answer = int(message.text.strip())
+    except (ValueError, AttributeError):
+        return
+    if user_answer != math_answer:
+        return
+    math_active = False
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    now = datetime.datetime.now().timestamp()
+    user = user_balances[user_id]
+    if user.get('daily_wins_reset', 0) < now - 3600:
+        user['daily_wins_today'] = 0
+        user['daily_wins_reset'] = now
+    if user.get('daily_wins_today', 0) >= 3:
+        bot.reply_to(message, "⚠️ Вы уже выиграли 3 раза сегодня! Лимит: 3/час")
+        return
+    user['leaves'] += math_reward
+    user['daily_wins_today'] = user.get('daily_wins_today', 0) + 1
+    save_user_data()
+    reply = random.choice(MATH_REPLIES).format(reward=math_reward)
+    bot.reply_to(message, f"🎯 {message.from_user.first_name}, {reply}")
+
+# ==================== SLOTS ====================
+SLOT_SYMBOLS = ['🍒', '🍎', '🍉', '🍀', '💎', '💰']
+
+@bot.message_handler(commands=['slots'])
+@group_only
+def handle_slots(message: Message):
+    try:
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if check_ban(user_id, message):
+            return
+        parts = message.text.split()
+        if len(parts) != 2:
+            bot.reply_to(message, "? Использование: /slots [ставка]\nМин: 10, макс: 500")
+            return
+        try:
+            bet = int(parts[1])
+        except ValueError:
+            bot.reply_to(message, "? Ставка должна быть числом!")
+            return
+        if bet < 10 or bet > 500:
+            bot.reply_to(message, "? Ставка от 10 до 500 Zеток!")
+            return
+        if user_balances[user_id]['leaves'] < bet:
+            bot.reply_to(message, f"? Недостаточно Zеток! У вас: {user_balances[user_id]['leaves']}")
+            return
+        s1 = random.choice(SLOT_SYMBOLS)
+        s2 = random.choice(SLOT_SYMBOLS)
+        s3 = random.choice(SLOT_SYMBOLS)
+        user_balances[user_id]['leaves'] -= bet
+        if s1 == s2 == s3:
+            win = bet * 5
+            emoji = "🎉"
+            msg = f"ДЖЕКПОТ! Три одинаковых!"
+        elif s1 == s2 or s2 == s3 or s1 == s3:
+            win = bet * 2
+            emoji = "⭐"
+            msg = "Два одинаковых!"
+        else:
+            win = 0
+            emoji = "❌"
+            msg = "Ничего :("
+        user_balances[user_id]['leaves'] += win
+        save_user_data()
+        response = (
+            f"🎰 СЛОТЫ ВРАЩАЮТСЯ!\n"
+            f"[ {s1} | {s2} | {s3} ]\n\n"
+            f"{emoji} {msg}\n"
+            f"💰 Ставка: {bet} | Выигрыш: {win}\n"
+            f"💰 Баланс: {user_balances[user_id]['leaves']} Zеток"
+        )
+        bot.reply_to(message, response)
+        track_mission(user_id, 'slots')
+    except Exception as e:
+        print(f"Ошибка slots: {e}")
+        bot.reply_to(message, "? Ошибка в слотах")
+
+# ==================== DAILY ====================
+DAILY_REWARDS = [10, 20, 30, 40, 50, 60, 70]
+
+@bot.message_handler(commands=['daily'])
+@group_only
+def handle_daily(message: Message):
+    try:
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if check_ban(user_id, message):
+            return
+        now = datetime.datetime.now().timestamp()
+        user = user_balances[user_id]
+        last = user.get('daily_last', 0)
+        streak = user.get('daily_streak', 0)
+        elapsed = now - last
+        if elapsed < 86400 and last > 0:
+            hours_left = int((86400 - elapsed) // 3600)
+            mins_left = int(((86400 - elapsed) % 3600) // 60)
+            bot.reply_to(message, f"⏰ Следующий бонус через: {hours_left}ч {mins_left}м")
+            return
+        if elapsed > 172800:
+            streak = 0
+        streak = min(streak + 1, 7)
+        reward = DAILY_REWARDS[streak - 1]
+        user['leaves'] += reward
+        user['daily_streak'] = streak
+        user['daily_last'] = now
+        save_user_data()
+        bar = "█" * streak + "░" * (7 - streak)
+        bot.reply_to(message,
+            f"🎁 ЕЖЕДНЕВНЫЙ БОНУС!\n\n"
+            f"💰 Награда: {reward} Zеток\n"
+            f"🔥 Серия: {streak}/7\n"
+            f"{bar}\n\n"
+            f"💰 Баланс: {user['leaves']} Zеток")
+        track_mission(user_id, 'daily_claim')
+    except Exception as e:
+        print(f"Ошибка daily: {e}")
+
+# ==================== MISSIONS ====================
+MISSION_TEMPLATES = [
+    ("Профарми {n} раз", "farm", 3, 50),
+    ("Скрафти {n} территорий", "craft", 2, 40),
+    ("Отправь {n} Zеток", "transfer", 1, 30),
+    ("Посети /shop", "shop", 1, 15),
+    ("Войди /daily", "daily_claim", 1, 20),
+    ("Посмотри /top", "top_view", 1, 10),
+    ("Крутни {n} раз слоты", "slots", 3, 45),
+]
+
+def generate_missions(user_id):
+    user = user_balances[user_id]
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    if user.get('missions_date') == today and user.get('missions'):
+        return user['missions']
+    pool = random.sample(MISSION_TEMPLATES, min(3, len(MISSION_TEMPLATES)))
+    missions = []
+    for template, action, n, reward in pool:
+        missions.append({
+            'text': template.format(n=n),
+            'action': action,
+            'target': n,
+            'progress': 0,
+            'reward': reward,
+            'done': False
+        })
+    user['missions'] = missions
+    user['missions_date'] = today
+    save_user_data()
+    return missions
+
+def track_mission(user_id, action, amount=1):
+    if user_id not in user_balances:
+        return
+    user = user_balances[user_id]
+    missions = user.get('missions', [])
+    changed = False
+    for m in missions:
+        if m['action'] == action and not m['done']:
+            m['progress'] = min(m['progress'] + amount, m['target'])
+            if m['progress'] >= m['target']:
+                m['done'] = True
+                user['leaves'] += m['reward']
+                changed = True
+    if changed:
+        save_user_data()
+
+@bot.message_handler(commands=['missions'])
+@group_only
+def handle_missions(message: Message):
+    try:
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if check_ban(user_id, message):
+            return
+        missions = generate_missions(user_id)
+        response = "📋 МИССИИ НА СЕГОДНЯ:\n\n"
+        for i, m in enumerate(missions, 1):
+            status = "✅" if m['done'] else f"{m['progress']}/{m['target']}"
+            response += f"{i}. {m['text']}\n   {status} | 💰 {m['reward']} Zеток\n"
+        done_count = sum(1 for m in missions if m['done'])
+        if done_count == len(missions):
+            response += "\n🎉 Все миссии выполнены! Все награды получены!"
+        bot.reply_to(message, response)
+    except Exception as e:
+        print(f"Ошибка missions: {e}")
+
+# ==================== DUELS ====================
+pending_duels = {}
+duel_cooldowns = {}
+
+@bot.message_handler(commands=['duel'])
+@group_only
+def handle_duel(message: Message):
+    try:
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if check_ban(user_id, message):
+            return
+        now = datetime.datetime.now().timestamp()
+        if duel_cooldowns.get(user_id, 0) > now:
+            remaining = int((duel_cooldowns[user_id] - now) // 60)
+            bot.reply_to(message, f"⏰ Кулдаун дуэли: {remaining} мин")
+            return
+        if not message.reply_to_message:
+            bot.reply_to(message, "? Ответьте на сообщение игрока\nИспользование: /duel [ставка]")
+            return
+        parts = message.text.split()
+        if len(parts) != 2:
+            bot.reply_to(message, "? Использование: /duel [ставка]\nМин: 50, макс: 500")
+            return
+        try:
+            bet = int(parts[1])
+        except ValueError:
+            bot.reply_to(message, "? Ставка должна быть числом!")
+            return
+        if bet < 50 or bet > 500:
+            bot.reply_to(message, "? Ставка от 50 до 500 Zеток!")
+            return
+        target_id = message.reply_to_message.from_user.id
+        if target_id == user_id:
+            bot.reply_to(message, "? Нельзя дуэлиться с самим собой!")
+            return
+        init_user_data(target_id)
+        if user_balances[user_id]['leaves'] < bet:
+            bot.reply_to(message, f"? У вас недостаточно {bet} Zеток")
+            return
+        if user_balances[target_id]['leaves'] < bet:
+            bot.reply_to(message, f"? У цели недостаточно {bet} Zеток")
+            return
+        if target_id in pending_duels:
+            bot.reply_to(message, "? Этот игрок уже в дуэли!")
+            return
+        pending_duels[target_id] = {'challenger': user_id, 'bet': bet, 'time': now}
+        bot.reply_to(message,
+            f"⚔️ ДУЭЛЬ!\n"
+            f"{message.from_user.first_name} вызывает {message.reply_to_message.from_user.first_name}\n"
+            f"💰 Ставка: {bet} Zеток\n\n"
+            f"{message.reply_to_message.from_user.first_name}, напишите /accept для принятия или /decline для отказа")
+    except Exception as e:
+        print(f"Ошибка duel: {e}")
+
+@bot.message_handler(commands=['accept'])
+@group_only
+def handle_accept(message: Message):
+    try:
+        user_id = message.from_user.id
+        if user_id not in pending_duels:
+            bot.reply_to(message, "? У вас нет активных дуэлей!")
+            return
+        duel = pending_duels[user_id]
+        challenger_id = duel['challenger']
+        bet = duel['bet']
+        del pending_duels[user_id]
+        if user_balances[challenger_id]['leaves'] < bet or user_balances[user_id]['leaves'] < bet:
+            bot.reply_to(message, "? У кого-то недостаточно Zеток. Дуэл отменён.")
+            return
+        user_balances[challenger_id]['leaves'] -= bet
+        user_balances[user_id]['leaves'] -= bet
+        if random.random() < 0.5:
+            winner_id = challenger_id
+        else:
+            winner_id = user_id
+        user_balances[winner_id]['leaves'] += bet * 2
+        duel_cooldowns[challenger_id] = datetime.datetime.now().timestamp() + 600
+        duel_cooldowns[user_id] = datetime.datetime.now().timestamp() + 600
+        save_user_data()
+        winner_name = bot.get_chat(winner_id).first_name
+        loser_id = challenger_id if winner_id == user_id else user_id
+        loser_name = bot.get_chat(loser_id).first_name
+        bot.reply_to(message,
+            f"⚔️ РЕЗУЛЬТАТ ДУЭЛИ!\n\n"
+            f"🏆 Победитель: {winner_name}\n"
+            f"💰 Награда: {bet * 2} Zеток")
+    except Exception as e:
+        print(f"Ошибка accept: {e}")
+
+@bot.message_handler(commands=['decline'])
+@group_only
+def handle_decline(message: Message):
+    user_id = message.from_user.id
+    if user_id in pending_duels:
+        del pending_duels[user_id]
+        bot.reply_to(message, "❌ Дуэль отклонен.")
+    else:
+        bot.reply_to(message, "? У вас нет активных дуэлей!")
+
+# ==================== EXTENDED TOPS ====================
+@bot.message_handler(commands=['top_t'])
+@group_only
+def handle_top_t(message: Message):
+    try:
+        sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('tea', 0), reverse=True)[:10]
+        response = "🏰 Топ-10 по территориям:\n\n"
+        for index, (uid, data) in enumerate(sorted_users, 1):
+            try:
+                name = bot.get_chat(uid).first_name
+                medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(index, "🏅")
+                response += f"{medal} {index}. {name}: {data.get('tea', 0)} 🌿\n"
+            except:
+                continue
+        bot.reply_to(message, response)
+    except Exception as e:
+        print(f"Ошибка top_t: {e}")
+
+@bot.message_handler(commands=['top_clans'])
+@group_only
+def handle_top_clans(message: Message):
+    try:
+        if not clans:
+            bot.reply_to(message, "? Ещё нет кланов!")
+            return
+        sorted_clans = sorted(clans.items(), key=lambda x: x[1].get('total_donated', 0), reverse=True)[:10]
+        response = "🏰 Топ-10 кланов:\n\n"
+        medals = ["🥇", "🥈", "🥉"]
+        for i, (name, data) in enumerate(sorted_clans, 1):
+            medal = medals[i-1] if i <= 3 else f"{i}."
+            members = len(data.get('members', {}))
+            donated = data.get('total_donated', 0)
+            response += f"{medal} {name} | {members} участников | {donated} донатов\n"
+        bot.reply_to(message, response)
+    except Exception as e:
+        print(f"Ошибка top_clans: {e}")
+
+@bot.message_handler(commands=['top_kills'])
+@group_only
+def handle_top_kills(message: Message):
+    try:
+        sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('kills', 0), reverse=True)[:10]
+        response = "💀 Топ-10 убийц:\n\n"
+        medals = ["🥇", "🥈", "🥉"]
+        for index, (uid, data) in enumerate(sorted_users, 1):
+            try:
+                name = bot.get_chat(uid).first_name
+                medal = medals[index-1] if index <= 3 else f"{index}."
+                kills = data.get('kills', 0)
+                if kills > 0:
+                    response += f"{medal} {name}: {kills} убийств\n"
+            except:
+                continue
+        if len(response) < 50:
+            response += "Пока никто никого не убил!"
+        bot.reply_to(message, response)
+    except Exception as e:
+        print(f"Ошибка top_kills: {e}")
+
 def self_ping():
     import urllib.request
     while True:
@@ -2792,9 +3277,16 @@ def self_ping():
             print(f"[PING] Error: {e}")
 
 if __name__ == '__main__':
-    print("Бот запущен...")
+    print("Bot started...")
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
+    math_thread = threading.Thread(target=math_event_loop, daemon=True)
+    math_thread.start()
     ping_thread = threading.Thread(target=self_ping, daemon=True)
     ping_thread.start()
+
+    @bot.message_handler(func=lambda m: math_active and m.chat.id == ALLOWED_GROUP_ID and m.text and m.text.strip().lstrip('-').isdigit(), content_types=['text'])
+    def _math_handler(message: Message):
+        handle_math_reply(message)
+
     bot.infinity_polling()
