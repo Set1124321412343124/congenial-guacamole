@@ -3292,12 +3292,89 @@ def self_ping():
         except Exception as e:
             print(f"[PING] Error: {e}")
 
+LANDING_HTML = """<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ПОТУЖИЯ БОТ</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:60px 20px 40px}
+.hero h1{font-size:2.8em;margin-bottom:10px;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1.2em;color:#ccc;margin-bottom:30px}
+.btn{display:inline-block;padding:15px 40px;background:linear-gradient(90deg,#f7971e,#ffd200);color:#000;font-weight:bold;font-size:1.1em;border-radius:50px;text-decoration:none;transition:transform .2s}
+.btn:hover{transform:scale(1.05)}
+section{background:rgba(255,255,255,0.05);border-radius:20px;padding:30px;margin:20px 0;backdrop-filter:blur(10px)}
+h2{font-size:1.6em;margin-bottom:20px;color:#ffd200}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.card{background:rgba(255,255,255,0.08);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.1)}
+.card h3{color:#ffd200;margin-bottom:8px}
+.card p{color:#aaa;font-size:0.95em}
+.cmd-list{list-style:none}
+.cmd-list li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:10px}
+.cmd-list code{background:rgba(247,151,30,0.2);padding:2px 8px;border-radius:4px;color:#ffd200;font-size:0.9em}
+.cmd-list span{color:#ccc}
+footer{text-align:center;padding:40px;color:#666;font-size:0.9em}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hero">
+<h1>&#9876;&#65039; ПОТУЖИЯ</h1>
+<p>Экономика, кланы, дуэли и математика в одном Telegram-боте</p>
+<a href="https://t.me/Potuzhiyabot" class="btn">&#128640; Запустить бота</a>
+</div>
+<section>
+<h2>&#127891; Что умеет бот</h2>
+<div class="grid">
+<div class="card"><h3>&#127793; Фарм</h3><p>Каждый час зарабатывай Zетки. Покупай предметы для бонусов.</p></div>
+<div class="card"><h3>&#127757; Территории</h3><p>Крафти территории за Zетки. Строй свою империю.</p></div>
+<div class="card"><h3>&#9876;&#65039; Дуэли</h3><p>Вызывай других игроков на дуэль. Победитель забирает всё.</p></div>
+<div class="card"><h3>&#127920; Слоты</h3><p>Крути барабан и выигрывай до x5 от ставки.</p></div>
+<div class="card"><h3>&#128202; Кланы</h3><p>Создавай кланы, донатьь, соревнуйся в топе кланов.</p></div>
+<div class="card"><h3>&#127919; Миссии</h3><p>Выполняй ежедневные задания за награду.</p></div>
+<div class="card"><h3>&#128176; Рынок</h3><p>Покупай и продавай NFT между игроками.</p></div>
+<div class="card"><h3>&#129518; Математика</h3><p>Решай примеры быстрее других и получай награду.</p></div>
+</div>
+</section>
+<section>
+<h2>&#128295; Команды</h2>
+<ul class="cmd-list">
+<li><code>/farm</code> <span>- Фармить Zетки</span></li>
+<li><code>/craft</code> <span>- Захватить территорию</span></li>
+<li><code>/balance</code> <span>- Мой баланс</span></li>
+<li><code>/me</code> <span>- Мой профиль</span></li>
+<li><code>/shop</code> <span>- Магазин предметов</span></li>
+<li><code>/buy [id]</code> <span>- Купить предмет</span></li>
+<li><code>/inventory</code> <span>- Мой инвентарь</span></li>
+<li><code>/slots [ставка]</code> <span>- Слоты (10-500 Zеток)</span></li>
+<li><code>/daily</code> <span>- Ежедневный бонус</span></li>
+<li><code>/missions</code> <span>- Мои миссии</span></li>
+<li><code>/duel</code> <span>- Вызвать на дуэль</span></li>
+<li><code>/tc [кому] [сумма]</code> <span>- Перевести Zетки</span></li>
+<li><code>/top</code> <span>- Топ игроков</span></li>
+<li><code>/clan</code> <span>- Управление кланом</span></li>
+<li><code>/help</code> <span>- Помощь</span></li>
+</ul>
+</section>
+<section>
+<h2>&#128240; Наш канал</h2>
+<p style="color:#ccc;margin-bottom:15px">Присоединяйся к нашему сообществу. Там новости, ивенты и обсуждение.</p>
+<a href="https://t.me/Potuzhiya" class="btn">&#128240; Перейти в канал</a>
+</div>
+<footer>&#128296; ПОТУЖИЯ БОТ &copy; 2025</footer>
+</body>
+</html>"""
+
 class HealthHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
-        self.send_header('Content-Type', 'text/plain')
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
         self.end_headers()
-        self.wfile.write(b'OK')
+        self.wfile.write(LANDING_HTML.encode('utf-8'))
     def log_message(self, format, *args):
         pass
 
