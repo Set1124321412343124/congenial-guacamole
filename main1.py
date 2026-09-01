@@ -7,11 +7,13 @@ import datetime
 import threading
 import time
 import database as db
+from http.server import HTTPServer, BaseHTTPRequestHandler
 CLAN_PRICE = 100
 MIN_CLAN_NAME_LENGTH = 3
 MAX_CLAN_NAME_LENGTH = 20
 NFT_BASE_PRICE = 1000
 ALLOWED_GROUP_ID = -1002966537381
+CHANNEL_ID = -1002966537381
 HALLOWEEN_EVENT_ACTIVE = False
 HALLOWEEN_END_TIME = 1762635600
 KILL_COOLDOWN = 2 * 60 * 60
@@ -443,16 +445,28 @@ def check_event_end():
             time.sleep(300)
 event_thread = threading.Thread(target=check_event_end, daemon=True)
 event_thread.start()
+def is_subscribed(user_id):
+    try:
+        member = bot.get_chat_member(CHANNEL_ID, user_id)
+        return member.status in ['member', 'administrator', 'creator']
+    except:
+        return False
+
 def group_only(func):
-    """Декоратор для ограничения команд только разрешенной группой"""
+    """Декоратор: работает в любых группах, но требует подписки на канал"""
     def wrapper(message):
-        if message.chat.id != ALLOWED_GROUP_ID:
-            if message.chat.type == 'private':
-                bot.reply_to(message,
-                    "Этот бот работает только в @chatpartiy\n"
-                    f"Присоединяйтесь к нашей группе для использования бота")
-            else:
-                bot.reply_to(message, "Этот бот не предназначен для работы в этой группе!")
+        if message.chat.type == 'private':
+            bot.reply_to(message,
+                "\U0001f4e3 \u0411\u043e\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0433\u0440\u0443\u043f\u043f\u0430\u0445!\n\n"
+                "\U0001f517 \u0414\u043b\u044f \u043d\u0430\u0447\u0430\u043b\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b:\n"
+                "https://t.me/Potuzhiya\n\n"
+                "\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u0434\u043e\u0431\u0430\u0432\u044c\u0442\u0435 \u0431\u043e\u0442\u0430 \u0432 \u043b\u044e\u0431\u0443\u044e \u0433\u0440\u0443\u043f\u043f\u0443 \u0438 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0442\u0430\u043c.")
+            return
+        if not is_subscribed(message.from_user.id):
+            bot.reply_to(message,
+                "\u26a0\ufe0f \u0414\u043b\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u0431\u043e\u0442\u0430 \u043f\u043e\u0434\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b!\n\n"
+                "\U0001f517 https://t.me/Potuzhiya\n\n"
+                "\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.")
             return
         return func(message)
     return wrapper
@@ -2913,7 +2927,9 @@ def handle_math_reply(message: Message):
     global math_active, math_answer, math_reward
     if not math_active:
         return
-    if message.chat.id != ALLOWED_GROUP_ID:
+    if message.chat.type == 'private':
+        return
+    if not is_subscribed(message.from_user.id):
         return
     try:
         user_answer = int(message.text.strip())
@@ -3276,6 +3292,20 @@ def self_ping():
         except Exception as e:
             print(f"[PING] Error: {e}")
 
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b'OK')
+    def log_message(self, format, *args):
+        pass
+
+def run_web():
+    port = int(os.environ.get('PORT', 8080))
+    server = HTTPServer(('0.0.0.0', port), HealthHandler)
+    server.serve_forever()
+
 if __name__ == '__main__':
     print("Bot started...")
 
@@ -3307,6 +3337,9 @@ if __name__ == '__main__':
     ]
     bot.set_my_commands(commands)
 
+    web_thread = threading.Thread(target=run_web, daemon=True)
+    web_thread.start()
+
     event_thread = threading.Thread(target=check_event_end, daemon=True)
     event_thread.start()
     math_thread = threading.Thread(target=math_event_loop, daemon=True)
@@ -3314,7 +3347,7 @@ if __name__ == '__main__':
     ping_thread = threading.Thread(target=self_ping, daemon=True)
     ping_thread.start()
 
-    @bot.message_handler(func=lambda m: math_active and m.chat.id == ALLOWED_GROUP_ID and m.text and m.text.strip().lstrip('-').isdigit(), content_types=['text'])
+    @bot.message_handler(func=lambda m: math_active and m.chat.type != 'private' and m.text and m.text.strip().lstrip('-').isdigit(), content_types=['text'])
     def _math_handler(message: Message):
         handle_math_reply(message)
 
