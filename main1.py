@@ -3012,7 +3012,7 @@ def handle_slots(message: Message):
         bot.reply_to(message, "? Ошибка в слотах")
 
 # ==================== DAILY ====================
-DAILY_REWARDS = [10, 20, 30, 40, 50, 60, 70]
+DAILY_REWARDS = [20, 40, 60, 80, 100, 120, 140]
 
 @bot.message_handler(commands=['daily'])
 @group_only
@@ -3323,9 +3323,9 @@ footer{text-align:center;padding:40px;color:#666;font-size:0.9em}
 <body>
 <div class="container">
 <div class="hero">
-<h1>&#9876;&#65039; ПОТУЖИЯ</h1>
+<h1>&#9876;&#65039; ПОТУЖНО БОТ</h1>
 <p>Экономика, кланы, дуэли и математика в одном Telegram-боте</p>
-<a href="https://t.me/Potuzhiyabot" class="btn">&#128640; Запустить бота</a>
+<a href="https://t.me/BotPutinaPatriot_ZOV_RussiaBot" class="btn">&#128640; Запустить бота(пока не работает но вот ссылка на бота)</a>
 </div>
 <section>
 <h2>&#127891; Что умеет бот</h2>
