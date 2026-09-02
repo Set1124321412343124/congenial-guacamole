@@ -107,7 +107,7 @@ def end_halloween_event():
                     f"🏆 Победитель: {winner_name}\n"
                     f"💀 Убийств: {max_kills}\n"
                     f"🏆 Награда: Хэллоуинская тыква\n\n"
-                    f"Спасибо всем за участие! ??")
+                    f"Спасибо всем за участие!")
             except:
                 continue
     save_user_data()
@@ -117,17 +117,17 @@ SHOP_ITEMS = {
         'id': 'gold_rise',
         'name': '🪙 Золотой червонец',
         'description': 'Легендарный предмет. +100% к зарплате',
-        'price': 99999,
+        'price': 5000,
         'bonus_type': 'farm',
-        'bonus_value': 1.0
+        'bonus_value': 10.0
     },
     'halloween_pumpkin': {
         'id': 'halloween_pumpkin',
         'name': '🎃 Тыква губернатора',
         'description': 'Ивентный предмет. +100% к зарплате',
-        'price': 0,
+        'price': 150,
         'bonus_type': 'farm',
-        'bonus_value': 1.0
+        'bonus_value': 1.5
     },
     'watermelon': {
         'id': 'watermelon',
@@ -197,9 +197,9 @@ SHOP_ITEMS = {
         'id': 'sharf',
         'name': '🧣 Шарф ополченца',
         'description': 'Теплый, но безполезный. Бонусов нет',
-        'price': 1,
+        'price': 10,
         'bonus_type': 'farm',
-        'bonus_value': 0
+        'bonus_value': 2.0
     },
     # ===== SKRAFT / СКИДКИ =====
     'jade_rod': {
@@ -483,7 +483,7 @@ def handle_start(message: Message):
         f"Я хранитель древних традиций великого Z исскуства.\n\n"
         f"Доступные команды:\n"
         f"🌱 /farm - работать (раз в час)\n"
-        f"? /farmtime - время до следующего сбора\n"
+        f"⌛ /farmtime - время до следующего сбора\n"
         f"🔨 /craft [количество] - создать Флаг России(100 Zеток > 1 )\n"
         f"💰 /balance - проверить сокровищницу\n"
         f"📖 /me - свиток познания себя\n"
@@ -526,7 +526,7 @@ def handle_price(message:Message):
 @group_only
 def handle_namaz(message: Message):
     init_user_data(user_id)
-    namaz_txt = f"Вы быть признаны плохим уйгуром! -100 социального рейтинга!\n"
+    namaz_txt = f"Вы быть признаны плохим Хохлом! -100 социального рейтинга!\n"
     user_balances[user_id]['leaves'] -= 100
     bot.reply_to(message, namaz_txt)
 @bot.message_handler(commands=['donate', 'don'])
