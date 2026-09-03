@@ -1266,7 +1266,7 @@ def handle_craft(message: Message):
             try:
                 amount = int(command_parts[1])
                 if amount <= 0:
-            bot.reply_to(message, "❌ Количество должно быть положительным числом!")
+                    bot.reply_to(message, "❌ Количество должно быть положительным числом!")  # ← добавлен отступ (4 пробела)
                     return
             except ValueError:
                 bot.reply_to(message,
