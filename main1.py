@@ -1709,7 +1709,7 @@ def handle_give(message: Message):
         try:
             amount = int(command_parts[2])
             if amount <= 0:
-            bot.reply_to(message, "❌ Количество Zеток должно быть положительным числом!")
+                bot.reply_to(message, "❌ Количество Zеток должно быть положительным числом!")
                 return
         except ValueError:
             bot.reply_to(message, "❌ Количество Zеток должно быть числом!")
@@ -3009,7 +3009,7 @@ def handle_slots(message: Message):
         track_mission(user_id, 'slots')
     except Exception as e:
         print(f"Ошибка slots: {e}")
-            bot.reply_to(message, "❌ Ошибка в слотах")
+        bot.reply_to(message, "❌ Ошибка в слотах")
 
 # ==================== DAILY ====================
 DAILY_REWARDS = [20, 40, 60, 80, 100, 120, 140]
