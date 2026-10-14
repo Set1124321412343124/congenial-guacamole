@@ -1,13 +1,12 @@
 import telebot
 import random
-import json
 import os
 from telebot.types import Message
 import datetime
 import threading
 import time
-import database as db
 from http.server import HTTPServer, BaseHTTPRequestHandler
+
 CLAN_PRICE = 100
 MIN_CLAN_NAME_LENGTH = 3
 MAX_CLAN_NAME_LENGTH = 20
@@ -21,7 +20,13 @@ KILL_BAN_DURATION = 2 * 60 * 60
 MARKET_TAX_PERCENT = 10
 MARKET_MIN_PRICE = 10
 MARKET_MAX_DURATION = 7 * 24 * 60 * 60
+
 market_listings = {}
+user_nfts = {}
+promo_codes = {}
+clans = {}
+user_balances = {}
+
 FARM_MESSAGES = [
     "Крымская земля щедра! Ты захватил {count} Zеток",
     "Отличная работа на крымских полях! Партия повышает твой рейтинг на +{count}!",
@@ -68,14 +73,37 @@ WELCOME_MESSAGES = [
 ]
 MAX_WARNINGS = 3
 WARNING_DURATION = 7 * 24 * 60 * 60
+
 bot = telebot.TeleBot('8791216614:AAFeu0p9fRps4GA1M04T0d2FKMHscSMaBWQ')
 bot.remove_webhook()
-DATA_FILE = 'user_data.json'
-CLANS_FILE = 'clans_data.json'
-PROMO_FILE = 'promo_data.json'
-NFT_DATA_FILE = 'nft_data.json'
-user_nfts = {}
+
 ADMIN_IDS = [6413063320, 6950398294]
+
+# ==================== ЗАГЛУШКИ ВМЕСТО СОХРАНЕНИЯ ====================
+def save_user_data():    pass
+def save_clans_data():   pass
+def save_promo_data():   pass
+def save_nft_data():     pass
+def save_market_data():  pass
+
+SHOP_ITEMS = {
+    'gold_rise': {'id': 'gold_rise', 'name': '🪙 Золотой червонец', 'description': 'Легендарный предмет. +100% к зарплате', 'price': 5000, 'bonus_type': 'farm', 'bonus_value': 10.0},
+    'halloween_pumpkin': {'id': 'halloween_pumpkin', 'name': '🎃 Тыква губернатора', 'description': 'Ивентный предмет. +100% к зарплате', 'price': 150, 'bonus_type': 'farm', 'bonus_value': 1.5},
+    'watermelon': {'id': 'watermelon', 'name': '🍉 Священный арбуз', 'description': 'Священный плод полуострова. +50% к зарплате', 'price': 1000, 'bonus_type': 'farm', 'bonus_value': 0.5},
+    'dragon': {'id': 'dragon', 'name': '🐉 Китайский дракон', 'description': 'Мифическое существо. +50% к зарплате', 'price': 2000, 'bonus_type': 'farm', 'bonus_value': 0.5},
+    'scissors': {'id': 'scissors', 'name': '🔪 Священный серп', 'description': 'Оружие трудовиков. +30% к зарплате', 'price': 700, 'bonus_type': 'farm', 'bonus_value': 0.3},
+    'watering_can': {'id': 'watering_can', 'name': '🌱 Царская поливалка', 'description': 'Для полива полей. +20% к зарплате', 'price': 500, 'bonus_type': 'farm', 'bonus_value': 0.2},
+    'defender_medal': {'id': 'defender_medal', 'name': '🎖️ Медаль защитника Полуострова', 'description': 'За охрану рубежей. +35% к зарплате', 'price': 1500, 'bonus_type': 'farm', 'bonus_value': 0.35},
+    'governor_seal': {'id': 'governor_seal', 'name': '👑 Печать губернатора', 'description': 'Документ власти. +25% к зарплате', 'price': 1200, 'bonus_type': 'farm', 'bonus_value': 0.25},
+    'border_flask': {'id': 'border_flask', 'name': '🥃 Фляга пограничника', 'description': 'Поднимает дух. +15% к зарплате', 'price': 350, 'bonus_type': 'farm', 'bonus_value': 0.15},
+    'june_sky': {'id': 'june_sky', 'name': '☁️ Ломтик июльского неба', 'description': 'Природа крымская. +10% к зарплате', 'price': 200, 'bonus_type': 'farm', 'bonus_value': 0.1},
+    'sharf': {'id': 'sharf', 'name': '🧣 Шарф ополченца', 'description': 'Теплый, но безполезный. Бонусов нет', 'price': 10, 'bonus_type': 'farm', 'bonus_value': 2.0},
+    'jade_rod': {'id': 'jade_rod', 'name': '💊 Нефритовый стержень', 'description': 'Экономит 20 Zеток на крафте', 'price': 800, 'bonus_type': 'craft', 'bonus_value': 20},
+    'teapot': {'id': 'teapot', 'name': '🫖 Чайник губернатора', 'description': 'Экономит 10 Zеток на крафте', 'price': 400, 'bonus_type': 'craft', 'bonus_value': 10},
+    'crimean_ticket': {'id': 'crimean_ticket', 'name': '🎫 Билет в Крымский театр', 'description': 'Экономит 15 Zеток на крафте', 'price': 600, 'bonus_type': 'craft', 'bonus_value': 15},
+    'scroll': {'id': 'scroll', 'name': '📜 Свиток мудрости', 'description': 'Уменьшает время фарма на 10 минут', 'price': 1500, 'bonus_type': 'time', 'bonus_value': 600},
+}
+
 def end_halloween_event():
     global HALLOWEEN_EVENT_ACTIVE
     if not HALLOWEEN_EVENT_ACTIVE:
@@ -110,143 +138,7 @@ def end_halloween_event():
                     f"Спасибо всем за участие!")
             except:
                 continue
-    save_user_data()
-SHOP_ITEMS = {
-    # ===== ФАРМ БОНУСЫ =====
-    'gold_rise': {
-        'id': 'gold_rise',
-        'name': '🪙 Золотой червонец',
-        'description': 'Легендарный предмет. +100% к зарплате',
-        'price': 5000,
-        'bonus_type': 'farm',
-        'bonus_value': 10.0
-    },
-    'halloween_pumpkin': {
-        'id': 'halloween_pumpkin',
-        'name': '🎃 Тыква губернатора',
-        'description': 'Ивентный предмет. +100% к зарплате',
-        'price': 150,
-        'bonus_type': 'farm',
-        'bonus_value': 1.5
-    },
-    'watermelon': {
-        'id': 'watermelon',
-        'name': '🍉 Священный арбуз',
-        'description': 'Священный плод полуострова. +50% к зарплате',
-        'price': 1000,
-        'bonus_type': 'farm',
-        'bonus_value': 0.5
-    },
-    'dragon': {
-        'id': 'dragon',
-        'name': '🐉 Китайский дракон',
-        'description': 'Мифическое существо. +50% к зарплате',
-        'price': 2000,
-        'bonus_type': 'farm',
-        'bonus_value': 0.5
-    },
-    'scissors': {
-        'id': 'scissors',
-        'name': '🔪 Священный серп',
-        'description': 'Оружие трудовиков. +30% к зарплате',
-        'price': 700,
-        'bonus_type': 'farm',
-        'bonus_value': 0.3
-    },
-    'watering_can': {
-        'id': 'watering_can',
-        'name': '🌱 Царская поливалка',
-        'description': 'Для полива полей. +20% к зарплате',
-        'price': 500,
-        'bonus_type': 'farm',
-        'bonus_value': 0.2
-    },
-    'defender_medal': {
-        'id': 'defender_medal',
-        'name': '🎖️ Медаль защитника Полуострова',
-        'description': 'За охрану рубежей. +35% к зарплате',
-        'price': 1500,
-        'bonus_type': 'farm',
-        'bonus_value': 0.35
-    },
-    'governor_seal': {
-        'id': 'governor_seal',
-        'name': '👑 Печать губернатора',
-        'description': 'Документ власти. +25% к зарплате',
-        'price': 1200,
-        'bonus_type': 'farm',
-        'bonus_value': 0.25
-    },
-    'border_flask': {
-        'id': 'border_flask',
-        'name': '🥃 Фляга пограничника',
-        'description': 'Поднимает дух. +15% к зарплате',
-        'price': 350,
-        'bonus_type': 'farm',
-        'bonus_value': 0.15
-    },
-    'june_sky': {
-        'id': 'june_sky',
-        'name': '☁️ Ломтик июльского неба',
-        'description': 'Природа крымская. +10% к зарплате',
-        'price': 200,
-        'bonus_type': 'farm',
-        'bonus_value': 0.1
-    },
-    'sharf': {
-        'id': 'sharf',
-        'name': '🧣 Шарф ополченца',
-        'description': 'Теплый, но безполезный. Бонусов нет',
-        'price': 10,
-        'bonus_type': 'farm',
-        'bonus_value': 2.0
-    },
-    # ===== SKRAFT / СКИДКИ =====
-    'jade_rod': {
-        'id': 'jade_rod',
-        'name': '💊 Нефритовый стержень',
-        'description': 'Экономит 20 Zеток на крафте',
-        'price': 800,
-        'bonus_type': 'craft',
-        'bonus_value': 20
-    },
-    'teapot': {
-        'id': 'teapot',
-        'name': '🫖 Чайник губернатора',
-        'description': 'Экономит 10 Zеток на крафте',
-        'price': 400,
-        'bonus_type': 'craft',
-        'bonus_value': 10
-    },
-    'crimean_ticket': {
-        'id': 'crimean_ticket',
-        'name': '🎫 Билет в Крымский театр',
-        'description': 'Экономит 15 Zеток на крафте',
-        'price': 600,
-        'bonus_type': 'craft',
-        'bonus_value': 15
-    },
-    # ===== ВРЕМЯ =====
-    'scroll': {
-        'id': 'scroll',
-        'name': '📜 Свиток мудрости',
-        'description': 'Уменьшает время фарма на 10 минут',
-        'price': 1500,
-        'bonus_type': 'time',
-        'bonus_value': 600
-    },
-}
-def load_user_data():
-    return db.load_all_users()
 
-def load_clans_data():
-    return db.load_all_clans()
-
-def save_user_data():
-    db.save_all_users(user_balances)
-
-def save_clans_data():
-    db.save_all_clans(clans)
 def check_event_end():
     while True:
         try:
@@ -258,107 +150,31 @@ def check_event_end():
         except Exception as e:
             print(f"Ошибка в check_event_end: {e}")
             time.sleep(300)
-def load_promo_data():
-    return db.load_all_promos()
 
-promo_codes = load_promo_data()
-
-def save_promo_data():
-    db.save_all_promos(promo_codes)
-user_balances = load_user_data()
-clans = load_clans_data()
-def load_nft_data():
-    global user_nfts
-    user_nfts = db.load_all_nfts()
-
-def save_nft_data():
-    db.save_all_nfts(user_nfts)
-load_nft_data()
 def init_user_data(user_id):
     if user_id not in user_balances:
         user_balances[user_id] = {
-            'leaves': 0,
-            'tea': 0,
-            'last_farm': 0,
-            'warnings': [],
-            'banned': False,
-            'ban_reason': '',
-            'clan': None,
-            'clan_role': None,
-            'items': [],
-            'custom_work': [],
-            'used_promos': [],
-            'nfts': [],
-            'pumpkins': 0,
-            'kills': 0,
-            'killed_by': None,
-            'kill_ban_until': 0,
-            'last_kill_time': 0,
-            'daily_streak': 0,
-            'daily_last': 0,
-            'daily_wins_today': 0,
-            'daily_wins_reset': 0,
-            'missions': [],
-            'missions_date': ''
+            'leaves': 0, 'tea': 0, 'last_farm': 0, 'warnings': [], 'banned': False,
+            'ban_reason': '', 'clan': None, 'clan_role': None, 'items': [],
+            'custom_work': [], 'used_promos': [], 'nfts': [], 'pumpkins': 0,
+            'kills': 0, 'killed_by': None, 'kill_ban_until': 0, 'last_kill_time': 0,
+            'daily_streak': 0, 'daily_last': 0, 'daily_wins_today': 0,
+            'daily_wins_reset': 0, 'missions': [], 'missions_date': ''
         }
-        save_user_data()
     else:
-        if 'used_promos' not in user_balances[user_id]:
-            user_balances[user_id]['used_promos'] = []
-        if 'nfts' not in user_balances[user_id]:
-            user_balances[user_id]['nfts'] = []
-        if 'pumpkins' not in user_balances[user_id]:
-            user_balances[user_id]['pumpkins'] = 0
-        save_user_data()
-        if 'kills' not in user_balances[user_id]:
-            user_balances[user_id]['kills'] = 0
-        if 'killed_by' not in user_balances[user_id]:
-            user_balances[user_id]['killed_by'] = None
-        if 'kill_ban_until' not in user_balances[user_id]:
-            user_balances[user_id]['kill_ban_until'] = 0
-        if 'last_kill_time' not in user_balances[user_id]:
-            user_balances[user_id]['last_kill_time'] = 0
-        if 'daily_streak' not in user_balances[user_id]:
-            user_balances[user_id]['daily_streak'] = 0
-        if 'daily_last' not in user_balances[user_id]:
-            user_balances[user_id]['daily_last'] = 0
-        if 'daily_wins_today' not in user_balances[user_id]:
-            user_balances[user_id]['daily_wins_today'] = 0
-        if 'daily_wins_reset' not in user_balances[user_id]:
-            user_balances[user_id]['daily_wins_reset'] = 0
-        if 'missions' not in user_balances[user_id]:
-            user_balances[user_id]['missions'] = []
-        if 'missions_date' not in user_balances[user_id]:
-            user_balances[user_id]['missions_date'] = ''
-for user_id, data in list(user_balances.items()):
-    if isinstance(data, dict):
-        if 'last_farm' not in data:
-            user_balances[user_id]['last_farm'] = 0
-        if 'warnings' not in data:
-            user_balances[user_id]['warnings'] = []
-        if 'banned' not in data:
-            user_balances[user_id]['banned'] = False
-        if 'ban_reason' not in data:
-            user_balances[user_id]['ban_reason'] = ''
-        if 'clan' not in data:
-            user_balances[user_id]['clan'] = None
-        if 'clan_role' not in data:
-            user_balances[user_id]['clan_role'] = None
-        if 'items' not in data:
-            user_balances[user_id]['items'] = []
-    elif isinstance(data, (int, float)):
-        user_balances[user_id] = {
-            'leaves': data,
-            'tea': 0,
-            'last_farm': 0,
-            'warnings': [],
-            'banned': False,
-            'ban_reason': '',
-            'clan': None,
-            'clan_role': None,
-            'items': []
+        d = user_balances[user_id]
+        defaults = {
+            'used_promos': [], 'nfts': [], 'pumpkins': 0, 'kills': 0,
+            'killed_by': None, 'kill_ban_until': 0, 'last_kill_time': 0,
+            'daily_streak': 0, 'daily_last': 0, 'daily_wins_today': 0,
+            'daily_wins_reset': 0, 'missions': [], 'missions_date': '',
+            'last_farm': 0, 'warnings': [], 'banned': False, 'ban_reason': '',
+            'clan': None, 'clan_role': None, 'items': [], 'custom_work': []
         }
-save_user_data()
+        for k, v in defaults.items():
+            if k not in d:
+                d[k] = v
+
 def can_farm(last_farm_time, user_id):
     current_time = datetime.datetime.now().timestamp()
     time_passed = current_time - last_farm_time
@@ -366,20 +182,16 @@ def can_farm(last_farm_time, user_id):
     if 'scroll' in user_balances[user_id]['items']:
         required_time -= 600
     return time_passed >= required_time
+
 def format_remaining_time(seconds):
     minutes = int(seconds // 60)
     seconds = int(seconds % 60)
     return f"{minutes} мин. {seconds} сек."
+
 def is_admin(user_id):
     return user_id in ADMIN_IDS
-def load_market_data():
-    global market_listings
-    market_listings = db.load_all_market()
 
-def save_market_data():
-    db.save_all_market(market_listings)
 def market_cleanup_worker():
-    """Фоновая задача для очистки рынка"""
     while True:
         try:
             cleanup_expired_listings()
@@ -387,6 +199,7 @@ def market_cleanup_worker():
         except Exception as e:
             print(f"Ошибка в market_cleanup_worker: {e}")
             time.sleep(300)
+
 def cleanup_expired_listings():
     current_time = datetime.datetime.now().timestamp()
     expired_listings = []
@@ -399,11 +212,7 @@ def cleanup_expired_listings():
         if seller_id in user_balances:
             user_balances[seller_id]['items'].append(listing['item_id'])
         del market_listings[listing_id]
-    if expired_listings:
-        save_user_data()
-        save_market_data()
-# опачкi
-load_market_data()
+
 def check_warnings(user_id):
     if 'warnings' not in user_balances[user_id]:
         return
@@ -413,16 +222,15 @@ def check_warnings(user_id):
         if current_time - warning['time'] < WARNING_DURATION:
             active_warnings.append(warning)
     user_balances[user_id]['warnings'] = active_warnings
-    save_user_data()
     if len(active_warnings) >= MAX_WARNINGS:
         user_balances[user_id]['banned'] = True
         user_balances[user_id]['ban_reason'] = f"Автоматическая блокировка за {MAX_WARNINGS} предупреждений"
-        save_user_data()
         try:
             bot.send_message(user_id,
                 f"🚫 Вы были автоматически заблокированы за {MAX_WARNINGS} предупреждений!")
         except:
             pass
+
 def check_ban(user_id, message):
     if user_balances[user_id].get('banned', False):
         bot.reply_to(message,
@@ -430,21 +238,13 @@ def check_ban(user_id, message):
             f"Причина: {user_balances[user_id].get('ban_reason', 'не указана')}")
         return True
     return False
+
 cleanup_thread = threading.Thread(target=market_cleanup_worker, daemon=True)
 cleanup_thread.start()
-def check_event_end():
-    while True:
-        try:
-            current_time = datetime.datetime.now().timestamp()
-            if HALLOWEEN_EVENT_ACTIVE and current_time >= HALLOWEEN_END_TIME:
-                end_halloween_event()
-                break
-            time.sleep(3600)
-        except Exception as e:
-            print(f"Ошибка в check_event_end: {e}")
-            time.sleep(300)
+
 event_thread = threading.Thread(target=check_event_end, daemon=True)
 event_thread.start()
+
 def is_subscribed(user_id):
     try:
         member = bot.get_chat_member(CHANNEL_ID, user_id)
@@ -453,23 +253,25 @@ def is_subscribed(user_id):
         return False
 
 def group_only(func):
-    """Декоратор: работает в любых группах, но требует подписки на канал"""
     def wrapper(message):
         if message.chat.type == 'private':
             bot.reply_to(message,
-                "\U0001f4e3 \u0411\u043e\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0433\u0440\u0443\u043f\u043f\u0430\u0445!\n\n"
-                "\U0001f517 \u0414\u043b\u044f \u043d\u0430\u0447\u0430\u043b\u0430 \u043f\u043e\u0434\u043f\u0438\u0441\u044b\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b:\n"
+                "📣 Бот работает только в группах!\n\n"
+                "🔗 Для начала подпишитесь на наш канал:\n"
                 "https://t.me/Potuzhiya\n\n"
-                "\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u0434\u043e\u0431\u0430\u0432\u044c\u0442\u0435 \u0431\u043e\u0442\u0430 \u0432 \u043b\u044e\u0431\u0443\u044e \u0433\u0440\u0443\u043f\u043f\u0443 \u0438 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0439\u0442\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0442\u0430\u043c.")
+                "После подписки добавьте бота в любую группу и используйте команды там.")
             return
         if not is_subscribed(message.from_user.id):
             bot.reply_to(message,
-                "\u26a0\ufe0f \u0414\u043b\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f \u0431\u043e\u0442\u0430 \u043f\u043e\u0434\u043f\u0438\u0448\u0438\u0442\u0435\u0441\u044c \u043d\u0430 \u043d\u0430\u0448 \u043a\u0430\u043d\u0430\u043b!\n\n"
-                "\U0001f517 https://t.me/Potuzhiya\n\n"
-                "\u041f\u043e\u0441\u043b\u0435 \u043f\u043e\u0434\u043f\u0438\u0441\u043a\u0438 \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0441\u043d\u043e\u0432\u0430.")
+                "⚠️ Для использования бота подпишитесь на наш канал!\n\n"
+                "🔗 https://t.me/Potuzhiya\n\n"
+                "После подписки попробуйте снова.")
             return
         return func(message)
     return wrapper
+
+# ==================== HANDLERS ====================
+
 @bot.message_handler(commands=['start'])
 @group_only
 def handle_start(message: Message):
@@ -510,291 +312,44 @@ def handle_start(message: Message):
         f"• Подробная справка: /clan_help"
     )
     bot.reply_to(message, welcome_text)
+
 @bot.message_handler(commands=['price', 'p'])
 @group_only
-def handle_price(message:Message):
-    init_user_data(user_id)
-    price_txt = (
-        f"Приветствую в магазине игровой валюты!\n"
-        f"Базовая стоимость:\n"
-        f"1💰 = 50 Zеток!\n"
-        f"1 звезда = 100 Zеток!\n"
-        f"По всем вопросам - владельцу(@alexey_navalyov_1976)"
-    )
-    bot.reply_to(message, price_txt)
+def handle_price(message: Message):
+    init_user_data(message.from_user.id)
+    bot.reply_to(message,
+        "Приветствую в магазине игровой валюты!\n"
+        "Базовая стоимость:\n"
+        "1💰 = 50 Zеток!\n"
+        "1 звезда = 100 Zеток!\n"
+        "По всем вопросам - владельцу(@alexey_navalyov_1976)")
+
 @bot.message_handler(commands=['namaz'])
 @group_only
 def handle_namaz(message: Message):
+    user_id = message.from_user.id
     init_user_data(user_id)
-    namaz_txt = f"Вы быть признаны плохим Хохлом! -100 социального рейтинга!\n"
+    bot.reply_to(message, "Вы быть признаны плохим Хохлом! -100 социального рейтинга!\n")
     user_balances[user_id]['leaves'] -= 100
-    bot.reply_to(message, namaz_txt)
+
 @bot.message_handler(commands=['donate', 'don'])
 @group_only
-def handle_donate(message:Message):
-    init_user_data(user_id)
-    zov_txt = (
-        f"КУПИТЬ РУБЛЯМИ - недоступно,положи мамену карточку"
-    )
-    bot.reply_to(message, zov_txt)
-@bot.message_handler(commands=['kill'])
-@group_only
-def handle_kill(message: Message):
-    try:
-        if not HALLOWEEN_EVENT_ACTIVE:
-            bot.reply_to(message,         "🎃 Хэллоуинский ивент завершен! Команда /kill недоступна.")
-            return
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        if user_balances[user_id].get('kill_ban_until', 0) > datetime.datetime.now().timestamp():
-            remaining_time = user_balances[user_id]['kill_ban_until'] - datetime.datetime.now().timestamp()
-            hours = int(remaining_time // 3600)
-            minutes = int((remaining_time % 3600) // 60)
-            bot.reply_to(message, f"💀 Вы мертвы! Не можете убивать еще {hours}ч {minutes}м")
-            return
-        current_time = datetime.datetime.now().timestamp()
-        last_kill = user_balances[user_id].get('last_kill_time', 0)
-        if current_time - last_kill < KILL_COOLDOWN:
-            remaining = KILL_COOLDOWN - (current_time - last_kill)
-            minutes = int(remaining // 60)
-            bot.reply_to(message, f"⏳ Вы можете убивать только раз в 2 часа! Подождите еще {minutes} минут")
-            return
-        if not message.reply_to_message:
-            bot.reply_to(message, "⚠️ Ответьте этой командой на сообщение игрока, которого хотите убить!")
-            return
-        target_id = message.reply_to_message.from_user.id
-        init_user_data(target_id)
-        if target_id == user_id:
-            bot.reply_to(message, "🚫 Нельзя убить самого себя!")
-            return
-        if target_id == 1854264120 and user_id == 6441128051:
-            bot.reply_to(message, "ну зачем ты меня убиваешь? ну ты же знаешь что мне неприятно и все равно продолжаешь это делать. ну недавно же помирились только а теперь снова начинаешь еще и смеешься(")
-        if user_balances[target_id].get('kill_ban_until', 0) > datetime.datetime.now().timestamp():
-            bot.reply_to(message, "💀 Этот игрок уже мертв!")
-            return
-        user_balances[user_id]['kills'] += 1
-        user_balances[user_id]['last_kill_time'] = current_time
-        user_balances[target_id]['kill_ban_until'] = current_time + KILL_BAN_DURATION
-        user_balances[target_id]['killed_by'] = user_id
-        save_user_data()
-        killer_name = message.from_user.first_name
-        target_name = message.reply_to_message.from_user.first_name
-        bot.reply_to(message,
-            f"🔪 Вы убили {target_name}!\n"
-            f"💀 Всего убийств: {user_balances[user_id]['kills']}\n"
-            f"⏳ Следующее убийство через 2 часа")
-        try:
-            bot.send_message(target_id,
-                f"💀 Вас убили!\n"
-                f"🚫 Вы не можете фармить и убивать 2 часа\n"
-                )
-        except:
-            pass
-    except Exception as e:
-        print(f"Ошибка в handle_kill: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при выполнении команды")
-@bot.message_handler(commands=['add_promo'])
-def handle_add_promo(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 4:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /add_promo название количество_активаций сумма_вознаграждения\n"
-                "Пример: /add_promo promo 100 500")
-            return
-        promo_name = command_parts[1].upper()
-        try:
-            max_activations = int(command_parts[2])
-            reward_amount = int(command_parts[3])
-        except ValueError:
-            bot.reply_to(message, "❌ Количество активаций и сумма должны быть числами!")
-            return
-        if promo_name in promo_codes:
-            bot.reply_to(message, "❌ Промокод с таким названием уже существует!")
-            return
-        if max_activations <= 0 or reward_amount <= 0:
-            bot.reply_to(message, "❌ Количество активаций и сумма должны быть положительными!")
-            return
-        promo_codes[promo_name] = {
-            'max_activations': max_activations,
-            'current_activations': 0,
-            'reward': reward_amount,
-            'created_by': message.from_user.id,
-            'created_at': datetime.datetime.now().timestamp(),
-            'used_by': []
-        }
-        save_promo_data()
-        bot.reply_to(message,
-            f"Промокод создан!\n\n"
-            f"Название: {promo_name}\n"
-            f"Максимум активаций: {max_activations}\n"
-            f"Награда: {reward_amount} Zеток\n"
-            f"👤 Создал: {message.from_user.first_name}")
-    except Exception as e:
-        print(f"Ошибка в handle_add_promo: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при создании промокода")
-@bot.message_handler(commands=['delete_nft'])
-def handle_delete_nft(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /delete_nft nft_id\n\n"
-                "Список NFT: /nft_list")
-            return
-        try:
-            nft_id = int(command_parts[1])
-        except ValueError:
-            bot.reply_to(message, "❌ ID NFT должен быть числом!")
-            return
-        if nft_id not in user_nfts:
-            bot.reply_to(message, "❌ NFT с таким ID не существует!")
-            return
-        nft = user_nfts[nft_id]
-        if nft['owner'] is not None:
-            owner_id = nft['owner']
-            if owner_id in user_balances:
-                if nft_id in user_balances[owner_id]['nfts']:
-                    user_balances[owner_id]['nfts'].remove(nft_id)
-                    save_user_data()
-                    try:
-                        bot.send_message(owner_id,
-                            f"⚠️ Администратор удалил NFT из вашей коллекции!\n"
-                            f"🎨 {nft['description']}\n"
-                            f"🔗 ID: {nft_id}")
-                    except:
-                        pass
-        del user_nfts[nft_id]
-        save_nft_data()
-        bot.reply_to(message,
-            f"NFT успешно удален!\n\n"
-            f"ID: {nft_id}\n"
-            f"{nft['description']}\n"
-            f"Редкость: {nft['rarity']}")
-    except Exception as e:
-        print(f"Ошибка в handle_delete_nft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при удалении NFT")
-@bot.message_handler(commands=['delete_promo'])
-def handle_delete_promo(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /delete_promo название_промокода")
-            return
-        promo_name = command_parts[1].upper()
-        if promo_name not in promo_codes:
-            bot.reply_to(message, "❌ Промокод не найден!")
-            return
-        # Удаляем промокод
-        del promo_codes[promo_name]
-        save_promo_data()
-        bot.reply_to(message, f"Промокод {promo_name} удален!")
-    except Exception as e:
-        print(f"Ошибка в handle_delete_promo: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при удалении промокода")
-@bot.message_handler(commands=['use_promo'])
-def handle_use_promo(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /use_promo название_промокода\n"
-                "Пример: /use_promo [promo]")
-            return
-        promo_name = command_parts[1].upper()
-        if promo_name not in promo_codes:
-            bot.reply_to(message, "❌ Промокод не найден!")
-            return
-        promo = promo_codes[promo_name]
-        if promo['current_activations'] >= promo['max_activations']:
-            bot.reply_to(message, "❌ Лимит активаций этого промокода исчерпан!")
-            return
-        if user_id in promo['used_by']:
-            bot.reply_to(message, "❌ Вы уже использовали этот промокод!")
-            return
-        if promo_name in user_balances[user_id]['used_promos']:
-            bot.reply_to(message, "❌ Вы уже использовали этот промокод!")
-            return
-        reward = promo['reward']
-        user_balances[user_id]['leaves'] += reward
-        user_balances[user_id]['used_promos'].append(promo_name)
-        promo['current_activations'] += 1
-        promo['used_by'].append(user_id)
-        save_user_data()
-        save_promo_data()
-        bot.reply_to(message,
-            f"Промокод активирован!\n\n"
-            f"Промокод: {promo_name}\n"
-            f"Получено: {reward} Zеток\n"
-            f"Активаций осталось: {promo['max_activations'] - promo['current_activations']}\n\n"
-            f"Новый баланс: {user_balances[user_id]['leaves']} Zеток")
-    except Exception as e:
-        print(f"Ошибка в handle_use_promo: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при активации промокода")
-@bot.message_handler(commands=['event', 'event_check'])
-@group_only
-def handle_event(message: Message):
-    user_id = message.from_user.id
-    init_user_data(user_id)
-    if not HALLOWEEN_EVENT_ACTIVE:
-        event_text = "🎃 Хэллоуинский ивент завершен!"
-    else:
-        time_left = HALLOWEEN_END_TIME - datetime.datetime.now().timestamp()
-        days = int(time_left // (24 * 60 * 60))
-        hours = int((time_left % (24 * 60 * 60)) // 3600)
-        event_text = (
-            f"🎃 ХЭЛЛОУИНСКИЙ ИВЕНТ АКТИВЕН! 🎃\n\n"
-            f"💥 /kill /kill (ответом на сообщение)\n"
-            f"⚔️ Можно убивать раз в 2 часа\n"
-            f"💀 Убитый игрок не может фармить 2 часа\n"
-            f"🏆 Победитель (больше всех убийств) получит:\n"
-            f"   🎃 Хэллоуинскую тыкву!\n\n"
-            f"📊 Статистика: /killstats\n"
-            f"⏳ Осталось: {days}д {hours}ч\n"
-            f"📅 Ивент до: 09.11.2025 00:00"
-        )
-    bot.reply_to(message, event_text)
-@bot.message_handler(commands=['pumpkins', 'my_pumpkins'])
-@group_only
-def handle_my_pumpkins(message: Message):
-    user_id = message.from_user.id
-    init_user_data(user_id)
-    response = (
-        f"Осенний ивент окончен\n\n"
-    )
-    bot.reply_to(message, response)
+def handle_donate(message: Message):
+    init_user_data(message.from_user.id)
+    bot.reply_to(message, "КУПИТЬ РУБЛЯМИ - недоступно,положи мамену карточку")
+
 @bot.message_handler(commands=['zov', 'z'])
 @group_only
-def handle_petya(message:Message):
-    init_user_data(user_id)
-    petka1 = ("поздняков гой")
-    bot.reply_to(message, petka1)
+def handle_petya(message: Message):
+    init_user_data(message.from_user.id)
+    bot.reply_to(message, "поздняков гой")
+
 @bot.message_handler(commands=['roblox', 'rb'])
 @group_only
-def handle_123(message:Message):
-    init_user_data(user_id)
-    petka12 = ("le le le")
-    bot.reply_to(message, petka12)
+def handle_123(message: Message):
+    init_user_data(message.from_user.id)
+    bot.reply_to(message, "le le le")
+
 @bot.message_handler(commands=['farm', 'f'])
 @group_only
 def handle_farm(message: Message):
@@ -817,50 +372,45 @@ def handle_farm(message: Message):
                 time_until_next -= 600
             remaining_time = format_remaining_time(time_until_next)
             cooldown_message = random.choice(COOLDOWN_MESSAGES).format(time=remaining_time)
-            response = (
+            bot.reply_to(message,
                 f"{cooldown_message}\n\n"
                 f"Текущий баланс:\n"
                 f"Zеток: {user_balances[user_id]['leaves']}\n"
-                f"🌿 Территории: {user_balances[user_id]['tea']}"
-            )
-            bot.reply_to(message, response)
+                f"🌿 Территории: {user_balances[user_id]['tea']}")
             return
-        try:
-            base_leaves = random.randint(1, 10)
-            bonus_multiplier = 1.0
-            for item_id in user_balances[user_id]['items']:
-                item = SHOP_ITEMS[item_id]
-                if item['bonus_type'] == 'farm':
-                    bonus_multiplier += item['bonus_value']
-            total_leaves = int(base_leaves * bonus_multiplier)
-            bonus_text = ""
-            if bonus_multiplier > 1:
-                bonus_text = f"(+{int((bonus_multiplier-1)*100)}% = {total_leaves})"
-            user_balances[user_id]['leaves'] += total_leaves
-            user_balances[user_id]['last_farm'] = current_time
-            custom_phrases = user_balances[user_id].get('custom_work', [])
-            if custom_phrases:
-                farm_message = random.choice(custom_phrases).format(count=f"{base_leaves}{bonus_text}")
-            else:
-                farm_message = random.choice(FARM_MESSAGES).format(count=f"{base_leaves}{bonus_text}")
-            leaves_emoji = "🪙" * min(total_leaves, 20)
-            response = (
-                f"{farm_message}\n{leaves_emoji}\n\n"
-                f"Баланс:\n"
-                f"Zеток: {user_balances[user_id]['leaves']}\n"
-                f"🌿 Территории: {user_balances[user_id]['tea']}\n"
-            )
-            response += f"\n\n⏳ Следующий сбор будет доступен через 1 час"
-            if 'scroll' in user_balances[user_id]['items']:
-                response = response.replace("1 час", "50 минут")
-            bot.reply_to(message, response)
-            track_mission(user_id, 'farm')
-        except Exception as e:
-            print(f"Ошибка при сборе Zеток: {e}")
-            bot.reply_to(message, "❌ Произошла ошибка при сборе Zеток. Попробуйте позже.")
+        base_leaves = random.randint(1, 10)
+        bonus_multiplier = 1.0
+        for item_id in user_balances[user_id]['items']:
+            item = SHOP_ITEMS[item_id]
+            if item['bonus_type'] == 'farm':
+                bonus_multiplier += item['bonus_value']
+        total_leaves = int(base_leaves * bonus_multiplier)
+        bonus_text = ""
+        if bonus_multiplier > 1:
+            bonus_text = f"(+{int((bonus_multiplier-1)*100)}% = {total_leaves})"
+        user_balances[user_id]['leaves'] += total_leaves
+        user_balances[user_id]['last_farm'] = current_time
+        custom_phrases = user_balances[user_id].get('custom_work', [])
+        if custom_phrases:
+            farm_message = random.choice(custom_phrases).format(count=f"{base_leaves}{bonus_text}")
+        else:
+            farm_message = random.choice(FARM_MESSAGES).format(count=f"{base_leaves}{bonus_text}")
+        leaves_emoji = "🪙" * min(total_leaves, 20)
+        response = (
+            f"{farm_message}\n{leaves_emoji}\n\n"
+            f"Баланс:\n"
+            f"Zеток: {user_balances[user_id]['leaves']}\n"
+            f"🌿 Территории: {user_balances[user_id]['tea']}\n"
+        )
+        response += f"\n\n⏳ Следующий сбор будет доступен через 1 час"
+        if 'scroll' in user_balances[user_id]['items']:
+            response = response.replace("1 час", "50 минут")
+        bot.reply_to(message, response)
+        track_mission(user_id, 'farm')
     except Exception as e:
         print(f"Общая ошибка в handle_farm: {e}")
         bot.reply_to(message, "❌ Произошла неизвестная ошибка. Попробуйте позже.")
+
 @bot.message_handler(commands=['balance', 'b'])
 @group_only
 def handle_balance(message: Message):
@@ -869,13 +419,12 @@ def handle_balance(message: Message):
     ban_status = ""
     if user_balances[user_id].get('banned', False):
         ban_status = "\n\n🚫 Ваш аккаунт заблокирован!"
-    response = (
+    bot.reply_to(message,
         f"Ваш баланс:\n"
         f"💰 Zеток: {user_balances[user_id]['leaves']}\n"
         f"🌿 Территории: {user_balances[user_id]['tea']}"
-        f"{ban_status}"
-    )
-    bot.reply_to(message, response)
+        f"{ban_status}")
+
 @bot.message_handler(commands=['add_nft'])
 def handle_add_nft(message: Message):
     try:
@@ -898,40 +447,35 @@ def handle_add_nft(message: Message):
         description = command_parts[1]
         rarity = command_parts[2].lower()
         if rarity not in ['common', 'rare', 'epic', 'legendary']:
-            bot.reply_to(message, "❌ Неверная редкость! Используйте: common, rare, epic, legendary")
+            bot.reply_to(message, "❌ Неверная редкость!")
             return
         photo = message.reply_to_message.photo[-1]
-        file_id = photo.file_id
         nft_id = len(user_nfts) + 1
         user_nfts[nft_id] = {
-            'file_id': file_id,
+            'file_id': photo.file_id,
             'description': description,
             'rarity': rarity,
             'created_by': message.from_user.id,
             'created_at': datetime.datetime.now().timestamp(),
             'owner': None
         }
-        save_nft_data()
         bot.reply_to(message,
             f"✅ NFT успешно создан!\n\n"
             f"🔗 ID: {nft_id}\n"
             f"📝 Описание: {description}\n"
-            f"⭐ Редкость: {rarity}\n"
-            f"📷 Фото: сохранено")
+            f"⭐ Редкость: {rarity}")
     except Exception as e:
         print(f"Ошибка в handle_add_nft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при создании NFT")
+
 @bot.message_handler(commands=['give_nft'])
 def handle_give_nft(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) != 3:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /give_nft @username nft_id")
+            bot.reply_to(message, "⚠️ Используйте: /give_nft @username nft_id")
             return
         username = command_parts[1].lstrip('@')
         try:
@@ -939,19 +483,18 @@ def handle_give_nft(message: Message):
         except ValueError:
             bot.reply_to(message, "❌ ID NFT должен быть числом!")
             return
-        # Ищем пользователя
-        recipient_found = False
+        recipient_id = None
+        recipient_name = None
         for user_id in user_balances.keys():
             try:
                 user_info = bot.get_chat(user_id)
                 if user_info.username and user_info.username.lower() == username.lower():
                     recipient_id = user_id
                     recipient_name = user_info.first_name
-                    recipient_found = True
                     break
             except:
                 continue
-        if not recipient_found:
+        if recipient_id is None:
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         if nft_id not in user_nfts:
@@ -961,107 +504,36 @@ def handle_give_nft(message: Message):
             bot.reply_to(message, "❌ Этот NFT уже принадлежит другому игроку!")
             return
         init_user_data(recipient_id)
-        # Передаем NFT
         user_nfts[nft_id]['owner'] = recipient_id
         user_balances[recipient_id]['nfts'].append(nft_id)
-        save_nft_data()
-        save_user_data()
         nft = user_nfts[nft_id]
-        rarity_emoji = {
-            'common': '⚪',
-            'rare': '💎',
-            'epic': '💍',
-            'legendary': '👑'
-        }.get(nft['rarity'], '❓')
-        bot.reply_to(message,
-            f"✅ NFT успешно передан!\n\n"
-            f"👤 Получатель: {recipient_name}\n"
-            f"🎨 {nft['description']}\n"
-            f"{rarity_emoji} Редкость: {nft['rarity']}")
-        # Отправляем NFT пользователю
+        bot.reply_to(message, f"✅ NFT передан игроку {recipient_name}!")
         try:
             bot.send_photo(recipient_id, nft['file_id'],
-                caption=f"🎁 Вы получили NFT!\n\n"
-                       f"🎨 {nft['description']}\n"
-                       f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                       f"🔗 ID: {nft_id}")
+                caption=f"🎁 Вы получили NFT!\n\n🎨 {nft['description']}\n🔗 ID: {nft_id}")
         except Exception as e:
             print(f"Ошибка при отправке NFT: {e}")
     except Exception as e:
         print(f"Ошибка в handle_give_nft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при передаче NFT")
+
 @bot.message_handler(commands=['my_nfts'])
 @group_only
 def handle_my_nfts(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        nft_ids = user_balances[user_id].get('nfts', [])
-        if not nft_ids:
-            bot.reply_to(message, "📭 У вас пока нет NFT!")
-            return
-        response = "🖼️ Ваша коллекция NFT:\n\n"
-        for nft_id in nft_ids:
-            if nft_id in user_nfts:
-                nft = user_nfts[nft_id]
-                rarity_emoji = {
-                    'common': '⚪',
-                    'rare': '💎',
-                    'epic': '💍',
-                    'legendary': '👑'
-                }.get(nft['rarity'], '⚪')
-                response += f"🎨 {nft_id}: {rarity_emoji} {nft['description']}\n"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_my_nfts: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при просмотре коллекции")
-@bot.message_handler(commands=['killstats', 'kills'])
-def handle_killstats(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if not HALLOWEEN_EVENT_ACTIVE:
-            bot.reply_to(message, "🎃 Хэллоуинский ивент завершен!")
-            return
-        killers = []
-        for uid, data in user_balances.items():
-            if data.get('kills', 0) > 0:
-                try:
-                    user_name = bot.get_chat(uid).first_name
-                    killers.append((user_name, data['kills']))
-                except:
-                    continue
-        killers.sort(key=lambda x: x[1], reverse=True)
-        response = "💀 Хэллоуинский ивент 2 - Статистика убийств\n\n🏆 Топ убийц:\n"
-        for i, (name, kills) in enumerate(killers[:10], 1):
-            medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(i, "🏅")
-            response += f"{medal} {i}. {name}: {kills} убийств\n"
-        user_kills = user_balances[user_id].get('kills', 0)
-        user_rank = next((i for i, (_, k) in enumerate(killers, 1) if _ == message.from_user.first_name), None)
-        response += f"\nВаша статистика:\n"
-        response += f" Убийств: {user_kills}\n"
-        response += f"Ранг: {user_rank if user_rank else 'не в топе'}\n"
-        if user_balances[user_id].get('kill_ban_until', 0) > datetime.datetime.now().timestamp():
-            remaining_time = user_balances[user_id]['kill_ban_until'] - datetime.datetime.now().timestamp()
-            hours = int(remaining_time // 3600)
-            minutes = int((remaining_time % 3600) // 60)
-            response += f"💀 Статус: Мертв (вернетесь через {hours}ч {minutes}м)\n"
-        else:
-            current_time = datetime.datetime.now().timestamp()
-            last_kill = user_balances[user_id].get('last_kill_time', 0)
-            if current_time - last_kill < KILL_COOLDOWN:
-                remaining = KILL_COOLDOWN - (current_time - last_kill)
-                minutes = int(remaining // 60)
-                response += f"⏳ До следующего убийства: {minutes} минут\n"
-            else:
-                response += f"⚔️ Можете убивать!\n"
-        response += f"\n📅 Ивент длится до 09.11.2025\n🏆 Победитель получит Хэллоуинскую тыкву!"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_killstats: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении статистики")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    nft_ids = user_balances[user_id].get('nfts', [])
+    if not nft_ids:
+        bot.reply_to(message, "📭 У вас пока нет NFT!")
+        return
+    response = "🖼️ Ваша коллекция NFT:\n\n"
+    for nft_id in nft_ids:
+        if nft_id in user_nfts:
+            nft = user_nfts[nft_id]
+            response += f"🎨 {nft_id}: {nft['description']}\n"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['buy_nft'])
 @group_only
 def handle_buy_nft(message: Message):
@@ -1072,76 +544,42 @@ def handle_buy_nft(message: Message):
             return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /buy_nft nft_id\n\n"
-                "🖼️ Доступные NFT: /nft_list")
+            bot.reply_to(message, "⚠️ Используйте: /buy_nft nft_id")
             return
         try:
             nft_id = int(command_parts[1])
         except ValueError:
             bot.reply_to(message, "❌ ID NFT должен быть числом!")
             return
-        # Проверяем существование NFT
         if nft_id not in user_nfts:
             bot.reply_to(message, "❌ NFT с таким ID не существует!")
             return
         nft = user_nfts[nft_id]
-        # Проверяем, не принадлежит ли уже кому-то
         if nft['owner'] is not None:
             bot.reply_to(message, "❌ Этот NFT уже принадлежит другому игроку!")
             return
         if user_balances[user_id]['leaves'] < NFT_BASE_PRICE:
-            bot.reply_to(message,
-                f"❌ Недостаточно Zеток!\n"
-                f"Нужно: {NFT_BASE_PRICE} Zеток\n"
-                f"У вас: {user_balances[user_id]['leaves']} Zеток")
+            bot.reply_to(message, f"❌ Недостаточно Zеток! Нужно: {NFT_BASE_PRICE}")
             return
-        # Покупаем NFT
         user_balances[user_id]['leaves'] -= NFT_BASE_PRICE
         user_nfts[nft_id]['owner'] = user_id
         user_balances[user_id]['nfts'].append(nft_id)
-        save_nft_data()
-        save_user_data()
-        rarity_emoji = {
-            'common': '⚪',
-            'rare': '💎',
-            'epic': '💍',
-            'legendary': '👑'
-        }.get(nft['rarity'], '❓')
-        # Отправляем подтверждение и сам NFT
-        bot.reply_to(message,
-            f"✅ Вы успешно приобрели NFT!\n\n"
-            f"🎨 {nft['description']}\n"
-            f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-            f"💰 Стоимость: {NFT_BASE_PRICE} Zеток\n"
-            f"💰 Новый баланс: {user_balances[user_id]['leaves']} Zеток")
-        # Отправляем фото NFT
+        bot.reply_to(message, f"✅ Вы купили NFT!\n🎨 {nft['description']}")
         try:
             bot.send_photo(user_id, nft['file_id'],
-                caption=f"🎉 Поздравляем с покупкой!\n\n"
-                       f"🎨 {nft['description']}\n"
-                       f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                       f"🔗 ID: {nft_id}\n"
-                       f"💰 Куплено за: {NFT_BASE_PRICE} Zеток")
-        except Exception as e:
-            print(f"Ошибка при отправке NFT: {e}")
+                caption=f"🎉 Поздравляем с покупкой!\n🎨 {nft['description']}\n🔗 ID: {nft_id}")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_buy_nft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при покупке NFT")
+
 @bot.message_handler(commands=['view_nft'])
 @group_only
 def handle_view_nft(message: Message):
     try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /view_nft nft_id")
+            bot.reply_to(message, "⚠️ Используйте: /view_nft nft_id")
             return
         try:
             nft_id = int(command_parts[1])
@@ -1152,56 +590,32 @@ def handle_view_nft(message: Message):
             bot.reply_to(message, "❌ NFT с таким ID не существует!")
             return
         nft = user_nfts[nft_id]
-        rarity_emoji = {
-            'common': '⚪',
-            'rare': '💎',
-            'epic': '💍',
-            'legendary': '👑'
-        }.get(nft['rarity'], '❓')
         if nft['owner'] is None:
             owner_info = f"✅ Свободен\n💰 Цена: {NFT_BASE_PRICE} Zеток\n🛒 Купить: /buy_nft {nft_id}"
         else:
             try:
                 owner = bot.get_chat(nft['owner'])
                 owner_info = f"👤 Владелец: {owner.first_name}"
-                if nft['owner'] == user_id:
-                    owner_info += " (Ваш NFT)"
             except:
                 owner_info = "👤 Владелец: Неизвестен"
-        # Отправляем фото NFT
         bot.send_photo(message.chat.id, nft['file_id'],
-            caption=f"🖼️ NFT #{nft_id}\n\n"
-                   f"🎨 {nft['description']}\n"
-                   f"{rarity_emoji} Редкость: {nft['rarity']}\n"
-                   f"📅 Создан: {datetime.datetime.fromtimestamp(nft['created_at']).strftime('%d.%m.%Y')}\n"
-                   f"{owner_info}")
+            caption=f"🖼️ NFT #{nft_id}\n\n🎨 {nft['description']}\n⭐ Редкость: {nft['rarity']}\n{owner_info}")
     except Exception as e:
         print(f"Ошибка в handle_view_nft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при просмотре NFT")
+
 @bot.message_handler(commands=['nft_list'])
 @group_only
 def handle_nft_list(message: Message):
-    try:
-        if not user_nfts:
-            bot.reply_to(message, "📭 В системе пока нет NFT!")
-            return
-        response = "📋 Все NFT в системе:\n\n"
-        for nft_id, nft in user_nfts.items():
-            rarity_emoji = {
-                'common': '⚪',
-                'rare': '💎',
-                'epic': '💍',
-                'legendary': '👑'
-            }.get(nft['rarity'], '⚪')
-            status = "✅ Свободен" if nft['owner'] is None else "📦 В коллекции"
-            price_info = f"💰 {NFT_BASE_PRICE} Zеток" if nft['owner'] is None else "❌ Продано"
-            response += f"🎨 {nft_id}: {rarity_emoji} {nft['description']} - {status} {price_info}\n"
-        response += f"\n💰 Все NFT стоят: {NFT_BASE_PRICE} Zеток\n"
-        response += "🛒 Для покупки: /buy_nft [id]"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_nft_list: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении списка NFT")
+    if not user_nfts:
+        bot.reply_to(message, "📭 В системе пока нет NFT!")
+        return
+    response = "📋 Все NFT в системе:\n\n"
+    for nft_id, nft in user_nfts.items():
+        status = "✅ Свободен" if nft['owner'] is None else "📦 В коллекции"
+        response += f"🎨 {nft_id}: {nft['description']} - {status}\n"
+    response += f"\n💰 Все NFT стоят: {NFT_BASE_PRICE} Zеток\n🛒 Для покупки: /buy_nft [id]"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['users'])
 @group_only
 def handle_users(message: Message):
@@ -1213,43 +627,35 @@ def handle_users(message: Message):
     ban_status = ""
     if user_balances[user_id].get('banned', False):
         ban_status = "\n\n🚫 Ваш аккаунт заблокирован!"
-    response = (
+    bot.reply_to(message,
         f"Статистика бота:\n"
         f"👥 Всего пользователей: {users_count}\n"
         f"💰 Всего заработано Zеток: {total_leaves}\n"
         f"🌿 Всего территорий: {total_tea}"
-        f"{ban_status}"
-    )
-    bot.reply_to(message, response)
+        f"{ban_status}")
+
 @bot.message_handler(commands=['top'])
 @group_only
 def handle_top(message: Message):
-    # Сортируем пользователей по количеству чая и Zеток
-    sorted_users = sorted(
-        user_balances.items(),
-        key=lambda x: (x[1]['tea'], x[1]['leaves']),
-        reverse=True
-    )
-    # Берем топ-10 пользователей
+    sorted_users = sorted(user_balances.items(),
+        key=lambda x: (x[1]['tea'], x[1]['leaves']), reverse=True)
     top_users = sorted_users[:10]
-    # Формируем сообщение
     response = "🏆 Топ-10 сборщиков:\n\n"
     for index, (user_id, balance) in enumerate(top_users, 1):
         try:
             user = bot.get_chat(user_id)
             user_name = user.first_name
-            # Добавляем медали для первых трех мест
             medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(index, "🏅")
             response += f"{medal} {index}. {user_name}: 🌿 {balance['tea']} | 💰{balance['leaves']}\n"
         except:
             response += f"🏆 {index}. Пользователь:  🌿 {balance['tea']} | 💰 {balance['leaves']}\n"
-    # В конце добавим статус бана если есть
     user_id = message.from_user.id
     init_user_data(user_id)
     if user_balances[user_id].get('banned', False):
         response += "\n\n🚫 Ваш аккаунт заблокирован!"
     bot.reply_to(message, response)
     track_mission(user_id, 'top_view')
+
 @bot.message_handler(commands=['craft'])
 @group_only
 def handle_craft(message: Message):
@@ -1259,24 +665,20 @@ def handle_craft(message: Message):
         if check_ban(user_id, message):
             return
         command_parts = message.text.split()
-        # Если количество не указано, устанавливаем 1
         if len(command_parts) == 1:
             amount = 1
         else:
             try:
                 amount = int(command_parts[1])
                 if amount <= 0:
-                    bot.reply_to(message, "❌ Количество должно быть положительным числом!")  # ← добавлен отступ (4 пробела)
+                    bot.reply_to(message, "❌ Количество должно быть положительным числом!")
                     return
             except ValueError:
                 bot.reply_to(message,
                     "⚠️ Неверный формат команды!\n"
-                    "Используйте: /craft [количество]\n"
-                    "Например: /craft 5 или просто /craft для захвата 1 территории")
+                    "Используйте: /craft [количество]")
                 return
-        # Базовая стоимость крафта
         base_cost = 100
-        # Применяем скидку от чайника Ы если есть
         if 'teapot' in user_balances[user_id]['items']:
             base_cost -= SHOP_ITEMS['teapot']['bonus_value']
         total_cost = base_cost * amount
@@ -1288,27 +690,20 @@ def handle_craft(message: Message):
             return
         user_balances[user_id]['leaves'] -= total_cost
         user_balances[user_id]['tea'] += amount
-        save_user_data()
-        # Формируем сообщение с учетом скидки
         cost_text = str(base_cost)
         if 'teapot' in user_balances[user_id]['items']:
             cost_text = f"{10}(-{SHOP_ITEMS['teapot']['bonus_value']} = {base_cost})"
-        craft_message = random.choice(CRAFT_MESSAGES).format(
-            count=amount,
-            word="чая" if amount == 1 else "чая" if 2 <= amount <= 4 else "чая"
-        )
-        response = (
+        craft_message = random.choice(CRAFT_MESSAGES).format(count=amount)
+        bot.reply_to(message,
             f"{craft_message}\n"
             f"Потрачено Zеток: {cost_text} 🪙 {amount} = {total_cost} \n\n"
             f"Баланс:\n"
             f"Zеток: {user_balances[user_id]['leaves']}\n"
-            f"🌿 Территории: {user_balances[user_id]['tea']}"
-        )
-        bot.reply_to(message, response)
+            f"🌿 Территории: {user_balances[user_id]['tea']}")
         track_mission(user_id, 'craft', amount)
     except Exception as e:
         print(f"Ошибка в handle_craft: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при создании чая")
+
 @bot.message_handler(commands=['farmtime'])
 @group_only
 def handle_farmtime(message: Message):
@@ -1318,15 +713,14 @@ def handle_farmtime(message: Message):
         current_time = datetime.datetime.now().timestamp()
         last_farm = user_balances[user_id]['last_farm']
         if can_farm(last_farm, user_id):
-            response = "✅ Вы можете работать\nИспользуйте команду /farm"
+            bot.reply_to(message, "✅ Вы можете работать\nИспользуйте команду /farm")
         else:
             time_until_next = 3600 - (current_time - last_farm)
             remaining_time = format_remaining_time(time_until_next)
-            response = f"⏳ Следующая работа будет доступен через {remaining_time}"
-        bot.reply_to(message, response)
+            bot.reply_to(message, f"⏳ Следующая работа будет доступен через {remaining_time}")
     except Exception as e:
         print(f"Ошибка в handle_farmtime: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при проверке времени. Попробуйте позже.")
+
 @bot.message_handler(commands=['market_sell', 'msell'])
 @group_only
 def handle_market_sell(message: Message):
@@ -1337,15 +731,7 @@ def handle_market_sell(message: Message):
             return
         command_parts = message.text.split()
         if len(command_parts) != 3:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /market_sell [id_предмета] [цена]\n"
-                "Пример: /market_sell scroll 500\n\n"
-                "📋 Доступные предметы:\n"
-                "• scroll - 📜 Свиток мудрости\n"
-                "• jade_rod - 💊 Нефритовый стержень\n"
-                "• watermelon - 🍉 Священный арбуз\n"
-                "• и другие из /shop")
+            bot.reply_to(message, "⚠️ Используйте: /market_sell [id_предмета] [цена]")
             return
         item_id = command_parts[1].lower()
         try:
@@ -1357,7 +743,7 @@ def handle_market_sell(message: Message):
             bot.reply_to(message, "❌ Такого предмета не существует!")
             return
         if price < MARKET_MIN_PRICE:
-            bot.reply_to(message, f"❌ Минимальная цена продажи: {MARKET_MIN_PRICE} Zеток!")
+            bot.reply_to(message, f"❌ Минимальная цена: {MARKET_MIN_PRICE} Zеток!")
             return
         if item_id not in user_balances[user_id]['items']:
             bot.reply_to(message, "❌ У вас нет этого предмета!")
@@ -1378,51 +764,35 @@ def handle_market_sell(message: Message):
             'expires_at': datetime.datetime.now().timestamp() + MARKET_MAX_DURATION
         }
         user_balances[user_id]['items'].remove(item_id)
-        save_user_data()
-        save_market_data()
         bot.reply_to(message,
-            f"✅ Предмет выставлен на рынок!\n\n"
-            f"📦 Предмет: {item['name']}\n"
-            f"💰 Цена: {price} Zеток\n"
-            f"📊 Налог: {tax} Zеток ({MARKET_TAX_PERCENT}%)\n"
-            f"💰 Вы получите: {seller_receives} Zеток\n"
-            f"⏳ Действует: 7 дней\n"
-            f"📋 ID предложения: #{listing_id}\n\n"
-            f"Для отмены: /market_cancel {listing_id}")
+            f"✅ Предмет выставлен!\n"
+            f"📦 {item['name']}\n"
+            f"💰 Цена: {price}\n"
+            f"📋 ID: #{listing_id}")
     except Exception as e:
         print(f"Ошибка в handle_market_sell: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при выставлении предмета на рынок")
+
 @bot.message_handler(commands=['market', 'm'])
 @group_only
 def handle_market(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        cleanup_expired_listings()
-        if not market_listings:
-            bot.reply_to(message, "📭 На рынке пока нет предложений!")
-            return
-        response = "🏪 Пользовательский рынок\n\n"
-        for listing_id, listing in list(market_listings.items())[:10]:  # Показываем первые 10
-            time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
-            days = int(time_left // (24 * 60 * 60))
-            hours = int((time_left % (24 * 60 * 60)) // 3600)
-            response += (
-                f"📋 #{listing_id} - {listing['item_name']}\n"
-                f"💰 Цена: {listing['price']} Zеток\n"
-                f"👤 Продавец: {listing['seller_name']}\n"
-                f"⏳ Осталось: {days}д {hours}ч\n\n"
-            )
-        response += (
-            f"📊 Всего предложений: {len(market_listings)}\n"
-            f"👁️ Посмотреть все: /market_all\n"
-            f"🛒 Купить предмет: /market_buy [id_предмета]\n"
-            f"💰 Продать предмет: /market_sell [id_предмета] [цена]"
-        )
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_market: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при просмотре рынка")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    cleanup_expired_listings()
+    if not market_listings:
+        bot.reply_to(message, "📭 На рынке пока нет предложений!")
+        return
+    response = "🏪 Пользовательский рынок\n\n"
+    for listing_id, listing in list(market_listings.items())[:10]:
+        time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
+        days = int(time_left // (24 * 60 * 60))
+        hours = int((time_left % (24 * 60 * 60)) // 3600)
+        response += (f"📋 #{listing_id} - {listing['item_name']}\n"
+                     f"💰 Цена: {listing['price']} Zеток\n"
+                     f"👤 Продавец: {listing['seller_name']}\n"
+                     f"⏳ Осталось: {days}д {hours}ч\n\n")
+    response += f"📊 Всего: {len(market_listings)}"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['market_buy', 'mbuy'])
 @group_only
 def handle_market_buy(message: Message):
@@ -1433,15 +803,12 @@ def handle_market_buy(message: Message):
             return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /market_buy [id_предложения]\n"
-                "Пример: /market_buy 1")
+            bot.reply_to(message, "⚠️ Используйте: /market_buy [id]")
             return
         try:
             listing_id = int(command_parts[1])
         except ValueError:
-            bot.reply_to(message, "❌ ID предложения должен быть числом!")
+            bot.reply_to(message, "❌ ID должен быть числом!")
             return
         if listing_id not in market_listings:
             bot.reply_to(message, "❌ Предложение не найдено!")
@@ -1449,22 +816,16 @@ def handle_market_buy(message: Message):
         listing = market_listings[listing_id]
         if datetime.datetime.now().timestamp() > listing['expires_at']:
             del market_listings[listing_id]
-            save_market_data()
             bot.reply_to(message, "⏳ Предложение истекло!")
             return
         if user_id == listing['seller_id']:
             bot.reply_to(message, "🚫 Нельзя купить у самого себя!")
             return
         if user_balances[user_id]['leaves'] < listing['price']:
-            bot.reply_to(message,
-                f"❌ Недостаточно Zеток!\n"
-                f"Нужно: {listing['price']} Zеток\n"
-                f"У вас: {user_balances[user_id]['leaves']} Zеток")
+            bot.reply_to(message, f"❌ Недостаточно Zеток! Нужно: {listing['price']}")
             return
         if len(user_balances[user_id]['items']) >= 3:
-            bot.reply_to(message,
-                "❌ У вас максимальное количество предметов!\n"
-                "Освободите место: /inventory")
+            bot.reply_to(message, "❌ У вас максимум предметов!")
             return
         user_balances[user_id]['leaves'] -= listing['price']
         user_balances[user_id]['items'].append(listing['item_id'])
@@ -1473,86 +834,62 @@ def handle_market_buy(message: Message):
         user_balances[seller_id]['leaves'] += listing['seller_receives']
         item_name = listing['item_name']
         del market_listings[listing_id]
-        save_user_data()
-        save_market_data()
-        bot.reply_to(message,
-            f"✅ Вы купили {item_name} за {listing['price']} Zеток!\n"
-            f"Предмет добавлен в инвентарь: /inventory")
+        bot.reply_to(message, f"✅ Вы купили {item_name}!")
         try:
-            bot.send_message(seller_id,
-                f"🎉 Ваш предмет {item_name} продан!\n"
-                f"💰 Получено: {listing['seller_receives']} Zеток (за вычетом налога)\n"
-                f"👤 Покупатель: {message.from_user.first_name}")
+            bot.send_message(seller_id, f"🎉 Ваш {item_name} продан! +{listing['seller_receives']} Zеток")
         except:
             pass
     except Exception as e:
         print(f"Ошибка в handle_market_buy: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при покупке предмета")
+
 @bot.message_handler(commands=['market_cancel', 'mcancel'])
 @group_only
 def handle_market_cancel(message: Message):
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ Используйте: /market_cancel [id]")
+        return
     try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /market_cancel [id_предложения]")
-            return
-        try:
-            listing_id = int(command_parts[1])
-        except ValueError:
-            bot.reply_to(message, "❌ ID предложения должен быть числом!")
-            return
-        if listing_id not in market_listings:
-            bot.reply_to(message, "❌ Предложение не найдено!")
-            return
-        listing = market_listings[listing_id]
-        if user_id != listing['seller_id']:
-            bot.reply_to(message, "🚫 Это не ваше предложение!")
-            return
-        user_balances[user_id]['items'].append(listing['item_id'])
-        del market_listings[listing_id]
-        save_user_data()
-        save_market_data()
-        bot.reply_to(message,
-            f"✅ Предложение #{listing_id} отменено!\n"
-            f"📦 {listing['item_name']} возвращен в ваш инвентарь")
-    except Exception as e:
-        print(f"Ошибка в handle_market_cancel: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при отмене предложения")
+        listing_id = int(command_parts[1])
+    except ValueError:
+        bot.reply_to(message, "❌ ID должен быть числом!")
+        return
+    if listing_id not in market_listings:
+        bot.reply_to(message, "❌ Предложение не найдено!")
+        return
+    listing = market_listings[listing_id]
+    if user_id != listing['seller_id']:
+        bot.reply_to(message, "🚫 Это не ваше предложение!")
+        return
+    user_balances[user_id]['items'].append(listing['item_id'])
+    del market_listings[listing_id]
+    bot.reply_to(message, f"✅ Предложение #{listing_id} отменено!")
+
 @bot.message_handler(commands=['market_all', 'mall'])
 @group_only
 def handle_market_all(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        cleanup_expired_listings()
-        if not market_listings:
-            bot.reply_to(message, "📭 На рынке пока нет предложений!")
-            return
-        response = "📋 Все предложения на рынке\n\n"
-        for listing_id, listing in market_listings.items():
-            time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
-            days = int(time_left // (24 * 60 * 60))
-            hours = int((time_left % (24 * 60 * 60)) // 3600)
-            response += (
-                f"📋 #{listing_id} - {listing['item_name']}\n"
-                f"💰 Цена: {listing['price']} Zеток\n"
-                f"👤 Продавец: {listing['seller_name']}\n"
-            f"⏳ Осталось: {days}д {hours}ч\n"
-            )
-        response += f"\n📊 Всего предложений: {len(market_listings)}"
-        if len(response) > 4000:
-            parts = [response[i:i+4000] for i in range(0, len(response), 4000)]
-            for part in parts:
-                bot.send_message(user_id, part)
-        else:
-            bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_market_all: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при просмотре рынка")
+    cleanup_expired_listings()
+    if not market_listings:
+        bot.reply_to(message, "📭 На рынке пока нет предложений!")
+        return
+    response = "📋 Все предложения:\n\n"
+    for listing_id, listing in market_listings.items():
+        time_left = listing['expires_at'] - datetime.datetime.now().timestamp()
+        days = int(time_left // (24 * 60 * 60))
+        hours = int((time_left % (24 * 60 * 60)) // 3600)
+        response += (f"📋 #{listing_id} - {listing['item_name']}\n"
+                     f"💰 {listing['price']} Zеток\n"
+                     f"👤 {listing['seller_name']}\n"
+                     f"⏳ {days}д {hours}ч\n\n")
+    if len(response) > 4000:
+        parts = [response[i:i+4000] for i in range(0, len(response), 4000)]
+        for part in parts:
+            bot.send_message(message.from_user.id, part)
+    else:
+        bot.reply_to(message, response)
+
 @bot.message_handler(commands=['tc'])
 @group_only
 def handle_transfer(message: Message):
@@ -1564,11 +901,7 @@ def handle_transfer(message: Message):
         command_parts = message.text.split()
         if message.reply_to_message:
             if len(command_parts) != 2:
-                bot.reply_to(message,
-                    "⚠️ Неверный формат команды!\n"
-                    "При ответе на сообщение используйте:\n"
-                    "/tc количество\n"
-                    "Например: /tc 10")
+                bot.reply_to(message, "⚠️ Используйте: /tc количество")
                 return
             recipient = message.reply_to_message.from_user
             recipient_id = recipient.id
@@ -1576,145 +909,14 @@ def handle_transfer(message: Message):
             amount = int(command_parts[1])
         else:
             if len(command_parts) != 3:
-                bot.reply_to(message,
-                    "⚠️ Неверный формат команды!\n"
-                    "Используйте один из вариантов:\n"
-                    "1. /tc @username количество\n"
-                    "2. Ответьте на сообщение командой /tc количество")
+                bot.reply_to(message, "⚠️ Используйте: /tc @username количество")
                 return
             recipient_username = command_parts[1].lstrip('@')
             try:
                 amount = int(command_parts[2])
             except ValueError:
-                bot.reply_to(message, "❌ Количество Zеток должно быть числом!")
+                bot.reply_to(message, "❌ Количество должно быть числом!")
                 return
-            try:
-                recipient_found = False
-                for user_id in user_balances.keys():
-                    try:
-                        user_info = bot.get_chat(user_id)
-                        if user_info.username and user_info.username.lower() == recipient_username.lower():
-                            recipient_id = user_id
-                            recipient_name = user_info.first_name
-                            recipient_found = True
-                            break
-                    except:
-                        continue
-                if not recipient_found:
-                    bot.reply_to(message,
-                        "❌ Пользователь не найден или никогда не использовал бота.\n"
-                        "Убедитесь, что:\n"
-                        "1. Указан правильный username\n"
-                        "2. Пользователь хотя бы раз запускал бота")
-                    return
-            except Exception as e:
-                print(f"Ошибка при поиске пользователя: {e}")
-                bot.reply_to(message, "❌ Не удалось найти пользователя")
-                return
-        sender_balance = user_balances[sender_id]['leaves']  # Получаем количество Zеток
-        if amount <= 0:
-            bot.reply_to(message, "❌ Количество Zеток должно быть положительным числом!")
-            return
-        # Проверяем достаточно ли Zеток
-        if amount > sender_balance:
-            bot.reply_to(message, f"❌ У вас недостаточно Zеток!\nВаш баланс: {sender_balance} 💰")
-            return
-        if recipient_id == sender_id:
-            bot.reply_to(message, "🚫 Вы не можете отправить Zетки самому себе!")
-            return
-        init_user_data(recipient_id)
-        user_balances[sender_id]['leaves'] -= amount
-        user_balances[recipient_id]['leaves'] += amount
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Успешно отправлено {amount} Zеток пользователю {recipient_name}!\n"
-            f"Ваш новый баланс: {user_balances[sender_id]['leaves']} Zеток")
-        track_mission(sender_id, 'transfer')
-        try:
-            bot.send_message(recipient_id,
-                f"💰 Вы получили {amount} Zеток от {message.from_user.first_name}!\n"
-                f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
-        except Exception as e:
-            print(f"Не удалось отправить уведомление получателю: {e}")
-    except Exception as e:
-        bot.reply_to(message,
-            "❌ Произошла ошибка при обработке команды.\n"
-            "Используйте один из вариантов:\n"
-            "1. /tс @username количество\n"
-            "2. Ответьте на сообщение командой /tс количество")
-        print(f"Общая ошибка в handle_transfer: {e}")
-@bot.message_handler(commands=['customwork'])
-@group_only
-def handle_custom_work(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Получаем текст после команды
-        command_text = message.text.replace('/customwork', '', 1).strip()
-        if not command_text:
-            # Если просто команда без текста - показываем текущие фразы
-            custom_phrases = user_balances[user_id].get('custom_work', [])
-            if not custom_phrases:
-                response = (
-                    "📝 У вас нет кастомных фраз для работы.\n\n"
-                    "Чтобы добавить, отправьте:\n"
-                    "/customwork\n"
-                    "Ваша фраза 1+{count}\n"
-                    "Ваша фраза 2+{count}\n"
-                    "(до 5 фраз, каждая с новой строки). ВАЖНО! команда именно /customwork, без @ник_бота"
-                )
-            else:
-                response = "📝 Ваши текущие фразы для работы:\n\n" + "\n".join(
-                    f"{i+1}. {phrase}" for i, phrase in enumerate(custom_phrases)
-                ) + "\n\nОтправьте /customwork с новыми фразами для обновления"
-            bot.reply_to(message, response)
-            return
-        # Разбиваем на фразы (максимум 5)
-        phrases = [p.strip() for p in command_text.split('\n') if p.strip()][:5]
-        if len(phrases) < 2:
-            bot.reply_to(message,
-                "⚠️ Нужно указать хотя бы 2 фразы (каждая с новой строки)!\n\n"
-                "Пример:\n"
-                "/customwork\n"
-                "Отлично поработал! +{count} Zеток\n"
-                "Молодец! Получаешь {count} соц.Zетоков")
-            return
-        # Сохраняем фразы
-        user_balances[user_id]['custom_work'] = phrases
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Установлено {len(phrases)} кастомных фраз для работы!\n"
-            "Теперь при использовании /farm будут использоваться ваши фразы.")
-    except Exception as e:
-        print(f"Ошибка в handle_custom_work: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при сохранении кастомных фраз")
-@bot.message_handler(commands=['give'])
-def handle_give(message: Message):
-    try:
-        # Проверяем права администратора
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        command_parts = message.text.split()
-        # Проверяем формат команды
-        if len(command_parts) != 3:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /give @username количество")
-            return
-        # Получаем username получателя (убираем @ если есть)
-        recipient_username = command_parts[1].lstrip('@')
-        try:
-            amount = int(command_parts[2])
-            if amount <= 0:
-                bot.reply_to(message, "❌ Количество Zеток должно быть положительным числом!")
-                return
-        except ValueError:
-            bot.reply_to(message, "❌ Количество Zеток должно быть числом!")
-            return
-        try:
             recipient_found = False
             for user_id in user_balances.keys():
                 try:
@@ -1727,33 +929,104 @@ def handle_give(message: Message):
                 except:
                     continue
             if not recipient_found:
-                bot.reply_to(message,
-                    "❌ Пользователь не найден или никогда не использовал бота.\n"
-                    "Убедитесь, что:\n"
-                    "1. Указан правильный username\n"
-                    "2. Пользователь хотя бы раз запускал бота")
+                bot.reply_to(message, "❌ Пользователь не найден!")
                 return
-        except Exception as e:
-            print(f"Ошибка при поиске пользователя: {e}")
-            bot.reply_to(message, "❌ Не удалось найти пользователя")
+        if amount <= 0:
+            bot.reply_to(message, "❌ Количество должно быть положительным!")
+            return
+        if amount > user_balances[sender_id]['leaves']:
+            bot.reply_to(message, f"❌ Недостаточно Zеток! Баланс: {user_balances[sender_id]['leaves']}")
+            return
+        if recipient_id == sender_id:
+            bot.reply_to(message, "🚫 Нельзя отправить самому себе!")
+            return
+        init_user_data(recipient_id)
+        user_balances[sender_id]['leaves'] -= amount
+        user_balances[recipient_id]['leaves'] += amount
+        bot.reply_to(message,
+            f"✅ Отправлено {amount} Zеток пользователю {recipient_name}!\n"
+            f"Ваш баланс: {user_balances[sender_id]['leaves']}")
+        track_mission(sender_id, 'transfer')
+        try:
+            bot.send_message(recipient_id, f"💰 Вы получили {amount} Zеток от {message.from_user.first_name}!")
+        except:
+            pass
+    except Exception as e:
+        print(f"Ошибка в handle_transfer: {e}")
+
+@bot.message_handler(commands=['customwork'])
+@group_only
+def handle_custom_work(message: Message):
+    try:
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if check_ban(user_id, message):
+            return
+        command_text = message.text.replace('/customwork', '', 1).strip()
+        if not command_text:
+            custom_phrases = user_balances[user_id].get('custom_work', [])
+            if not custom_phrases:
+                bot.reply_to(message,
+                    "📝 У вас нет кастомных фраз.\n\n"
+                    "Чтобы добавить, отправьте:\n"
+                    "/customwork\nВаша фраза 1+{count}\nВаша фраза 2+{count}\n"
+                    "(до 5 фраз)")
+            else:
+                bot.reply_to(message, "📝 Ваши фразы:\n\n" + "\n".join(
+                    f"{i+1}. {p}" for i, p in enumerate(custom_phrases)))
+            return
+        phrases = [p.strip() for p in command_text.split('\n') if p.strip()][:5]
+        if len(phrases) < 2:
+            bot.reply_to(message, "⚠️ Нужно минимум 2 фразы!")
+            return
+        user_balances[user_id]['custom_work'] = phrases
+        bot.reply_to(message, f"✅ Установлено {len(phrases)} фраз!")
+    except Exception as e:
+        print(f"Ошибка в handle_custom_work: {e}")
+
+@bot.message_handler(commands=['give'])
+def handle_give(message: Message):
+    try:
+        if not is_admin(message.from_user.id):
+            bot.reply_to(message, "🚫 У вас нет прав!")
+            return
+        command_parts = message.text.split()
+        if len(command_parts) != 3:
+            bot.reply_to(message, "⚠️ Используйте: /give @username количество")
+            return
+        recipient_username = command_parts[1].lstrip('@')
+        try:
+            amount = int(command_parts[2])
+            if amount <= 0:
+                bot.reply_to(message, "❌ Количество должно быть положительным!")
+                return
+        except ValueError:
+            bot.reply_to(message, "❌ Количество должно быть числом!")
+            return
+        recipient_found = False
+        for user_id in user_balances.keys():
+            try:
+                user_info = bot.get_chat(user_id)
+                if user_info.username and user_info.username.lower() == recipient_username.lower():
+                    recipient_id = user_id
+                    recipient_name = user_info.first_name
+                    recipient_found = True
+                    break
+            except:
+                continue
+        if not recipient_found:
+            bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
         user_balances[recipient_id]['leaves'] += amount
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Успешно выдано {amount} Zеток пользователю {recipient_name}!\n"
-            f"Его новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+        bot.reply_to(message, f"✅ Выдано {amount} Zеток {recipient_name}!")
         try:
-            bot.send_message(recipient_id,
-                f"💰 Администратор выдал вам {amount} Zеток!\n"
-                f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
-        except Exception as e:
-            print(f"Не удалось отправить уведомление получателю: {e}")
+            bot.send_message(recipient_id, f"💰 Админ выдал вам {amount} Zеток!")
+        except:
+            pass
     except Exception as e:
-        bot.reply_to(message,
-            "❌ Произошла ошибка при обработке команды.\n"
-            "Используйте: /give @username количество")
-        print(f"Общая ошибка в handle_give: {e}")
+        print(f"Ошибка в handle_give: {e}")
+
 @bot.message_handler(commands=['me'])
 @group_only
 def handle_me(message: Message):
@@ -1772,14 +1045,6 @@ def handle_me(message: Message):
             farm_status = f"⏳ Через {remaining_time}"
         warnings = user_balances[user_id].get('warnings', [])
         warnings_text = f"\n⚠️ Предупреждений: {len(warnings)}/{MAX_WARNINGS}"
-        if warnings:
-            warnings_text += "\nПоследнее предупреждение:\n"
-            last_warn = warnings[-1]
-            time_left = WARNING_DURATION - (datetime.datetime.now().timestamp() - last_warn['time'])
-            days_left = int(time_left // (24 * 60 * 60))
-            warnings_text += f"Причина: {last_warn['reason']}\n"
-            warnings_text += f"Выдал: {last_warn['admin']}\n"
-            warnings_text += f"Будет снято через: {days_left} дней"
         response = (
             f"👤 Профиль игрока\n\n"
             f"Имя: {user.first_name}\n"
@@ -1797,51 +1062,39 @@ def handle_me(message: Message):
         bot.reply_to(message, response)
     except Exception as e:
         print(f"Ошибка в handle_me: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении информации. Попробуйте позже.")
+
 @bot.message_handler(commands=['end_event'])
 def handle_end_event(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        global HALLOWEEN_EVENT_ACTIVE
-        HALLOWEEN_EVENT_ACTIVE = False
-        end_halloween_event()
-        bot.reply_to(message, "🎃 Хэллоуинский ивент завершен досрочно!")
-    except Exception as e:
-        print(f"Ошибка в handle_end_event: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при завершении ивента")
+    if not is_admin(message.from_user.id):
+        bot.reply_to(message, "🚫 У вас нет прав!")
+        return
+    global HALLOWEEN_EVENT_ACTIVE
+    HALLOWEEN_EVENT_ACTIVE = False
+    end_halloween_event()
+    bot.reply_to(message, "🎃 Ивент завершен досрочно!")
+
 @bot.message_handler(commands=['admin'])
 def handle_admin(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        admin_text = (
-            f"🛡️ Панель администратора\n\n"
-            f"Доступные команды:\n"
-            f"💰 /give @username количество - выдать соц Zеток\n"
-            f"⚠️ /take @username количество - забрать соц Zеток\n"
-            f"🔄 /reset @username - сбросить таймер сбора\n"
-            f"📊 /stats - подробная статистика\n"
-            f"📢 /announce текст - отправить объявление всем\n"
-            f"⚠️ /warn @username причина - выдать предупреждение\n"
-            f"✅ /unwarn @username - снять предупреждение\n"
-            f"🚫 /ban @username причина - заблокировать пользователя\n"
-            f"✅ /unban @username - разблокировать пользователя\n\n"
-            f"Система предупреждений:\n"
-            f"• Предупреждения снимаются автоматически через 7 дней\n"
-            f"• При достижении {MAX_WARNINGS} предупреждений - автобан"
-        )
-        bot.reply_to(message, admin_text)
-    except Exception as e:
-        print(f"Ошибка в handle_admin: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при открытии панели администратора")
+    if not is_admin(message.from_user.id):
+        bot.reply_to(message, "🚫 У вас нет прав!")
+        return
+    bot.reply_to(message,
+        f"🛡️ Панель администратора\n\n"
+        f"💰 /give @username количество\n"
+        f"⚠️ /take @username количество\n"
+        f"🔄 /reset @username\n"
+        f"📊 /stats\n"
+        f"📢 /announce текст\n"
+        f"⚠️ /warn @username причина\n"
+        f"✅ /unwarn @username\n"
+        f"🚫 /ban @username причина\n"
+        f"✅ /unban @username")
+
 @bot.message_handler(commands=['take'])
 def handle_take(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) != 3:
@@ -1851,12 +1104,11 @@ def handle_take(message: Message):
         try:
             amount = int(command_parts[2])
             if amount <= 0:
-                bot.reply_to(message, "❌ Количество должно быть положительным числом!")
+                bot.reply_to(message, "❌ Количество должно быть положительным!")
                 return
         except ValueError:
             bot.reply_to(message, "❌ Количество должно быть числом!")
             return
-        # Поиск пользователя
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -1872,137 +1124,105 @@ def handle_take(message: Message):
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
-        # Проверяем баланс
         if user_balances[recipient_id]['leaves'] < amount:
-            bot.reply_to(message,
-                f"❌ У пользователя недостаточно Zеток!\n"
-                f"Доступно: {user_balances[recipient_id]['leaves']} 💰")
+            bot.reply_to(message, f"❌ У пользователя недостаточно Zеток! Доступно: {user_balances[recipient_id]['leaves']}")
             return
-        # Забираем Zетки
         user_balances[recipient_id]['leaves'] -= amount
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Успешно изъято {amount} Zеток у пользователя {recipient_name}!\n"
-            f"Его новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
-        bot.send_message(recipient_id,
-            f"⚠️ Администратор изъял у вас {amount} Zеток!\n"
-            f"Ваш новый баланс: {user_balances[recipient_id]['leaves']} Zеток")
+        bot.reply_to(message, f"✅ Изъято {amount} Zеток у {recipient_name}!")
+        try:
+            bot.send_message(recipient_id, f"⚠️ Админ изъял у вас {amount} Zеток!")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_take: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при изъятии Zеток")
+
 @bot.message_handler(commands=['stats'])
 def handle_stats(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        users_count = len(user_balances)
-        total_leaves = sum(u['leaves'] for u in user_balances.values())
-        total_tea = sum(u['tea'] for u in user_balances.values())
-        # Находим самых богатых пользователей
-        sorted_by_leaves = sorted(user_balances.items(), key=lambda x: x[1]['leaves'], reverse=True)[:5]
-        sorted_by_tea = sorted(user_balances.items(), key=lambda x: x[1]['tea'], reverse=True)[:5]
-        response = (
-            f"📊 Подробная статистика бота\n\n"
-        f"👥 Всего пользователей: {users_count}\n"
-            f"💰 Всего Zеток: {total_leaves}\n"
-            f"🌿 Всего территорий: {total_tea}\n\n"
-            f"🏆 Топ-5 по Zетоку:\n"
-        )
-        for i, (user_id, data) in enumerate(sorted_by_leaves, 1):
-            try:
-                user = bot.get_chat(user_id)
-                response += f"{i}. {user.first_name}: {data['leaves']} 💰\n"
-            except:
-                continue
-        response += f"\n🏆 Топ-5 по территориям:\n"
-        for i, (user_id, data) in enumerate(sorted_by_tea, 1):
-            try:
-                user = bot.get_chat(user_id)
-                response += f"{i}. {user.first_name}: {data['tea']} 🌿\n"
-            except:
-                continue
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_stats: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении статистики")
+    if not is_admin(message.from_user.id):
+        bot.reply_to(message, "🚫 У вас нет прав!")
+        return
+    users_count = len(user_balances)
+    total_leaves = sum(u['leaves'] for u in user_balances.values())
+    total_tea = sum(u['tea'] for u in user_balances.values())
+    sorted_by_leaves = sorted(user_balances.items(), key=lambda x: x[1]['leaves'], reverse=True)[:5]
+    sorted_by_tea = sorted(user_balances.items(), key=lambda x: x[1]['tea'], reverse=True)[:5]
+    response = (f"📊 Статистика\n\n"
+                f"👥 Пользователей: {users_count}\n"
+                f"💰 Всего Zеток: {total_leaves}\n"
+                f"🌿 Всего территорий: {total_tea}\n\n"
+                f"🏆 Топ-5 по Zетоку:\n")
+    for i, (user_id, data) in enumerate(sorted_by_leaves, 1):
+        try:
+            user = bot.get_chat(user_id)
+            response += f"{i}. {user.first_name}: {data['leaves']} 💰\n"
+        except:
+            continue
+    response += f"\n🏆 Топ-5 по территориям:\n"
+    for i, (user_id, data) in enumerate(sorted_by_tea, 1):
+        try:
+            user = bot.get_chat(user_id)
+            response += f"{i}. {user.first_name}: {data['tea']} 🌿\n"
+        except:
+            continue
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['announce'])
 def handle_announce(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        announcement_text = message.text.replace('/announce', '', 1).strip()
-        if not announcement_text:
-            bot.reply_to(message, "⚠️ Укажите текст объявления!")
-            return
-        success_count = 0
-        fail_count = 0
-        for user_id in user_balances.keys():
-            try:
-                bot.send_message(user_id,
-                    f"📢 Объявление от администрации:\n\n"
-                    f"{announcement_text}")
-                success_count += 1
-            except:
-                fail_count += 1
-                continue
-        bot.reply_to(message,
-            f"✅ Объявление отправлено!\n"
-            f"Успешно: {success_count}\n"
-            f"Не доставлено: {fail_count}")
-    except Exception as e:
-        print(f"Ошибка в handle_announce: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при отправке объявления")
+    if not is_admin(message.from_user.id):
+        bot.reply_to(message, "🚫 У вас нет прав!")
+        return
+    announcement_text = message.text.replace('/announce', '', 1).strip()
+    if not announcement_text:
+        bot.reply_to(message, "⚠️ Укажите текст!")
+        return
+    success = 0
+    for user_id in user_balances.keys():
+        try:
+            bot.send_message(user_id, f"📢 Объявление:\n\n{announcement_text}")
+            success += 1
+        except:
+            continue
+    bot.reply_to(message, f"✅ Отправлено: {success}")
+
 @bot.message_handler(commands=['reset'])
 def handle_reset(message: Message):
-    try:
-        if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message, "⚠️ Используйте: /reset @username")
-            return
-        recipient_username = command_parts[1].lstrip('@')
-        # Поиск пользователя
-        recipient_found = False
-        for user_id in user_balances.keys():
-            try:
-                user_info = bot.get_chat(user_id)
-                if user_info.username and user_info.username.lower() == recipient_username.lower():
-                    recipient_id = user_id
-                    recipient_name = user_info.first_name
-                    recipient_found = True
-                    break
-            except:
-                continue
-        if not recipient_found:
-            bot.reply_to(message, "❌ Пользователь не найден!")
-            return
-        # Сбрасываем таймер
-        user_balances[recipient_id]['last_farm'] = 0
-        save_user_data()
-        bot.reply_to(message, f"✅ Таймер сбора для {recipient_name} сброшен!")
-        bot.send_message(recipient_id, "🔄 Администратор сбросил ваш таймер сбора!\nВы можете собирать Zетки!")
-    except Exception as e:
-        print(f"Ошибка в handle_reset: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при сбросе таймера")
+    if not is_admin(message.from_user.id):
+        bot.reply_to(message, "🚫 У вас нет прав!")
+        return
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ Используйте: /reset @username")
+        return
+    recipient_username = command_parts[1].lstrip('@')
+    recipient_found = False
+    for user_id in user_balances.keys():
+        try:
+            user_info = bot.get_chat(user_id)
+            if user_info.username and user_info.username.lower() == recipient_username.lower():
+                recipient_id = user_id
+                recipient_name = user_info.first_name
+                recipient_found = True
+                break
+        except:
+            continue
+    if not recipient_found:
+        bot.reply_to(message, "❌ Пользователь не найден!")
+        return
+    user_balances[recipient_id]['last_farm'] = 0
+    bot.reply_to(message, f"✅ Таймер сброшен для {recipient_name}!")
+
 @bot.message_handler(commands=['warn'])
 def handle_warn(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) < 3:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /warn @username причина")
+            bot.reply_to(message, "⚠️ Используйте: /warn @username причина")
             return
         recipient_username = command_parts[1].lstrip('@')
         warn_reason = ' '.join(command_parts[2:])
-        # Поиск пользователя
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2018,8 +1238,7 @@ def handle_warn(message: Message):
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
-        check_warnings(recipient_id)  # Очищаем устаревшие предупреждения
-        # Добавляем предупреждение
+        check_warnings(recipient_id)
         warning = {
             'reason': warn_reason,
             'time': datetime.datetime.now().timestamp(),
@@ -2028,40 +1247,33 @@ def handle_warn(message: Message):
         if 'warnings' not in user_balances[recipient_id]:
             user_balances[recipient_id]['warnings'] = []
         user_balances[recipient_id]['warnings'].append(warning)
-        save_user_data()
         warnings_count = len(user_balances[recipient_id]['warnings'])
-        response = (
-            f"⚠️ Выдано предупреждение пользователю {recipient_name}!\n"
+        bot.reply_to(message,
+            f"⚠️ Предупреждение выдано {recipient_name}!\n"
             f"Причина: {warn_reason}\n"
-            f"Всего предупреждений: {warnings_count}/{MAX_WARNINGS}\n"
-            f"Предупреждение будет снято через 7 дней"
-        )
-        if warnings_count >= MAX_WARNINGS:
-            response += f"\n\n🚫 Пользователь автоматически заблокирован за {MAX_WARNINGS} предупреждений!"
-        bot.reply_to(message, response)
-        bot.send_message(recipient_id,
-            f"⚠️ Вы получили предупреждение!\n"
-            f"Причина: {warn_reason}\n"
-            f"Всего предупреждений: {warnings_count}/{MAX_WARNINGS}\n"
-            f"Предупреждение будет снято через 7 дней")
+            f"Всего: {warnings_count}/{MAX_WARNINGS}")
+        try:
+            bot.send_message(recipient_id,
+                f"⚠️ Вы получили предупреждение!\n"
+                f"Причина: {warn_reason}\n"
+                f"Всего: {warnings_count}/{MAX_WARNINGS}")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_warn: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при выдаче предупреждения")
+
 @bot.message_handler(commands=['ban'])
 def handle_ban(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) < 3:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /ban @username причина")
+            bot.reply_to(message, "⚠️ Используйте: /ban @username причина")
             return
         recipient_username = command_parts[1].lstrip('@')
         ban_reason = ' '.join(command_parts[2:])
-        # Поиск пользователя
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2077,33 +1289,27 @@ def handle_ban(message: Message):
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
-        # Блокируем пользователя
         user_balances[recipient_id]['banned'] = True
         user_balances[recipient_id]['ban_reason'] = ban_reason
-        save_user_data()
-        bot.reply_to(message,
-            f"🚫 Пользователь {recipient_name} заблокирован!\n"
-            f"Причина: {ban_reason}")
-        bot.send_message(recipient_id,
-            f"🚫 Вы были заблокированы!\n"
-            f"Причина: {ban_reason}")
+        bot.reply_to(message, f"🚫 {recipient_name} заблокирован! Причина: {ban_reason}")
+        try:
+            bot.send_message(recipient_id, f"🚫 Вы заблокированы!\nПричина: {ban_reason}")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_ban: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при блокировке пользователя")
+
 @bot.message_handler(commands=['unwarn'])
 def handle_unwarn(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /unwarn @username")
+            bot.reply_to(message, "⚠️ Используйте: /unwarn @username")
             return
         recipient_username = command_parts[1].lstrip('@')
-        # Поиск пользователя
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2119,37 +1325,31 @@ def handle_unwarn(message: Message):
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
-        check_warnings(recipient_id)  # Очищаем устаревшие предупреждения
+        check_warnings(recipient_id)
         if not user_balances[recipient_id].get('warnings', []):
-            bot.reply_to(message, f"❌ У пользователя {recipient_name} нет активных предупреждений!")
+            bot.reply_to(message, f"❌ У {recipient_name} нет активных предупреждений!")
             return
-        # Снимаем последнее предупреждение
         user_balances[recipient_id]['warnings'].pop()
-        save_user_data()
         warnings_count = len(user_balances[recipient_id]['warnings'])
-        bot.reply_to(message,
-            f"✅ Снято предупреждение у пользователя {recipient_name}!\n"
-            f"Осталось предупреждений: {warnings_count}")
-        bot.send_message(recipient_id,
-            f"✅ Администратор снял с вас одно предупреждение!\n"
-            f"Осталось предупреждений: {warnings_count}")
+        bot.reply_to(message, f"✅ Снято предупреждение у {recipient_name}! Осталось: {warnings_count}")
+        try:
+            bot.send_message(recipient_id, f"✅ С вас снято предупреждение! Осталось: {warnings_count}")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_unwarn: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при снятии предупреждения")
+
 @bot.message_handler(commands=['unban'])
 def handle_unban(message: Message):
     try:
         if not is_admin(message.from_user.id):
-            bot.reply_to(message, "🚫 У вас нет прав для использования этой команды!")
+            bot.reply_to(message, "🚫 У вас нет прав!")
             return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /unban @username")
+            bot.reply_to(message, "⚠️ Используйте: /unban @username")
             return
         recipient_username = command_parts[1].lstrip('@')
-        # Поиск пользователя
         recipient_found = False
         for user_id in user_balances.keys():
             try:
@@ -2165,160 +1365,109 @@ def handle_unban(message: Message):
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
         init_user_data(recipient_id)
-        # Проверяем, забанен ли пользователь
         if not user_balances[recipient_id].get('banned', False):
-            bot.reply_to(message, f"❌ Пользователь {recipient_name} не заблокирован!")
+            bot.reply_to(message, f"❌ {recipient_name} не заблокирован!")
             return
-        # Разблокируем пользователя
         user_balances[recipient_id]['banned'] = False
         user_balances[recipient_id]['ban_reason'] = ''
-        user_balances[recipient_id]['warnings'] = []  # Очищаем все предупреждения
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Пользователь {recipient_name} разблокирован!\n"
-            f"Все предупреждения сняты.")
-        bot.send_message(recipient_id,
-            "✅ Ваш аккаунт разблокирован!\n"
-            "Все предупреждения сняты.\n"
-            "Теперь вы снова можете пользоваться ботом.")
+        user_balances[recipient_id]['warnings'] = []
+        bot.reply_to(message, f"✅ {recipient_name} разблокирован!")
+        try:
+            bot.send_message(recipient_id, "✅ Ваш аккаунт разблокирован!")
+        except:
+            pass
     except Exception as e:
         print(f"Ошибка в handle_unban: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при разблокировке пользователя")
+
+# ==================== КЛАНЫ ====================
+
+def get_username(user_id):
+    try:
+        return bot.get_chat(user_id).first_name
+    except:
+        return "Неизвестный"
+
+def get_role_name(role):
+    return {'leader': '👑 Лидер', 'officer': '🛡️ Офицер', 'member': '👤 Участник'}.get(role, '❓ Неизвестно')
+
 @bot.message_handler(commands=['clan'])
 @group_only
 def handle_clan(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Если у пользователя нет клана
-        if not user_balances[user_id]['clan']:
-            response = (
-                f"🏰 Система кланов\n\n"
-                f"Вы не состоите в клане.\n"
-                f"Доступные действия:\n"
-                f"• /clan_create [название] - создать клан ({CLAN_PRICE} Zеток)\n"
-                f"• /clan_join [название] - вступить в клан\n"
-                f"• /clan_list - список кланов\n\n"
-                f"ℹ️ Используйте /clan_help для подробной информации о системе кланов"
-            )
-        else:
-            clan_id = user_balances[user_id]['clan']
-            clan = clans[clan_id]
-            role = user_balances[user_id]['clan_role']
-            members = [uid for uid, data in user_balances.items() if data.get('clan') == clan_id]
-            response = (
-                f"🏰 Клан «{clan['name']}»\n\n"
-                f"👑 Лидер: {get_username(clan['leader'])}\n"
-                f"👤 Участников: {len(members)}\n"
-                f"📋 Ваша роль: {get_role_name(role)}\n\n"
-            )
-            if role in ['leader', 'officer']:
-                response += (
-                    f"Команды управления:\n"
-                    f"• /clan_invite @username - пригласить игрока\n"
-                    f"• /clan_kick @username - исключить игрока\n"
-                    f"• /clan_promote @username - повысить до офицера\n"
-                    f"• /clan_demote @username - понизить до участника\n"
-                )
-            response += (
-                f"\nОбщие команды:\n"
-                f"• /clan_members - список участников\n"
-                f"• /clan_leave - покинуть клан"
-            )
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message,
+            f"🏰 Система кланов\n\n"
+            f"Вы не состоите в клане.\n"
+            f"• /clan_create [название] - создать клан ({CLAN_PRICE} Zеток)\n"
+            f"• /clan_join [название] - вступить в клан\n"
+            f"• /clan_list - список кланов\n\n"
+            f"ℹ️ /clan_help")
+    else:
+        clan_id = user_balances[user_id]['clan']
+        clan = clans[clan_id]
+        role = user_balances[user_id]['clan_role']
+        members = [uid for uid, data in user_balances.items() if data.get('clan') == clan_id]
+        response = (f"🏰 Клан «{clan['name']}»\n\n"
+                    f"👑 Лидер: {get_username(clan['leader'])}\n"
+                    f"👤 Участников: {len(members)}\n"
+                    f"📋 Ваша роль: {get_role_name(role)}\n\n")
+        if role in ['leader', 'officer']:
+            response += (f"Команды:\n"
+                         f"• /clan_invite @username\n"
+                         f"• /clan_kick @username\n"
+                         f"• /clan_promote @username\n"
+                         f"• /clan_demote @username\n")
+        response += f"\n• /clan_members\n• /clan_leave"
         bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_clan: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при работе с кланом")
+
 @bot.message_handler(commands=['clan_create'])
 @group_only
 def handle_clan_create(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, не состоит ли уже в клане
-        if user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы уже состоите в клане!")
-            return
-        # Проверяем формат команды
-        command_parts = message.text.split(maxsplit=1)
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Укажите название клана!\n"
-                "Использование: /clan_create [название]")
-            return
-        clan_name = command_parts[1].strip()
-        # Проверяем длину названия
-        if len(clan_name) < MIN_CLAN_NAME_LENGTH or len(clan_name) > MAX_CLAN_NAME_LENGTH:
-            bot.reply_to(message,
-                f"❌ Название клана должно быть от {MIN_CLAN_NAME_LENGTH} "
-                f"до {MAX_CLAN_NAME_LENGTH} символов!")
-            return
-        # Проверяем, не существует ли клан с таким названием
-        if any(c['name'].lower() == clan_name.lower() for c in clans.values()):
-            bot.reply_to(message, "❌ Клан с таким названием уже существует!")
-            return
-        # Проверяем наличие Zеток
-        if user_balances[user_id]['leaves'] < CLAN_PRICE:
-            bot.reply_to(message,
-                f"❌ Недостаточно Zеток для создания клана!\n"
-                f"Необходимо: {CLAN_PRICE} Zеток\n"
-                f"У вас есть: {user_balances[user_id]['leaves']} Zеток")
-            return
-        # Создаем клан
-        clan_id = str(len(clans) + 1)
-        clans[clan_id] = {
-            'name': clan_name,
-            'leader': user_id,
-            'created_at': datetime.datetime.now().timestamp()
-        }
-        # Обновляем данные пользователя
-        user_balances[user_id]['leaves'] -= CLAN_PRICE
-        user_balances[user_id]['clan'] = clan_id
-        user_balances[user_id]['clan_role'] = 'leader'
-        save_user_data()
-        save_clans_data()
-        bot.reply_to(message,
-            f"🎉 Поздравляем! Клан «{clan_name}» успешно создан!\n"
-            f"Потрачено: {CLAN_PRICE} Zеток\n\n"
-            f"Используйте /clan для управления кланом")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_create: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при создании клана")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    if user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы уже в клане!")
+        return
+    command_parts = message.text.split(maxsplit=1)
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /clan_create [название]")
+        return
+    clan_name = command_parts[1].strip()
+    if len(clan_name) < MIN_CLAN_NAME_LENGTH or len(clan_name) > MAX_CLAN_NAME_LENGTH:
+        bot.reply_to(message, f"❌ Название от {MIN_CLAN_NAME_LENGTH} до {MAX_CLAN_NAME_LENGTH} символов!")
+        return
+    if any(c['name'].lower() == clan_name.lower() for c in clans.values()):
+        bot.reply_to(message, "❌ Такой клан уже существует!")
+        return
+    if user_balances[user_id]['leaves'] < CLAN_PRICE:
+        bot.reply_to(message, f"❌ Нужно {CLAN_PRICE} Zеток!")
+        return
+    clan_id = str(len(clans) + 1)
+    clans[clan_id] = {'name': clan_name, 'leader': user_id, 'created_at': datetime.datetime.now().timestamp()}
+    user_balances[user_id]['leaves'] -= CLAN_PRICE
+    user_balances[user_id]['clan'] = clan_id
+    user_balances[user_id]['clan_role'] = 'leader'
+    bot.reply_to(message, f"🎉 Клан «{clan_name}» создан!")
+
 @bot.message_handler(commands=['clan_help'])
 @group_only
 def handle_clan_help(message: Message):
-    help_text = (
-        f"📖 Руководство по системе кланов\n\n"
-        f"📋 Основные команды:\n"
-        f"• /clan - просмотр информации о клане\n"
-        f"• /clan_create [название] - создать клан ({CLAN_PRICE} Zеток)\n"
-        f"• /clan_list - список всех кланов\n"
-        f"• /clan_join [название] - вступить в клан\n"
-        f"• /clan_leave - покинуть клан\n"
-        f"• /clan_members - список участников клана\n\n"
-        f"📋 Команды управления (для лидера и офицеров):\n"
-        f"• /clan_invite @username - пригласить игрока\n"
-        f"• /clan_kick @username - исключить игрока\n"
-        f"• /clan_promote @username - повысить до офицера\n"
-        f"• /clan_demote @username - понизить до участника\n\n"
-        f"📋 Роли в клане:\n"
-        f"• 👑 Лидер - создатель клана, полный доступ\n"
-        f"• 🛡️ Офицер - может управлять участниками\n"
-        f"• 👤 Участник - базовый доступ\n\n"
-        f"ℹ️ Как вступить в клан:\n"
-        f"1. Посмотрите список кланов: /clan_list\n"
-        f"2. Подайте заявку: /clan_join [название]\n"
-        f"3. Дождитесь одобрения от лидера/офицера\n\n"
-        f"ℹ️ Как создать свой клан:\n"
-        f"1. Накопите {CLAN_PRICE} Zеток\n"
-        f"2. Придумайте название (от {MIN_CLAN_NAME_LENGTH} до {MAX_CLAN_NAME_LENGTH} символов)\n"
-        f"3. Создайте клан: /clan_create [название]"
-    )
-    bot.reply_to(message, help_text)
+    bot.reply_to(message,
+        f"📖 Руководство по кланам\n\n"
+        f"• /clan - информация о клане\n"
+        f"• /clan_create [название] - создать ({CLAN_PRICE} Zеток)\n"
+        f"• /clan_list - список\n"
+        f"• /clan_join [название] - вступить\n"
+        f"• /clan_leave - покинуть\n"
+        f"• /clan_members - участники\n\n"
+        f"Управление (лидер/офицер):\n"
+        f"• /clan_invite, /clan_kick, /clan_promote, /clan_demote")
+
 @bot.message_handler(commands=['clan_invite'])
 @group_only
 def handle_clan_invite(message: Message):
@@ -2327,24 +1476,17 @@ def handle_clan_invite(message: Message):
         init_user_data(user_id)
         if check_ban(user_id, message):
             return
-        # Проверяем, состоит ли пользователь в клане
         if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
+            bot.reply_to(message, "❌ Вы не в клане!")
             return
-        # Проверяем права пользователя
-        user_role = user_balances[user_id]['clan_role']
-        if user_role not in ['leader', 'officer']:
-            bot.reply_to(message, "🚫 У вас нет прав для приглашения игроков!")
+        if user_balances[user_id]['clan_role'] not in ['leader', 'officer']:
+            bot.reply_to(message, "🚫 Нет прав!")
             return
-        # Проверяем формат команды
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /clan_invite @username")
+            bot.reply_to(message, "⚠️ /clan_invite @username")
             return
         target_username = command_parts[1].lstrip('@')
-        # Ищем пользователя
         target_found = False
         for uid in user_balances.keys():
             try:
@@ -2359,410 +1501,261 @@ def handle_clan_invite(message: Message):
         if not target_found:
             bot.reply_to(message, "❌ Пользователь не найден!")
             return
-        # Проверяем, не состоит ли уже в клане
         if user_balances[target_id]['clan']:
-            bot.reply_to(message, "❌ Этот игрок уже состоит в клане!")
+            bot.reply_to(message, "❌ Уже в клане!")
             return
-        # Добавляем в клан
         clan_id = user_balances[user_id]['clan']
         user_balances[target_id]['clan'] = clan_id
         user_balances[target_id]['clan_role'] = 'member'
-        save_user_data()
-        clan_name = clans[clan_id]['name']
-        bot.reply_to(message,
-            f"✅ Игрок {target_name} успешно приглашён в клан!")
-        bot.send_message(target_id,
-            f"🏰 Вас пригласили в клан «{clan_name}»!\n"
-            f"Используйте /clan для просмотра информации")
+        bot.reply_to(message, f"✅ {target_name} приглашён!")
+        try:
+            bot.send_message(target_id, f"🏰 Вас пригласили в клан «{clans[clan_id]['name']}»!")
+        except:
+            pass
     except Exception as e:
-        print(f"Ошибка в handle_clan_invite: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при приглашении игрока")
+        print(f"Ошибка clan_invite: {e}")
+
 @bot.message_handler(commands=['clan_kick'])
 @group_only
 def handle_clan_kick(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, состоит ли пользователь в клане
-        if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
-            return
-        # Проверяем права пользователя
-        user_role = user_balances[user_id]['clan_role']
-        if user_role not in ['leader', 'officer']:
-            bot.reply_to(message, "🚫 У вас нет прав для исключения игроков!")
-            return
-        # Проверяем формат команды
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /clan_kick @username")
-            return
-        target_username = command_parts[1].lstrip('@')
-        # Ищем пользователя
-        target_found = False
-        for uid in user_balances.keys():
-            try:
-                user_info = bot.get_chat(uid)
-                if user_info.username and user_info.username.lower() == target_username.lower():
-                    target_id = uid
-                    target_name = user_info.first_name
-                    target_found = True
-                    break
-            except:
-                continue
-        if not target_found:
-            bot.reply_to(message, "❌ Пользователь не найден!")
-            return
-        # Проверяем, состоит ли игрок в том же клане
-        clan_id = user_balances[user_id]['clan']
-        if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "❌ Этот игрок не состоит в вашем клане!")
-            return
-        # Проверяем, не пытается ли офицер исключить лидера или другого офицера
-        if user_role == 'officer' and user_balances[target_id]['clan_role'] in ['leader', 'officer']:
-            bot.reply_to(message, "🚫 Вы не можете исключить лидера или офицера!")
-            return
-        # Исключаем игрока
-        user_balances[target_id]['clan'] = None
-        user_balances[target_id]['clan_role'] = None
-        save_user_data()
-        bot.reply_to(message, f"✅ Игрок {target_name} исключён из клана!")
-        bot.send_message(target_id, f"🚫 Вы были исключены из клана!")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_kick: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при исключении игрока")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы не в клане!")
+        return
+    if user_balances[user_id]['clan_role'] not in ['leader', 'officer']:
+        bot.reply_to(message, "🚫 Нет прав!")
+        return
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /clan_kick @username")
+        return
+    target_username = command_parts[1].lstrip('@')
+    target_found = False
+    for uid in user_balances.keys():
+        try:
+            user_info = bot.get_chat(uid)
+            if user_info.username and user_info.username.lower() == target_username.lower():
+                target_id = uid
+                target_name = user_info.first_name
+                target_found = True
+                break
+        except:
+            continue
+    if not target_found:
+        bot.reply_to(message, "❌ Не найден!")
+        return
+    clan_id = user_balances[user_id]['clan']
+    if user_balances[target_id].get('clan') != clan_id:
+        bot.reply_to(message, "❌ Не в вашем клане!")
+        return
+    if user_balances[user_id]['clan_role'] == 'officer' and user_balances[target_id]['clan_role'] in ['leader', 'officer']:
+        bot.reply_to(message, "🚫 Нельзя исключить лидера/офицера!")
+        return
+    user_balances[target_id]['clan'] = None
+    user_balances[target_id]['clan_role'] = None
+    bot.reply_to(message, f"✅ {target_name} исключён!")
+
 @bot.message_handler(commands=['clan_promote'])
 @group_only
 def handle_clan_promote(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, состоит ли пользователь в клане
-        if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
-            return
-        # Только лидер может повышать
-        if user_balances[user_id]['clan_role'] != 'leader':
-            bot.reply_to(message, "🚫 Только лидер клана может повышать участников!")
-            return
-        # Проверяем формат команды
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /clan_promote @username")
-            return
-        target_username = command_parts[1].lstrip('@')
-        # Ищем пользователя
-        target_found = False
-        for uid in user_balances.keys():
-            try:
-                user_info = bot.get_chat(uid)
-                if user_info.username and user_info.username.lower() == target_username.lower():
-                    target_id = uid
-                    target_name = user_info.first_name
-                    target_found = True
-                    break
-            except:
-                continue
-        if not target_found:
-            bot.reply_to(message, "❌ Пользователь не найден!")
-            return
-        # Проверяем, состоит ли игрок в том же клане
-        clan_id = user_balances[user_id]['clan']
-        if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "❌ Этот игрок не состоит в вашем клане!")
-            return
-        # Проверяем текущую роль
-        if user_balances[target_id]['clan_role'] == 'officer':
-            bot.reply_to(message, "❌ Этот игрок уже является офицером!")
-            return
-        # Повышаем до офицера
-        user_balances[target_id]['clan_role'] = 'officer'
-        save_user_data()
-        bot.reply_to(message, f"✅ Игрок {target_name} повышен до офицера!")
-        bot.send_message(target_id, "🎉 Поздравляем! Вы повышены до офицера клана!")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_promote: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при повышении игрока")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы не в клане!")
+        return
+    if user_balances[user_id]['clan_role'] != 'leader':
+        bot.reply_to(message, "🚫 Только лидер!")
+        return
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /clan_promote @username")
+        return
+    target_username = command_parts[1].lstrip('@')
+    target_found = False
+    for uid in user_balances.keys():
+        try:
+            user_info = bot.get_chat(uid)
+            if user_info.username and user_info.username.lower() == target_username.lower():
+                target_id = uid
+                target_name = user_info.first_name
+                target_found = True
+                break
+        except:
+            continue
+    if not target_found:
+        bot.reply_to(message, "❌ Не найден!")
+        return
+    clan_id = user_balances[user_id]['clan']
+    if user_balances[target_id].get('clan') != clan_id:
+        bot.reply_to(message, "❌ Не в вашем клане!")
+        return
+    if user_balances[target_id]['clan_role'] == 'officer':
+        bot.reply_to(message, "❌ Уже офицер!")
+        return
+    user_balances[target_id]['clan_role'] = 'officer'
+    bot.reply_to(message, f"✅ {target_name} повышен!")
+
 @bot.message_handler(commands=['clan_demote'])
 @group_only
 def handle_clan_demote(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, состоит ли пользователь в клане
-        if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
-            return
-        # Только лидер может понижать
-        if user_balances[user_id]['clan_role'] != 'leader':
-            bot.reply_to(message, "🚫 Только лидер клана может понижать офицеров!")
-            return
-        # Проверяем формат команды
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /clan_demote @username")
-            return
-        target_username = command_parts[1].lstrip('@')
-        # Ищем пользователя
-        target_found = False
-        for uid in user_balances.keys():
-            try:
-                user_info = bot.get_chat(uid)
-                if user_info.username and user_info.username.lower() == target_username.lower():
-                    target_id = uid
-                    target_name = user_info.first_name
-                    target_found = True
-                    break
-            except:
-                continue
-        if not target_found:
-            bot.reply_to(message, "❌ Пользователь не найден!")
-            return
-        # Проверяем, состоит ли игрок в том же клане
-        clan_id = user_balances[user_id]['clan']
-        if user_balances[target_id].get('clan') != clan_id:
-            bot.reply_to(message, "❌ Этот игрок не состоит в вашем клане!")
-            return
-        # Проверяем текущую роль
-        if user_balances[target_id]['clan_role'] != 'officer':
-            bot.reply_to(message, "❌ Этот игрок не является офицером!")
-            return
-        # Понижаем до участника
-        user_balances[target_id]['clan_role'] = 'member'
-        save_user_data()
-        bot.reply_to(message, f"✅ Игрок {target_name} понижен до участника!")
-        bot.send_message(target_id, "📋 Вы понижены до обычного участника клана")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_demote: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при понижении игрока")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы не в клане!")
+        return
+    if user_balances[user_id]['clan_role'] != 'leader':
+        bot.reply_to(message, "🚫 Только лидер!")
+        return
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /clan_demote @username")
+        return
+    target_username = command_parts[1].lstrip('@')
+    target_found = False
+    for uid in user_balances.keys():
+        try:
+            user_info = bot.get_chat(uid)
+            if user_info.username and user_info.username.lower() == target_username.lower():
+                target_id = uid
+                target_name = user_info.first_name
+                target_found = True
+                break
+        except:
+            continue
+    if not target_found:
+        bot.reply_to(message, "❌ Не найден!")
+        return
+    clan_id = user_balances[user_id]['clan']
+    if user_balances[target_id].get('clan') != clan_id:
+        bot.reply_to(message, "❌ Не в вашем клане!")
+        return
+    if user_balances[target_id]['clan_role'] != 'officer':
+        bot.reply_to(message, "❌ Не офицер!")
+        return
+    user_balances[target_id]['clan_role'] = 'member'
+    bot.reply_to(message, f"✅ {target_name} понижен!")
+
 @bot.message_handler(commands=['clan_members'])
 @group_only
 def handle_clan_members(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, состоит ли пользователь в клане
-        if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
-            return
-        clan_id = user_balances[user_id]['clan']
-        clan = clans[clan_id]
-        # Собираем список участников
-        members = []
-        for uid, data in user_balances.items():
-            if data.get('clan') == clan_id:
-                role = get_role_name(data['clan_role'])
-                try:
-                    username = bot.get_chat(uid).first_name
-                    members.append((role, username))
-                except:
-                    continue
-        # Сортируем по ролям: лидер -> офицеры -> участники
-        role_priority = {'👑 Лидер': 0, '🛡️ Офицер': 1, '👤 Участник': 2}
-        members.sort(key=lambda x: role_priority[x[0]])
-        response = f"👤 Участники клана «{clan['name']}»:\n\n"
-        for role, username in members:
-            response += f"{role}: {username}\n"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_clan_members: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении списка участников")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы не в клане!")
+        return
+    clan_id = user_balances[user_id]['clan']
+    clan = clans[clan_id]
+    members = []
+    for uid, data in user_balances.items():
+        if data.get('clan') == clan_id:
+            role = get_role_name(data['clan_role'])
+            try:
+                username = bot.get_chat(uid).first_name
+                members.append((role, username))
+            except:
+                continue
+    role_priority = {'👑 Лидер': 0, '🛡️ Офицер': 1, '👤 Участник': 2}
+    members.sort(key=lambda x: role_priority[x[0]])
+    response = f"👤 Участники клана «{clan['name']}»:\n\n"
+    for role, username in members:
+        response += f"{role}: {username}\n"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['clan_leave'])
 @group_only
 def handle_clan_leave(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        # Проверяем, состоит ли пользователь в клане
-        if not user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы не состоите в клане!")
-            return
-        clan_id = user_balances[user_id]['clan']
-        clan_name = clans[clan_id]['name']
-        # Проверяем, не является ли пользователь лидером
-        if user_balances[user_id]['clan_role'] == 'leader':
-            # Ищем офицера для передачи лидерства
-            new_leader = None
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if not user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы не в клане!")
+        return
+    clan_id = user_balances[user_id]['clan']
+    clan_name = clans[clan_id]['name']
+    if user_balances[user_id]['clan_role'] == 'leader':
+        new_leader = None
+        for uid, data in user_balances.items():
+            if data.get('clan') == clan_id and data['clan_role'] == 'officer':
+                new_leader = uid
+                break
+        if new_leader:
+            user_balances[new_leader]['clan_role'] = 'leader'
+            clans[clan_id]['leader'] = new_leader
+            try:
+                bot.send_message(new_leader, f"🏆 Вы новый лидер клана «{clan_name}»!")
+            except:
+                pass
+        else:
+            del clans[clan_id]
             for uid, data in user_balances.items():
-                if data.get('clan') == clan_id and data['clan_role'] == 'officer':
-                    new_leader = uid
-                    break
-            if new_leader:
-                # Передаем лидерство офицеру
-                user_balances[new_leader]['clan_role'] = 'leader'
-                clans[clan_id]['leader'] = new_leader
-                save_clans_data()
-                try:
-                    bot.send_message(new_leader,
-                        f"🏆 Вы стали новым лидером клана «{clan_name}»!")
-                except:
-                    pass
-            else:
-                # Если нет офицеров, удаляем клан
-                del clans[clan_id]
-                save_clans_data()
-                # Убираем клан у всех участников
-                for uid, data in user_balances.items():
-                    if data.get('clan') == clan_id:
-                        data['clan'] = None
-                        data['clan_role'] = None
-                        try:
-                            if uid != user_id:
-                                bot.send_message(uid,
-                                    f"🚫 Клан «{clan_name}» был расформирован!")
-                        except:
-                            continue
-                save_user_data()
-                bot.reply_to(message,
-                    f"🚫 Клан «{clan_name}» расформирован, так как вы были последним офицером!")
-                return
-        # Покидаем клан
-        user_balances[user_id]['clan'] = None
-        user_balances[user_id]['clan_role'] = None
-        save_user_data()
-        bot.reply_to(message, f"👋 Вы покинули клан «{clan_name}»")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_leave: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при выходе из клана")
+                if data.get('clan') == clan_id:
+                    data['clan'] = None
+                    data['clan_role'] = None
+            bot.reply_to(message, f"🚫 Клан расформирован!")
+            return
+    user_balances[user_id]['clan'] = None
+    user_balances[user_id]['clan_role'] = None
+    bot.reply_to(message, f"👋 Вы покинули клан «{clan_name}»")
+
 @bot.message_handler(commands=['clan_list'])
 @group_only
 def handle_clan_list(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        if not clans:
-            bot.reply_to(message, "📭 Пока нет ни одного клана!")
-            return
-        response = "📋 Список кланов:\n\n"
-        for clan_id, clan_data in clans.items():
-            # Считаем количество участников
-            members_count = sum(1 for data in user_balances.values()
-                              if data.get('clan') == clan_id)
-            # Получаем имя лидера
-            leader_name = get_username(clan_data['leader'])
-            response += (
-                f"🏰 «{clan_data['name']}»\n"
-                f"👑 Лидер: {leader_name}\n"
-                f"👤 Участников: {members_count}\n\n"
-            )
-        response += "Чтобы вступить в клан, используйте:\n/clan_join [название]"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_clan_list: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при получении списка кланов")
+    if not clans:
+        bot.reply_to(message, "📭 Нет кланов!")
+        return
+    response = "📋 Список кланов:\n\n"
+    for clan_id, clan_data in clans.items():
+        members_count = sum(1 for data in user_balances.values() if data.get('clan') == clan_id)
+        leader_name = get_username(clan_data['leader'])
+        response += f"🏰 «{clan_data['name']}»\n👑 Лидер: {leader_name}\n👤 Участников: {members_count}\n\n"
+    response += "Для вступления: /clan_join [название]"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['clan_join'])
 @group_only
 def handle_clan_join(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    if user_balances[user_id]['clan']:
+        bot.reply_to(message, "❌ Вы уже в клане!")
+        return
+    command_parts = message.text.split(maxsplit=1)
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /clan_join [название]")
+        return
+    clan_name = command_parts[1].strip()
+    for clan_id, clan_data in clans.items():
+        if clan_data['name'].lower() == clan_name.lower():
+            user_balances[user_id]['clan'] = clan_id
+            user_balances[user_id]['clan_role'] = 'member'
+            bot.reply_to(message, f"✅ Вы вступили в клан «{clan_data['name']}»!")
             return
-        # Проверяем, не состоит ли уже в клане
-        if user_balances[user_id]['clan']:
-            bot.reply_to(message, "❌ Вы уже состоите в клане!")
-            return
-        # Проверяем формат команды
-        command_parts = message.text.split(maxsplit=1)
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Укажите название клана!\n"
-                "Использование: /clan_join [название]")
-            return
-        clan_name = command_parts[1].strip()
-        # Выводим отладочную информацию
-        print(f"Поиск клана: {clan_name}")
-        print(f"Доступные кланы: {clans}")
-        # Ищем клан по названию (без учета регистра)
-        clan_found = False
-        for clan_id, clan_data in clans.items():
-            print(f"Сравниваем с: {clan_data['name']}")
-            if clan_data['name'].lower() == clan_name.lower():
-                clan_found = True
-                print(f"Клан найден! ID: {clan_id}")
-                # Добавляем пользователя в клан
-                user_balances[user_id]['clan'] = clan_id
-                user_balances[user_id]['clan_role'] = 'member'
-                save_user_data()
-                # Уведомляем лидера
-                try:
-                    leader_id = clan_data['leader']
-                    bot.send_message(leader_id,
-                        f"🏆 {message.from_user.first_name} присоединился к клану!")
-                except Exception as e:
-                    print(f"Ошибка при уведомлении лидера: {e}")
-                bot.reply_to(message,
-                    f"✅ Вы успешно вступили в клан «{clan_data['name']}»!\n"
-                    f"Используйте /clan для просмотра информации")
-                break
-        if not clan_found:
-            bot.reply_to(message,
-                "❌ Клан с таким названием не найден!\n"
-                "Используйте /clan_list для просмотра списка кланов")
-    except Exception as e:
-        print(f"Ошибка в handle_clan_join: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при вступлении в клан")
-# Вспомогательные функции
-def get_username(user_id):
-    try:
-        user = bot.get_chat(user_id)
-        return user.first_name
-    except:
-        return "Неизвестный"
-def get_role_name(role):
-    return {
-        'leader': '👑 Лидер',
-        'officer': '🛡️ Офицер',
-        'member': '👤 Участник'
-    }.get(role, '❓ Неизвестно')
+    bot.reply_to(message, "❌ Клан не найден!")
+
+# ==================== МАГАЗИН ====================
+
 @bot.message_handler(commands=['shop'])
 @group_only
 def handle_shop(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        response = "🏪 Магазин предметов\n\n"
-        for item in SHOP_ITEMS.values():
-            response += (
-                f"{item['name']}\n"
-                f"📝 {item['description']}\n"
-                f"💰 Цена: {item['price']} Zеток\n"
-                f"🛒 Для покупки: /buy {item['id']}\n\n"
-            )
-        response += (
-            f"У вас: {user_balances[user_id]['leaves']} Zеток\n"
-            f"Максимум предметов: 3\n"
-            f"Ваши предметы: /inventory\n\n"
-            f"🖼️ NFT коллекция\n"
-            f"💰 Базовая цена: {NFT_BASE_PRICE} Zеток\n"
-            f"👁️ Посмотреть NFT: /nft_list\n"
-            f"🛒 Купить NFT: /buy_nft [id]\n\n"
-        )
-        bot.reply_to(message, response)
-        track_mission(user_id, 'shop')
-    except Exception as e:
-        print(f"Ошибка в handle_shop: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при открытии магазина")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    response = "🏪 Магазин предметов\n\n"
+    for item in SHOP_ITEMS.values():
+        response += (f"{item['name']}\n"
+                     f"📝 {item['description']}\n"
+                     f"💰 Цена: {item['price']} Zеток\n"
+                     f"🛒 /buy {item['id']}\n\n")
+    response += (f"У вас: {user_balances[user_id]['leaves']} Zеток\n"
+                 f"Максимум предметов: 3\n"
+                 f"/inventory\n\n"
+                 f"🖼️ NFT: /nft_list")
+    bot.reply_to(message, response)
+    track_mission(user_id, 'shop')
+
 @bot.message_handler(commands=['buy'])
 @group_only
 def handle_buy(message: Message):
@@ -2773,101 +1766,68 @@ def handle_buy(message: Message):
             return
         command_parts = message.text.split()
         if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /buy [id_предмета]")
+            bot.reply_to(message, "⚠️ /buy [id_предмета]")
             return
         item_id = command_parts[1].lower()
         if item_id not in SHOP_ITEMS:
             bot.reply_to(message, "❌ Предмет не найден!")
             return
         item = SHOP_ITEMS[item_id]
-        # Проверяем количество предметов
         if len(user_balances[user_id]['items']) >= 3:
-            bot.reply_to(message,
-                "❌ У вас уже максимальное количество предметов!\n"
-                "Используйте /inventory для просмотра и /drop [id_предмета] для удаления")
+            bot.reply_to(message, "❌ Максимум 3 предмета!")
             return
-        # Проверяем, есть ли уже такой предмет
         if item_id in user_balances[user_id]['items']:
             bot.reply_to(message, "❌ У вас уже есть этот предмет!")
             return
-        # Проверяем наличие Zеток
         if user_balances[user_id]['leaves'] < item['price']:
-            bot.reply_to(message,
-                f"❌ Недостаточно Zеток!\n"
-                f"Необходимо: {item['price']} Zеток\n"
-                f"У вас есть: {user_balances[user_id]['leaves']} Zеток")
+            bot.reply_to(message, f"❌ Нужно {item['price']} Zеток!")
             return
-        # Покупаем предмет
         user_balances[user_id]['leaves'] -= item['price']
         user_balances[user_id]['items'].append(item_id)
-        save_user_data()
-        bot.reply_to(message,
-            f"✅ Вы успешно приобрели {item['name']}!\n"
-            f"Осталось территорий: {user_balances[user_id]['leaves']} Zеток")
+        bot.reply_to(message, f"✅ Куплено: {item['name']}!")
     except Exception as e:
-        print(f"Ошибка в handle_buy: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при покупке предмета")
+        print(f"Ошибка buy: {e}")
+
 @bot.message_handler(commands=['inventory'])
 @group_only
 def handle_inventory(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        items = user_balances[user_id]['items']
-        if not items:
-            bot.reply_to(message,
-                "🎒 Ваш инвентарь пуст!\n"
-                "Используйте /shop для покупки предметов")
-            return
-        response = "🎒 Ваш инвентарь:\n\n"
-        for item_id in items:
-            item = SHOP_ITEMS[item_id]
-            response += (
-                f"{item['name']}\n"
-                f"📝 {item['description']}\n"
-                f"🗑️ Для удаления: /drop {item_id}\n\n"
-            )
-        response += f"Всего предметов: {len(items)}/3"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка в handle_inventory: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при открытии инвентаря")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    items = user_balances[user_id]['items']
+    if not items:
+        bot.reply_to(message, "🎒 Инвентарь пуст!")
+        return
+    response = "🎒 Ваш инвентарь:\n\n"
+    for item_id in items:
+        item = SHOP_ITEMS[item_id]
+        response += f"{item['name']}\n📝 {item['description']}\n🗑️ /drop {item_id}\n\n"
+    response += f"Всего: {len(items)}/3"
+    bot.reply_to(message, response)
+
 @bot.message_handler(commands=['drop'])
 @group_only
 def handle_drop(message: Message):
-    try:
-        user_id = message.from_user.id
-        init_user_data(user_id)
-        if check_ban(user_id, message):
-            return
-        command_parts = message.text.split()
-        if len(command_parts) != 2:
-            bot.reply_to(message,
-                "⚠️ Неверный формат команды!\n"
-                "Используйте: /drop [id_предмета]")
-            return
-        item_id = command_parts[1].lower()
-        if item_id not in SHOP_ITEMS:
-            bot.reply_to(message, "❌ Предмет не найден!")
-            return
-        if item_id not in user_balances[user_id]['items']:
-            bot.reply_to(message, "❌ У вас нет этого предмета!")
-            return
-        # Удаляем предмет
-        user_balances[user_id]['items'].remove(item_id)
-        save_user_data()
-        bot.reply_to(message,
-            f"🗑️ Вы выбросили {SHOP_ITEMS[item_id]['name']}")
-    except Exception as e:
-        print(f"Ошибка в handle_drop: {e}")
-        bot.reply_to(message, "❌ Произошла ошибка при удалении предмета")
+    user_id = message.from_user.id
+    init_user_data(user_id)
+    if check_ban(user_id, message):
+        return
+    command_parts = message.text.split()
+    if len(command_parts) != 2:
+        bot.reply_to(message, "⚠️ /drop [id]")
+        return
+    item_id = command_parts[1].lower()
+    if item_id not in SHOP_ITEMS:
+        bot.reply_to(message, "❌ Предмет не найден!")
+        return
+    if item_id not in user_balances[user_id]['items']:
+        bot.reply_to(message, "❌ У вас нет этого предмета!")
+        return
+    user_balances[user_id]['items'].remove(item_id)
+    bot.reply_to(message, f"🗑️ Выброшено: {SHOP_ITEMS[item_id]['name']}")
 
 # ==================== MATH EVENT ====================
-import operator
 
 math_active = False
 math_answer = 0
@@ -2913,13 +1873,8 @@ def math_event_loop():
             math_reward = random.randint(10, 100)
             math_answer = answer
             math_active = True
-            msg = (
-                f"🧮 МАТЕМАТИЧЕСКИЙ ВЫЗОВ!\n\n"
-                f"{expr} = ?\n\n"
-                f"🏆 Награда: {math_reward} Zеток\n"
-                f"⏰ Ответьте первым правильно!"
-            )
-            bot.send_message(math_chat_id, msg)
+            bot.send_message(math_chat_id,
+                f"🧮 МАТЕМАТИЧЕСКИЙ ВЫЗОВ!\n\n{expr} = ?\n\n🏆 Награда: {math_reward} Zеток")
         except Exception as e:
             print(f"Ошибка math_event: {e}")
 
@@ -2946,15 +1901,15 @@ def handle_math_reply(message: Message):
         user['daily_wins_today'] = 0
         user['daily_wins_reset'] = now
     if user.get('daily_wins_today', 0) >= 3:
-        bot.reply_to(message, "⚠️ Вы уже выиграли 3 раза сегодня! Лимит: 3/час")
+        bot.reply_to(message, "⚠️ Вы уже выиграли 3 раза сегодня!")
         return
     user['leaves'] += math_reward
     user['daily_wins_today'] = user.get('daily_wins_today', 0) + 1
-    save_user_data()
     reply = random.choice(MATH_REPLIES).format(reward=math_reward)
     bot.reply_to(message, f"🎯 {message.from_user.first_name}, {reply}")
 
 # ==================== SLOTS ====================
+
 SLOT_SYMBOLS = ['🍒', '🍎', '🍉', '🍀', '💎', '💰']
 
 @bot.message_handler(commands=['slots'])
@@ -2967,7 +1922,7 @@ def handle_slots(message: Message):
             return
         parts = message.text.split()
         if len(parts) != 2:
-            bot.reply_to(message, "❌ Использование: /slots [ставка]\nМин: 10, макс: 500")
+            bot.reply_to(message, "❌ /slots [ставка]\nМин: 10, макс: 500")
             return
         try:
             bet = int(parts[1])
@@ -2975,7 +1930,7 @@ def handle_slots(message: Message):
             bot.reply_to(message, "❌ Ставка должна быть числом!")
             return
         if bet < 10 or bet > 500:
-            bot.reply_to(message, "❌ Ставка от 10 до 500 Zеток!")
+            bot.reply_to(message, "❌ Ставка от 10 до 500!")
             return
         if user_balances[user_id]['leaves'] < bet:
             bot.reply_to(message, f"❌ Недостаточно Zеток! У вас: {user_balances[user_id]['leaves']}")
@@ -2987,7 +1942,7 @@ def handle_slots(message: Message):
         if s1 == s2 == s3:
             win = bet * 5
             emoji = "🎉"
-            msg = f"ДЖЕКПОТ! Три одинаковых!"
+            msg = "ДЖЕКПОТ!"
         elif s1 == s2 or s2 == s3 or s1 == s3:
             win = bet * 2
             emoji = "⭐"
@@ -2997,21 +1952,17 @@ def handle_slots(message: Message):
             emoji = "❌"
             msg = "Ничего :("
         user_balances[user_id]['leaves'] += win
-        save_user_data()
-        response = (
-            f"🎰 СЛОТЫ ВРАЩАЮТСЯ!\n"
-            f"[ {s1} | {s2} | {s3} ]\n\n"
+        bot.reply_to(message,
+            f"🎰 СЛОТЫ!\n[ {s1} | {s2} | {s3} ]\n\n"
             f"{emoji} {msg}\n"
             f"💰 Ставка: {bet} | Выигрыш: {win}\n"
-            f"💰 Баланс: {user_balances[user_id]['leaves']} Zеток"
-        )
-        bot.reply_to(message, response)
+            f"💰 Баланс: {user_balances[user_id]['leaves']}")
         track_mission(user_id, 'slots')
     except Exception as e:
         print(f"Ошибка slots: {e}")
-        bot.reply_to(message, "❌ Ошибка в слотах")
 
 # ==================== DAILY ====================
+
 DAILY_REWARDS = [20, 40, 60, 80, 100, 120, 140]
 
 @bot.message_handler(commands=['daily'])
@@ -3039,19 +1990,18 @@ def handle_daily(message: Message):
         user['leaves'] += reward
         user['daily_streak'] = streak
         user['daily_last'] = now
-        save_user_data()
         bar = "█" * streak + "░" * (7 - streak)
         bot.reply_to(message,
             f"🎁 ЕЖЕДНЕВНЫЙ БОНУС!\n\n"
             f"💰 Награда: {reward} Zеток\n"
-            f"🔥 Серия: {streak}/7\n"
-            f"{bar}\n\n"
-            f"💰 Баланс: {user['leaves']} Zеток")
+            f"🔥 Серия: {streak}/7\n{bar}\n\n"
+            f"💰 Баланс: {user['leaves']}")
         track_mission(user_id, 'daily_claim')
     except Exception as e:
         print(f"Ошибка daily: {e}")
 
 # ==================== MISSIONS ====================
+
 MISSION_TEMPLATES = [
     ("Профарми {n} раз", "farm", 3, 50),
     ("Скрафти {n} территорий", "craft", 2, 40),
@@ -3080,7 +2030,6 @@ def generate_missions(user_id):
         })
     user['missions'] = missions
     user['missions_date'] = today
-    save_user_data()
     return missions
 
 def track_mission(user_id, action, amount=1):
@@ -3088,16 +2037,12 @@ def track_mission(user_id, action, amount=1):
         return
     user = user_balances[user_id]
     missions = user.get('missions', [])
-    changed = False
     for m in missions:
         if m['action'] == action and not m['done']:
             m['progress'] = min(m['progress'] + amount, m['target'])
             if m['progress'] >= m['target']:
                 m['done'] = True
                 user['leaves'] += m['reward']
-                changed = True
-    if changed:
-        save_user_data()
 
 @bot.message_handler(commands=['missions'])
 @group_only
@@ -3114,12 +2059,13 @@ def handle_missions(message: Message):
             response += f"{i}. {m['text']}\n   {status} | 💰 {m['reward']} Zеток\n"
         done_count = sum(1 for m in missions if m['done'])
         if done_count == len(missions):
-            response += "\n🎉 Все миссии выполнены! Все награды получены!"
+            response += "\n🎉 Все миссии выполнены!"
         bot.reply_to(message, response)
     except Exception as e:
         print(f"Ошибка missions: {e}")
 
 # ==================== DUELS ====================
+
 pending_duels = {}
 duel_cooldowns = {}
 
@@ -3137,11 +2083,11 @@ def handle_duel(message: Message):
             bot.reply_to(message, f"⏰ Кулдаун дуэли: {remaining} мин")
             return
         if not message.reply_to_message:
-            bot.reply_to(message, "⚠️ Ответьте на сообщение игрока\nИспользование: /duel [ставка]")
+            bot.reply_to(message, "⚠️ Ответьте на сообщение игрока\n/duel [ставка]")
             return
         parts = message.text.split()
         if len(parts) != 2:
-            bot.reply_to(message, "❌ Использование: /duel [ставка]\nМин: 50, макс: 500")
+            bot.reply_to(message, "❌ /duel [ставка]\nМин: 50, макс: 500")
             return
         try:
             bet = int(parts[1])
@@ -3149,11 +2095,11 @@ def handle_duel(message: Message):
             bot.reply_to(message, "❌ Ставка должна быть числом!")
             return
         if bet < 50 or bet > 500:
-            bot.reply_to(message, "❌ Ставка от 50 до 500 Zеток!")
+            bot.reply_to(message, "❌ Ставка от 50 до 500!")
             return
         target_id = message.reply_to_message.from_user.id
         if target_id == user_id:
-            bot.reply_to(message, "🚫 Нельзя дуэлиться с самим собой!")
+            bot.reply_to(message, "🚫 Нельзя дуэлиться с собой!")
             return
         init_user_data(target_id)
         if user_balances[user_id]['leaves'] < bet:
@@ -3169,8 +2115,8 @@ def handle_duel(message: Message):
         bot.reply_to(message,
             f"⚔️ ДУЭЛЬ!\n"
             f"{message.from_user.first_name} вызывает {message.reply_to_message.from_user.first_name}\n"
-            f"💰 Ставка: {bet} Zеток\n\n"
-            f"{message.reply_to_message.from_user.first_name}, напишите /accept для принятия или /decline для отказа")
+            f"💰 Ставка: {bet}\n\n"
+            f"/accept или /decline")
     except Exception as e:
         print(f"Ошибка duel: {e}")
 
@@ -3187,21 +2133,15 @@ def handle_accept(message: Message):
         bet = duel['bet']
         del pending_duels[user_id]
         if user_balances[challenger_id]['leaves'] < bet or user_balances[user_id]['leaves'] < bet:
-            bot.reply_to(message, "❌ У кого-то недостаточно Zеток. Дуэл отменён.")
+            bot.reply_to(message, "❌ У кого-то недостаточно Zеток.")
             return
         user_balances[challenger_id]['leaves'] -= bet
         user_balances[user_id]['leaves'] -= bet
-        if random.random() < 0.5:
-            winner_id = challenger_id
-        else:
-            winner_id = user_id
+        winner_id = challenger_id if random.random() < 0.5 else user_id
         user_balances[winner_id]['leaves'] += bet * 2
         duel_cooldowns[challenger_id] = datetime.datetime.now().timestamp() + 600
         duel_cooldowns[user_id] = datetime.datetime.now().timestamp() + 600
-        save_user_data()
         winner_name = bot.get_chat(winner_id).first_name
-        loser_id = challenger_id if winner_id == user_id else user_id
-        loser_name = bot.get_chat(loser_id).first_name
         bot.reply_to(message,
             f"⚔️ РЕЗУЛЬТАТ ДУЭЛИ!\n\n"
             f"🏆 Победитель: {winner_name}\n"
@@ -3215,68 +2155,113 @@ def handle_decline(message: Message):
     user_id = message.from_user.id
     if user_id in pending_duels:
         del pending_duels[user_id]
-        bot.reply_to(message, "❌ Дуэль отклонен.")
+        bot.reply_to(message, "❌ Дуэль отклонена.")
     else:
         bot.reply_to(message, "❌ У вас нет активных дуэлей!")
 
 # ==================== EXTENDED TOPS ====================
+
 @bot.message_handler(commands=['top_t'])
 @group_only
 def handle_top_t(message: Message):
-    try:
-        sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('tea', 0), reverse=True)[:10]
-        response = "🏰 Топ-10 по территориям:\n\n"
-        for index, (uid, data) in enumerate(sorted_users, 1):
-            try:
-                name = bot.get_chat(uid).first_name
-                medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(index, "🏅")
-                response += f"{medal} {index}. {name}: {data.get('tea', 0)} 🌿\n"
-            except:
-                continue
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка top_t: {e}")
+    sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('tea', 0), reverse=True)[:10]
+    response = "🏰 Топ-10 по территориям:\n\n"
+    for index, (uid, data) in enumerate(sorted_users, 1):
+        try:
+            name = bot.get_chat(uid).first_name
+            medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(index, "🏅")
+            response += f"{medal} {index}. {name}: {data.get('tea', 0)} 🌿\n"
+        except:
+            continue
+    bot.reply_to(message, response)
 
 @bot.message_handler(commands=['top_clans'])
 @group_only
 def handle_top_clans(message: Message):
-    try:
-        if not clans:
-            bot.reply_to(message, "📭 Ещё нет кланов!")
-            return
-        sorted_clans = sorted(clans.items(), key=lambda x: x[1].get('total_donated', 0), reverse=True)[:10]
-        response = "🏰 Топ-10 кланов:\n\n"
-        medals = ["🥇", "🥈", "🥉"]
-        for i, (name, data) in enumerate(sorted_clans, 1):
-            medal = medals[i-1] if i <= 3 else f"{i}."
-            members = len(data.get('members', {}))
-            donated = data.get('total_donated', 0)
-            response += f"{medal} {name} | {members} участников | {donated} донатов\n"
-        bot.reply_to(message, response)
-    except Exception as e:
-        print(f"Ошибка top_clans: {e}")
+    if not clans:
+        bot.reply_to(message, "📭 Ещё нет кланов!")
+        return
+    sorted_clans = sorted(clans.items(), key=lambda x: x[1].get('total_donated', 0), reverse=True)[:10]
+    response = "🏰 Топ-10 кланов:\n\n"
+    medals = ["🥇", "🥈", "🥉"]
+    for i, (cid, data) in enumerate(sorted_clans, 1):
+        medal = medals[i-1] if i <= 3 else f"{i}."
+        members = sum(1 for d in user_balances.values() if d.get('clan') == cid)
+        response += f"{medal} {data['name']} | {members} участников\n"
+    bot.reply_to(message, response)
 
 @bot.message_handler(commands=['top_kills'])
 @group_only
 def handle_top_kills(message: Message):
+    sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('kills', 0), reverse=True)[:10]
+    response = "💀 Топ-10 убийц:\n\n"
+    medals = ["🥇", "🥈", "🥉"]
+    for index, (uid, data) in enumerate(sorted_users, 1):
+        try:
+            name = bot.get_chat(uid).first_name
+            medal = medals[index-1] if index <= 3 else f"{index}."
+            kills = data.get('kills', 0)
+            if kills > 0:
+                response += f"{medal} {name}: {kills} убийств\n"
+        except:
+            continue
+    if len(response) < 50:
+        response += "Пока никто никого не убил!"
+    bot.reply_to(message, response)
+
+@bot.message_handler(commands=['killstats', 'kills'])
+def handle_killstats(message: Message):
     try:
-        sorted_users = sorted(user_balances.items(), key=lambda x: x[1].get('kills', 0), reverse=True)[:10]
-        response = "💀 Топ-10 убийц:\n\n"
-        medals = ["🥇", "🥈", "🥉"]
-        for index, (uid, data) in enumerate(sorted_users, 1):
-            try:
-                name = bot.get_chat(uid).first_name
-                medal = medals[index-1] if index <= 3 else f"{index}."
-                kills = data.get('kills', 0)
-                if kills > 0:
-                    response += f"{medal} {name}: {kills} убийств\n"
-            except:
-                continue
-        if len(response) < 50:
-            response += "Пока никто никого не убил!"
+        user_id = message.from_user.id
+        init_user_data(user_id)
+        if not HALLOWEEN_EVENT_ACTIVE:
+            bot.reply_to(message, "🎃 Хэллоуинский ивент завершен!")
+            return
+        killers = []
+        for uid, data in user_balances.items():
+            if data.get('kills', 0) > 0:
+                try:
+                    user_name = bot.get_chat(uid).first_name
+                    killers.append((user_name, data['kills']))
+                except:
+                    continue
+        killers.sort(key=lambda x: x[1], reverse=True)
+        response = "💀 Статистика убийств\n\n🏆 Топ убийц:\n"
+        for i, (name, kills) in enumerate(killers[:10], 1):
+            medal = {1: "🥇", 2: "🥈", 3: "🥉"}.get(i, "🏅")
+            response += f"{medal} {i}. {name}: {kills} убийств\n"
+        user_kills = user_balances[user_id].get('kills', 0)
+        response += f"\nВаша статистика:\n💀 Убийств: {user_kills}\n"
         bot.reply_to(message, response)
     except Exception as e:
-        print(f"Ошибка top_kills: {e}")
+        print(f"Ошибка killstats: {e}")
+
+@bot.message_handler(commands=['event', 'event_check'])
+@group_only
+def handle_event(message: Message):
+    init_user_data(message.from_user.id)
+    if not HALLOWEEN_EVENT_ACTIVE:
+        bot.reply_to(message, "🎃 Хэллоуинский ивент завершен!")
+    else:
+        time_left = HALLOWEEN_END_TIME - datetime.datetime.now().timestamp()
+        days = int(time_left // (24 * 60 * 60))
+        hours = int((time_left % (24 * 60 * 60)) // 3600)
+        bot.reply_to(message,
+            f"🎃 ХЭЛЛОУИНСКИЙ ИВЕНТ! 🎃\n\n"
+            f"💥 /kill (ответом на сообщение)\n"
+            f"⚔️ Убивать раз в 2 часа\n"
+            f"💀 Убитый не может фармить 2 часа\n"
+            f"🏆 Приз: 🎃 Хэллоуинская тыква\n\n"
+            f"📊 /killstats\n"
+            f"⏳ Осталось: {days}д {hours}ч")
+
+@bot.message_handler(commands=['pumpkins', 'my_pumpkins'])
+@group_only
+def handle_my_pumpkins(message: Message):
+    init_user_data(message.from_user.id)
+    bot.reply_to(message, "Осенний ивент окончен\n\n")
+
+# ==================== WEB / PING ====================
 
 def self_ping():
     import urllib.request
@@ -3294,80 +2279,13 @@ def self_ping():
 
 LANDING_HTML = """<!DOCTYPE html>
 <html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ПОТУЖИЯ БОТ</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Tahoma,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#fff;min-height:100vh}
-.container{max-width:900px;margin:0 auto;padding:20px}
-.hero{text-align:center;padding:60px 20px 40px}
-.hero h1{font-size:2.8em;margin-bottom:10px;background:linear-gradient(90deg,#f7971e,#ffd200);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{font-size:1.2em;color:#ccc;margin-bottom:30px}
-.btn{display:inline-block;padding:15px 40px;background:linear-gradient(90deg,#f7971e,#ffd200);color:#000;font-weight:bold;font-size:1.1em;border-radius:50px;text-decoration:none;transition:transform .2s}
-.btn:hover{transform:scale(1.05)}
-section{background:rgba(255,255,255,0.05);border-radius:20px;padding:30px;margin:20px 0;backdrop-filter:blur(10px)}
-h2{font-size:1.6em;margin-bottom:20px;color:#ffd200}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
-.card{background:rgba(255,255,255,0.08);border-radius:12px;padding:20px;border:1px solid rgba(255,255,255,0.1)}
-.card h3{color:#ffd200;margin-bottom:8px}
-.card p{color:#aaa;font-size:0.95em}
-.cmd-list{list-style:none}
-.cmd-list li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:10px}
-.cmd-list code{background:rgba(247,151,30,0.2);padding:2px 8px;border-radius:4px;color:#ffd200;font-size:0.9em}
-.cmd-list span{color:#ccc}
-footer{text-align:center;padding:40px;color:#666;font-size:0.9em}
-</style>
-</head>
-<body>
-<div class="container">
-<div class="hero">
-<h1>&#9876;&#65039; ПОТУЖНО БОТ</h1>
-<p>Экономика, кланы, дуэли и математика в одном Telegram-боте</p>
-<a href="https://t.me/BotPutinaPatriot_ZOV_RussiaBot" class="btn">&#128640; Запустить бота(пока не работает но вот ссылка на бота)</a>
-</div>
-<section>
-<h2>&#127891; Что умеет бот</h2>
-<div class="grid">
-<div class="card"><h3>&#127793; Фарм</h3><p>Каждый час зарабатывай Zетки. Покупай предметы для бонусов.</p></div>
-<div class="card"><h3>&#127757; Территории</h3><p>Крафти территории за Zетки. Строй свою империю.</p></div>
-<div class="card"><h3>&#9876;&#65039; Дуэли</h3><p>Вызывай других игроков на дуэль. Победитель забирает всё.</p></div>
-<div class="card"><h3>&#127920; Слоты</h3><p>Крути барабан и выигрывай до x5 от ставки.</p></div>
-<div class="card"><h3>&#128202; Кланы</h3><p>Создавай кланы, донатьь, соревнуйся в топе кланов.</p></div>
-<div class="card"><h3>&#127919; Миссии</h3><p>Выполняй ежедневные задания за награду.</p></div>
-<div class="card"><h3>&#128176; Рынок</h3><p>Покупай и продавай NFT между игроками.</p></div>
-<div class="card"><h3>&#129518; Математика</h3><p>Решай примеры быстрее других и получай награду.</p></div>
-</div>
-</section>
-<section>
-<h2>&#128295; Команды</h2>
-<ul class="cmd-list">
-<li><code>/farm</code> <span>- Фармить Zетки</span></li>
-<li><code>/craft</code> <span>- Захватить территорию</span></li>
-<li><code>/balance</code> <span>- Мой баланс</span></li>
-<li><code>/me</code> <span>- Мой профиль</span></li>
-<li><code>/shop</code> <span>- Магазин предметов</span></li>
-<li><code>/buy [id]</code> <span>- Купить предмет</span></li>
-<li><code>/inventory</code> <span>- Мой инвентарь</span></li>
-<li><code>/slots [ставка]</code> <span>- Слоты (10-500 Zеток)</span></li>
-<li><code>/daily</code> <span>- Ежедневный бонус</span></li>
-<li><code>/missions</code> <span>- Мои миссии</span></li>
-<li><code>/duel</code> <span>- Вызвать на дуэль</span></li>
-<li><code>/tc [кому] [сумма]</code> <span>- Перевести Zетки</span></li>
-<li><code>/top</code> <span>- Топ игроков</span></li>
-<li><code>/clan</code> <span>- Управление кланом</span></li>
-<li><code>/help</code> <span>- Помощь</span></li>
-</ul>
-</section>
-<section>
-<h2>&#128240; Наш канал</h2>
-<p style="color:#ccc;margin-bottom:15px">Присоединяйся к нашему сообществу. Там новости, ивенты и обсуждение.</p>
-<a href="https://t.me/Potuzhiya" class="btn">&#128240; Перейти в канал</a>
-</div>
-<footer>&#128296; ПОТУЖИЯ БОТ &copy; 2025</footer>
-</body>
-</html>"""
+<head><meta charset="UTF-8"><title>ПОТУЖИЯ БОТ</title></head>
+<body style="background:#0f0c29;color:#fff;font-family:sans-serif;text-align:center;padding:60px">
+<h1>⚔️ ПОТУЖНО БОТ</h1>
+<p>Экономика, кланы, дуэли в Telegram</p>
+<a href="https://t.me/BotPutinaPatriot_ZOV_RussiaBot" style="color:#ffd200">🚀 Запустить бота</a>
+<hr><a href="https://t.me/Potuzhiya" style="color:#ffd200">📰 Наш канал</a>
+</body></html>"""
 
 class HealthHandler(BaseHTTPRequestHandler):
     def do_GET(self):
